@@ -68,6 +68,13 @@ public class UserService implements UserServiceInterface {
         return modelMapper.map(user, UserDtoResponse.class);
     }
 
+    public UserDtoResponse findUserByEmail(String email) {
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new ResourceNotFoundException("User with email " + email + " not found"));
+        return modelMapper.map(user, UserDtoResponse.class);
+    }
+
+
     public void delete(Long id) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("User with id " + id + " not found"));

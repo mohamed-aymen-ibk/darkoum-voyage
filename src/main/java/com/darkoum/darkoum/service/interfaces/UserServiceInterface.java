@@ -14,5 +14,7 @@ public interface UserServiceInterface {
 
     public UserDtoResponse findUserById(Long id);
 
+    public UserDtoResponse findUserByEmail(String email);
+
     public void delete(Long id);
 }
