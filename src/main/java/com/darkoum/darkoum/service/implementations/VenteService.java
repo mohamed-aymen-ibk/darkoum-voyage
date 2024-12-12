@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class VenteService implements VenteServiceInterface {
 
-    @Autowired
+
     private VenteRepository venteRepository;
 
     @Override
