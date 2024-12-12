@@ -5,17 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="04e82da8-214b-4e32-b9a0-deed4f1652df" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/darkoum/darkoum/security/JwtAuthenticationFilter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/darkoum/darkoum/security/JwtService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/darkoum/darkoum/controller/LoginController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/darkoum/darkoum/dtos/request/AuthenticationDtoRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/darkoum/darkoum/dtos/request/LoginDtoRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/darkoum/darkoum/dtos/response/AuthenticationDtoResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/darkoum/darkoum/dtos/response/LoginDtoResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/darkoum/darkoum/controller/LoginController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/darkoum/darkoum/dtos/request/AuthenticationDtoRequest.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/darkoum/darkoum/dtos/response/AuthenticationDtoResponse.class" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/darkoum/darkoum/security/jwt/JwtService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/darkoum/darkoum/security/JwtAuthenticationFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/darkoum/darkoum/security/jwt/JwtAuthenticationFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/darkoum/darkoum/security/JwtService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/darkoum/darkoum/security/JwtAuthenticationFilter.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/darkoum/darkoum/security/JwtService.class" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -116,7 +110,7 @@
       <workItem from="1733934828307" duration="2275000" />
       <workItem from="1733991383779" duration="1288000" />
       <workItem from="1733994423150" duration="107000" />
-      <workItem from="1733994543252" duration="4337000" />
+      <workItem from="1733994543252" duration="4897000" />
     </task>
     <servers />
   </component>
