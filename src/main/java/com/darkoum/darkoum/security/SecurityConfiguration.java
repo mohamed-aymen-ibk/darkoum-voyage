@@ -28,8 +28,8 @@ public class SecurityConfiguration {
     private final JwtAuthenticationFilter jwtAuthFilter;
 
     private static final String[] WHITE_LIST_URL = {
-            "/api/users/login",
-            "/api/users/register",
+            "/api/authentication/login",
+            "/api/authentication/register",
             "/v2/api-docs",
             "/v3/api-docs",
             "/v3/api-docs/**",

@@ -5,29 +5,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="04e82da8-214b-4e32-b9a0-deed4f1652df" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/darkoum/darkoum/security/SwaggerConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/postcss.config.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/darkoum/darkoum/controller/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/darkoum/darkoum/controller/AuthController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/darkoum/darkoum/controller/HomeController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/darkoum/darkoum/controller/ClientController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/darkoum/darkoum/controller/ClientController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/darkoum/darkoum/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/darkoum/darkoum/model/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/darkoum/darkoum/security/SecurityConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/darkoum/darkoum/security/SecurityConfiguration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/darkoum/darkoum/security/jwt/JwtService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/darkoum/darkoum/security/jwt/JwtService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/css/Style.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/css/outpout.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/css/output.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/css/styles.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/components/Login.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/components/Register.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/pages/Home.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tailwind.config.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/darkoum/darkoum/service/implementations/UserService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/darkoum/darkoum/service/implementations/UserService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/darkoum/darkoum/service/interfaces/UserServiceInterface.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/darkoum/darkoum/service/interfaces/UserServiceInterface.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/css/Style.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/css/outpout.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/css/output.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/css/styles.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/components/Login.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/components/Register.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/pages/Home.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/darkoum/darkoum/controller/ClientController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/darkoum/darkoum/controller/ClientController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/darkoum/darkoum/controller/VenteController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/darkoum/darkoum/controller/VenteController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/darkoum/darkoum/model/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/darkoum/darkoum/model/User.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/darkoum/darkoum/security/SecurityConfiguration.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/darkoum/darkoum/security/SecurityConfiguration.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/darkoum/darkoum/security/jwt/JwtService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/darkoum/darkoum/security/jwt/JwtService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/darkoum/darkoum/service/implementations/VenteService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/darkoum/darkoum/service/implementations/VenteService.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -75,34 +68,34 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "Spring Boot.DarkoumApplication.executor": "Run",
-    "git-widget-placeholder": "main",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/Users/macbook/Documents/PROJETS/darkoum-voyage",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "run.code.analysis.last.selected.profile": "pProject Default",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;Spring Boot.DarkoumApplication.executor&quot;: &quot;Run&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/macbook/Documents/PROJETS/darkoum-voyage&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.inline.completion&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "postgresql"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;postgresql&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="DarkoumApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
@@ -116,8 +109,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-fdfe4dae3a2d-intellij.indexing.shared.core-IU-243.21565.193" />
-        <option value="bundled-js-predefined-d6986cc7102b-e768b9ed790e-JavaScript-IU-243.21565.193" />
+        <option value="bundled-jdk-9823dce3aa75-fdfe4dae3a2d-intellij.indexing.shared.core-IU-243.22562.145" />
+        <option value="bundled-js-predefined-d6986cc7102b-deb605915726-JavaScript-IU-243.22562.145" />
       </set>
     </attachedChunks>
   </component>
@@ -137,7 +130,9 @@
       <workItem from="1734003050812" duration="382000" />
       <workItem from="1734011709201" duration="111000" />
       <workItem from="1734013801815" duration="1242000" />
-      <workItem from="1734015506434" duration="1796000" />
+      <workItem from="1734015506434" duration="7243000" />
+      <workItem from="1734024969561" duration="98000" />
+      <workItem from="1734085284726" duration="5561000" />
     </task>
     <servers />
   </component>

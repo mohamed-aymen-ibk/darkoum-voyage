@@ -30,6 +30,7 @@ public class ClientController {
     @GetMapping
     public ResponseEntity<List<ClientDtoResponse>> getAllClients() {
         return ResponseEntity.ok(clientService.getAllClients());
+
     }
 
     @GetMapping("/user/{userId}")
