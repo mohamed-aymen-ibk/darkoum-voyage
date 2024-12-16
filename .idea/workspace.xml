@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="04e82da8-214b-4e32-b9a0-deed4f1652df" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/auth/auth.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/auth/auth.service.ts" afterDir="false" />
-    </list>
+    <list default="true" id="04e82da8-214b-4e32-b9a0-deed4f1652df" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -122,7 +120,7 @@
       <workItem from="1734164227311" duration="457000" />
       <workItem from="1734164789344" duration="2002000" />
       <workItem from="1734336067100" duration="257000" />
-      <workItem from="1734337107850" duration="1023000" />
+      <workItem from="1734337107850" duration="1398000" />
     </task>
     <servers />
   </component>
