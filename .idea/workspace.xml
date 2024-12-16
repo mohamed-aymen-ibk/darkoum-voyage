@@ -4,13 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="04e82da8-214b-4e32-b9a0-deed4f1652df" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/e86acb61-c0c2-41aa-b428-a81c821aa393.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/e86acb61-c0c2-41aa-b428-a81c821aa393.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/e86acb61-c0c2-41aa-b428-a81c821aa393/storage_v2/_src_/database/darkoum.EQTuVQ/schema/public.abK9xQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/e86acb61-c0c2-41aa-b428-a81c821aa393/storage_v2/_src_/database/darkoum.EQTuVQ/schema/public.abK9xQ.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/darkoum/darkoum/controller/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/darkoum/darkoum/controller/AuthController.java" afterDir="false" />
-    </list>
+    <list default="true" id="04e82da8-214b-4e32-b9a0-deed4f1652df" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -126,7 +120,7 @@
       <workItem from="1734164227311" duration="457000" />
       <workItem from="1734164789344" duration="2002000" />
       <workItem from="1734336067100" duration="257000" />
-      <workItem from="1734337107850" duration="429000" />
+      <workItem from="1734337107850" duration="710000" />
     </task>
     <servers />
   </component>
