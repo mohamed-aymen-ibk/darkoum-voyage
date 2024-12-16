@@ -1,9 +1,10 @@
+
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "frontend": {
+    "darkoum-frontend": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +14,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/frontend",
+            "outputPath": "dist/darkoum-frontend",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -64,10 +65,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "frontend:build:production"
+              "buildTarget": "darkoum-frontend:build:production"
             },
             "development": {
-              "buildTarget": "frontend:build:development"
+              "buildTarget": "darkoum-frontend:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -99,6 +100,6 @@
     }
   },
   "cli": {
-    "analytics": "1e5884fd-43e5-49e4-8bd3-153211820cd6"
+    "analytics": "ff4d0a33-cd0d-4f6b-a568-c6c1e29e45cb"
   }
 }

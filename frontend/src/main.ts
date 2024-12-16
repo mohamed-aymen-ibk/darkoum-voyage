@@ -1,6 +1,18 @@
 import { bootstrapApplication } from '@angular/platform-browser';
-import { appConfig } from './app/app.config';
-import { AppComponent } from './app/app.component';
+import { provideRouter, Routes } from '@angular/router';
+import { provideHttpClient } from '@angular/common/http';
+import { LoginComponent } from './app/component/auth/login/login.component';
+import { DashboardComponent } from './app/component/dashboard/dashboard.component';
 
-bootstrapApplication(AppComponent, appConfig)
-  .catch((err) => console.error(err));
+const routes: Routes = [
+    { path: '', redirectTo: 'login', pathMatch: 'full' },
+    { path: 'login', component: LoginComponent },
+    { path: 'dashboard', component: DashboardComponent }
+];
+
+bootstrapApplication(LoginComponent, {
+    providers: [
+        provideRouter(routes),
+        provideHttpClient()
+    ],
+}).catch(err => console.error(err));
