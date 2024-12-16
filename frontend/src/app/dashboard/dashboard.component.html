@@ -1,1 +1,14 @@
-<p>dashboard works!</p>
+<div class="max-w-4xl mx-auto mt-16 p-8 border border-gray-300 rounded-lg shadow-lg">
+    <h1 class="text-3xl font-bold text-center mb-6">Welcome to the Dashboard</h1>
+    <p class="text-center text-gray-600 mb-4">
+        You are successfully logged in!
+    </p>
+    <div class="text-center">
+        <button
+                (click)="onLogout()"
+                class="bg-red-500 text-white py-2 px-6 rounded-md hover:bg-red-600"
+        >
+            Logout
+        </button>
+    </div>
+</div>
