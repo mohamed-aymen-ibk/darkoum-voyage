@@ -8,7 +8,6 @@ import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDateTime;
@@ -33,7 +32,7 @@ public class User implements UserDetails {
 
     @Column(nullable = false)
     @NotBlank(message = "Name is required")
-    @Size(min = 4, max = 70, message = "Name must be between 4 and 70 characters")
+    @Size(min = 6, message = "Name must be between 4 and 70 characters")
     private String name;
 
     @Column(unique = true, nullable = false)

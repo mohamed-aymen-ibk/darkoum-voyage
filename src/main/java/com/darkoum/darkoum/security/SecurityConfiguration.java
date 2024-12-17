@@ -45,10 +45,16 @@ public class SecurityConfiguration {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .cors(Customizer.withDefaults()) // Enable default CORS handling
-                .csrf(csrf -> csrf.disable())   // Disable CSRF for stateless API
+                .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(req ->
                         req.requestMatchers(WHITE_LIST_URL)
                                 .permitAll()
+                                .requestMatchers("/api/providers/**",
+                                                 "/api/client/**",
+                                                 "/api/article/**",
+                                                 "/api/pack/**",
+                                                 "/api/vents/**")
+                                .hasRole("AGENCY")
                                 .anyRequest()
                                 .authenticated()
                 )

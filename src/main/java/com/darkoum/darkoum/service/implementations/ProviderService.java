@@ -5,6 +5,7 @@ import com.darkoum.darkoum.dtos.response.ProviderDtoResponse;
 import com.darkoum.darkoum.model.Provider;
 import com.darkoum.darkoum.repository.ProviderRepository;
 import com.darkoum.darkoum.service.interfaces.ProviderServiceInterface;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +15,7 @@ import java.util.stream.Collectors;
 
 
 @Service
+@Transactional
 @AllArgsConstructor
 public class ProviderService implements ProviderServiceInterface {
 
@@ -23,7 +25,7 @@ public class ProviderService implements ProviderServiceInterface {
     @Override
     public ProviderDtoResponse createProvider(ProviderDtoRequest providerDtoRequest) {
         Provider provider = new Provider();
-        provider.setCompanyName(providerDtoRequest.getName());
+        provider.setName(providerDtoRequest.getName());
         provider.setEmail(providerDtoRequest.getEmail());
         provider.setPhoneNumber(providerDtoRequest.getPhone());
 
@@ -52,7 +54,7 @@ public class ProviderService implements ProviderServiceInterface {
         Provider provider = providerRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Provider not found"));
 
-        provider.setCompanyName(providerDtoRequest.getName());
+        provider.setName(providerDtoRequest.getName());
         provider.setEmail(providerDtoRequest.getEmail());
         provider.setPhoneNumber(providerDtoRequest.getPhone());
 
@@ -71,7 +73,7 @@ public class ProviderService implements ProviderServiceInterface {
     private ProviderDtoResponse mapToDto(Provider provider) {
         ProviderDtoResponse dto = new ProviderDtoResponse();
         dto.setId(provider.getId());
-        dto.setName(provider.getCompanyName());
+        dto.setName(provider.getName());
         dto.setEmail(provider.getEmail());
         dto.setPhone(provider.getPhoneNumber());
         return dto;

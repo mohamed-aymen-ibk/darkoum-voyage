@@ -23,7 +23,6 @@ public class UserService implements UserServiceInterface {
     private final ModelMapper modelMapper;
     private final BCryptPasswordEncoder passwordEncoder;
 
-    // Create user and set role to AGENCY by default
     public UserDtoResponse create(UserDtoRequest userRequest) {
         if (userRepository.existsByEmail(userRequest.getEmail())) {
             throw new IllegalArgumentException("Email already in use.");

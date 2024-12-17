@@ -23,9 +23,9 @@ public class Provider {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "company_name", nullable = false)
+    @Column(name = "name", nullable = false)
     @NotBlank(message = "Company name is required")
-    private String companyName;
+    private String name;
 
     @Column(unique = true, nullable = false)
     @Email(message = "Email should be valid")
