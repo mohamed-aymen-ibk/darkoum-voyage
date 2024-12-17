@@ -35,11 +35,13 @@ export class LoginComponent {
             const { email, password } = this.loginForm.value;
             this.authService.login(email, password).subscribe({
                 next: (response) => {
+                    // Store token and user details
                     localStorage.setItem('token', response.token);
+                    localStorage.setItem('user', JSON.stringify(response.userDetails));
                     this.router.navigate(['/dashboard']);
                 },
                 error: (err) => {
-                    this.errorMessage = 'Login failed. Please check your credentials.';
+                    this.errorMessage = err.error?.message || 'Login failed. Please check your credentials.';
                     console.error('Login failed', err);
                 }
             });

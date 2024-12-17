@@ -25,16 +25,18 @@ export class RegisterComponent {
         private router: Router
     ) {
         this.registerForm = this.fb.group({
-            name: ['', [Validators.required, Validators.minLength(2)]],
+            name: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(70)]],
             email: ['', [Validators.required, Validators.email]],
             password: ['', [Validators.required, Validators.minLength(6)]],
-            phoneNumber: ['', [Validators.required, Validators.pattern(/^\d{10}$/)]]
+            phoneNumber: ['', [Validators.pattern(/^\d*$/)]] // Optional phone number
         });
     }
 
     onRegister(): void {
         if (this.registerForm.valid) {
-            const registerData: RegisterRequest = this.registerForm.value;
+            const registerData: RegisterRequest = {
+                ...this.registerForm.value,
+            };
 
             this.authService.register(registerData).subscribe({
                 next: (response) => {
@@ -42,7 +44,8 @@ export class RegisterComponent {
                     this.router.navigate(['/auth/login']);
                 },
                 error: (err) => {
-                    this.errorMessage = 'Registration failed. Please try again.';
+                    // Handle specific error messages from backend
+                    this.errorMessage = err.error?.message || 'Registration failed. Please try again.';
                     console.error('Registration failed', err);
                 }
             });

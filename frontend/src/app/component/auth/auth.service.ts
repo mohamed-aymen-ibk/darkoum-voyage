@@ -11,7 +11,16 @@ export interface RegisterRequest {
 
 interface LoginResponse {
   token: string;
-  // Add other response fields as needed
+  userDetails: {
+    id: number;
+    name: string;
+    email: string;
+    phoneNumber: string;
+    role: string;
+    createdAt: string;
+    updatedAt: string;
+    active: boolean;
+  };
 }
 
 @Injectable({
@@ -33,9 +42,15 @@ export class AuthService {
 
   logout() {
     localStorage.removeItem('token');
+    localStorage.removeItem('user');
   }
 
   isLoggedIn(): boolean {
     return !!localStorage.getItem('token');
+  }
+
+  getCurrentUser() {
+    const userJson = localStorage.getItem('user');
+    return userJson ? JSON.parse(userJson) : null;
   }
 }
