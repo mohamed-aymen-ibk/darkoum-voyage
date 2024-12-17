@@ -2,6 +2,18 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
+export interface RegisterRequest {
+  name: string;
+  email: string;
+  password: string;
+  phoneNumber: string;
+}
+
+interface LoginResponse {
+  token: string;
+  // Add other response fields as needed
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -10,14 +22,13 @@ export class AuthService {
 
   constructor(private http: HttpClient) {}
 
-  register(email: string, password: string): Observable<any> {
+  login(email: string, password: string): Observable<LoginResponse> {
     const payload = { email, password };
-    return this.http.post(`${this.apiUrl}/register`, payload);
+    return this.http.post<LoginResponse>(`${this.apiUrl}/login`, payload);
   }
 
-  login(email: string, password: string): Observable<any> {
-    const payload = { email, password };
-    return this.http.post(`${this.apiUrl}/login`, payload);
+  register(registerData: RegisterRequest): Observable<any> {
+    return this.http.post(`${this.apiUrl}/register`, registerData);
   }
 
   logout() {

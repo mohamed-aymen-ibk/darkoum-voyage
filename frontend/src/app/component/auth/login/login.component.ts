@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
 
@@ -9,30 +9,42 @@ import { AuthService } from '../auth.service';
     standalone: true,
     imports: [
         CommonModule,
-        FormsModule
+        FormsModule,
+        ReactiveFormsModule
     ],
     templateUrl: './login.component.html',
     styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-    email: string = '';
-    password: string = '';
+    loginForm: FormGroup;
+    errorMessage: string = '';
 
     constructor(
+        private fb: FormBuilder,
         private authService: AuthService,
         private router: Router
-    ) {}
+    ) {
+        this.loginForm = this.fb.group({
+            email: ['', [Validators.required, Validators.email]],
+            password: ['', [Validators.required, Validators.minLength(6)]]
+        });
+    }
 
     onLogin(): void {
-        this.authService.login(this.email, this.password).subscribe({
-            next: (response) => {
-                console.log(response);
-                localStorage.setItem('token', response.token);
-                this.router.navigate(['/dashboard']);
-            },
-            error: (err) => {
-                console.error('Login failed', err);
-            }
-        });
+        if (this.loginForm.valid) {
+            const { email, password } = this.loginForm.value;
+            this.authService.login(email, password).subscribe({
+                next: (response) => {
+                    localStorage.setItem('token', response.token);
+                    this.router.navigate(['/dashboard']);
+                },
+                error: (err) => {
+                    this.errorMessage = 'Login failed. Please check your credentials.';
+                    console.error('Login failed', err);
+                }
+            });
+        } else {
+            this.errorMessage = 'Please fill in all required fields correctly.';
+        }
     }
 }
