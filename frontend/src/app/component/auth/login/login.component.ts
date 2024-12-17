@@ -38,7 +38,7 @@ export class LoginComponent {
                     // Store token and user details
                     localStorage.setItem('token', response.token);
                     localStorage.setItem('user', JSON.stringify(response.userDetails));
-                    this.router.navigate(['/dashboard']);
+                    this.router.navigate(['/dashboard'])
                 },
                 error: (err) => {
                     this.errorMessage = err.error?.message || 'Login failed. Please check your credentials.';
