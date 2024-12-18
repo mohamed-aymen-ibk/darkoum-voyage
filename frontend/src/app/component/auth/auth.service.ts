@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 
 export interface RegisterRequest {
     name: string;
@@ -28,13 +28,20 @@ interface LoginResponse {
 })
 export class AuthService {
     private apiUrl = 'http://localhost:8080/api/authentication';
-    //private apiUrl = 'environment.apiUrl';  // Get the apiUrl from environment.ts
 
     constructor(private http: HttpClient) {}
 
     login(email: string, password: string): Observable<LoginResponse> {
         const payload = { email, password };
-        return this.http.post<LoginResponse>(`${this.apiUrl}/login`, payload);
+        return this.http.post<LoginResponse>(`${this.apiUrl}/login`, payload)
+            .pipe(
+                tap((response) => {
+                    if (typeof window !== 'undefined' && window.localStorage) {
+                        localStorage.setItem('authToken', response.token);
+                        localStorage.setItem('user', JSON.stringify(response.userDetails));
+                    }
+                })
+            );
     }
 
     register(registerData: RegisterRequest): Observable<any> {
@@ -42,16 +49,29 @@ export class AuthService {
     }
 
     logout() {
-        localStorage.removeItem('token');
-        localStorage.removeItem('user');
+        if (typeof window !== 'undefined' && window.localStorage) {
+            localStorage.removeItem('authToken');
+            localStorage.removeItem('user');
+        }
     }
 
     isLoggedIn(): boolean {
-        return !!localStorage.getItem('token');
+        if (typeof window !== 'undefined' && window.localStorage) {
+            return !!localStorage.getItem('authToken');
+        }
+        return false;
     }
 
     getCurrentUser() {
-        const userJson = localStorage.getItem('user');
-        return userJson ? JSON.parse(userJson) : null;
+        if (typeof window !== 'undefined' && window.localStorage) {
+            const userJson = localStorage.getItem('user');
+            return userJson ? JSON.parse(userJson) : null;
+        }
+        return null;
+    }
+
+    isAgency(): boolean {
+        const user = this.getCurrentUser();
+        return user ? user.role === 'AGENCY' : false;
     }
 }

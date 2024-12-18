@@ -1,9 +1,14 @@
+
 import { Component, OnInit } from '@angular/core';
 import { ProviderService } from "../../services/provider/provider.service";
+import {NgForOf} from "@angular/common";
 
 @Component({
     selector: 'app-provider',
     templateUrl: './provider.component.html',
+    imports: [
+        NgForOf
+    ],
     styleUrls: ['./provider.component.css']
 })
 export class ProviderComponent implements OnInit {

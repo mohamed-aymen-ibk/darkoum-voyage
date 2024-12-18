@@ -1,12 +1,12 @@
+
 import { Component } from '@angular/core';
-import {Router, RouterLink} from '@angular/router';
 import { AuthService } from '../auth/auth.service';
+import {Router} from "@angular/router";
 
 @Component({
     selector: 'app-dashboard',
     templateUrl: './dashboard.component.html',
     imports: [
-        RouterLink
     ],
     styleUrls: ['./dashboard.component.css']
 })

@@ -49,11 +49,11 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(req -> req
                         .requestMatchers(WHITE_LIST_URL).permitAll()
                         .requestMatchers("/api/providers/**",
-                                         "/api/client/**",
-                                         "/api/article/**",
-                                         "/api/pack/**",
-                                         "/api/vents/**"
-                        ).hasRole("AGENCY")
+                                "/api/client/**",
+                                "/api/article/**",
+                                "/api/pack/**",
+                                "/api/vents/**"
+                        ).hasRole("AGENCY")  // Allow AGENT role to perform CRUD actions
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
