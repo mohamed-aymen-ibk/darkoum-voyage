@@ -1,1 +1,64 @@
-<p>provider works!</p>
+<div class="m-10 mt-[130px] overflow-x-auto bg-gray-100">
+    <!-- Search input -->
+    <div class="relative float-left m-[2px] mb-3 mr-5">
+        <label for="inputSearch" class="sr-only">Search</label>
+        <input id="inputSearch" type="text" placeholder="Search..." class="block w-64 rounded-lg border py-2 pl-10 pr-4 text-sm focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-400" />
+        <span class="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 transform">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-4 w-4 text-neutral-500">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+            </svg>
+        </span>
+    </div>
+
+    <!-- Add button -->
+    <div class="relative float-right m-[5px] mb-3 hidden sm:block">
+        <button
+                class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-400"
+                (click)="onAddProvider()">Add Provider
+        </button>
+    </div>
+
+    <!-- Filter -->
+    <div>
+        <label for="inputFilter" class="sr-only">Filter</label>
+        <select id="inputFilter" class="block w-40 rounded-lg border p-2 text-sm focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-400">
+            <option value="1" selected>Last week</option>
+            <option value="2">Last month</option>
+            <option value="3">Yesterday</option>
+            <option value="4">Last 7 days</option>
+            <option value="5">Last 30 days</option>
+        </select>
+    </div>
+
+    <!-- Table -->
+    <table class="min-w-full whitespace-nowrap text-left text-xs">
+        <!-- Table head -->
+        <thead class="border-b-2 border-t uppercase tracking-wider">
+        <tr>
+            <th scope="col" class="border-x px-6 py-2">Name</th>
+            <th scope="col" class="border-x px-6 py-2">Email</th>
+            <th scope="col" class="border-x px-6 py-2">Phone</th>
+            <th scope="col" class="border-x px-6 py-2">Operations</th>
+        </tr>
+        </thead>
+
+        <!-- Table body -->
+        <tbody>
+        <tr *ngFor="let provider of providers" class="border-b hover:bg-neutral-100">
+            <th scope="row" class="border-x px-6 py-2">{{ provider.name }}</th>
+            <td class="border-x px-6 py-2">{{ provider.email }}</td>
+            <td class="border-x px-6 py-2">{{ provider.phone }}</td>
+            <td class="border-x px-6 py-2">
+                <button
+                        class="bg-yellow-500 text-white py-1 px-3 rounded hover:bg-yellow-400"
+                        (click)="onUpdateProvider(provider.id)">Update
+                </button>
+                <button
+                        class="bg-red-500 text-white py-1 px-3 rounded hover:bg-red-400 ml-2"
+                        (click)="onDeleteProvider(provider.id)">Delete
+                </button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
