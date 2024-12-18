@@ -3,11 +3,14 @@ package com.darkoum.darkoum.service.implementations;
 import com.darkoum.darkoum.dtos.request.ProviderDtoRequest;
 import com.darkoum.darkoum.dtos.response.ProviderDtoResponse;
 import com.darkoum.darkoum.model.Provider;
+import com.darkoum.darkoum.model.User;
 import com.darkoum.darkoum.repository.ProviderRepository;
+import com.darkoum.darkoum.repository.UserRepository;
 import com.darkoum.darkoum.service.interfaces.ProviderServiceInterface;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,12 +25,22 @@ public class ProviderService implements ProviderServiceInterface {
     @Autowired
     private ProviderRepository providerRepository;
 
+    @Autowired
+    private UserRepository userRepository;
+
     @Override
     public ProviderDtoResponse createProvider(ProviderDtoRequest providerDtoRequest) {
+        // Récupérer l'utilisateur connecté
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        User loggedInUser = userRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("Utilisateur non trouvé"));
+
+        // Create provider
         Provider provider = new Provider();
         provider.setName(providerDtoRequest.getName());
         provider.setEmail(providerDtoRequest.getEmail());
         provider.setPhoneNumber(providerDtoRequest.getPhone());
+        provider.setUser(loggedInUser);
 
         Provider savedProvider = providerRepository.save(provider);
 

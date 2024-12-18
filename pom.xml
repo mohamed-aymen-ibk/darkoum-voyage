@@ -10,7 +10,7 @@
 	</parent>
 
 	<groupId>com.cricar</groupId>
-	<artifactId>cricar_backend</artifactId>
+	<artifactId>Darkoum Voyage</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>cricar_backend</name>
 	<description>CriCar backend</description>
