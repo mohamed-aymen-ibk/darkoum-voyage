@@ -8,12 +8,14 @@ import {AppComponent} from "./app.component";
 import {AppRoutingProvider} from "./component/provider/app-routing.provider";
 import {FormsModule} from "@angular/forms";
 import {NgModule} from "@angular/core";
+import {ClientComponent} from "./component/client/client.component";
 
 const routes: Routes = [
     { path: '', redirectTo: 'login', pathMatch: 'full' },
     { path: 'login', component: LoginComponent },
     { path: 'dashboard', component: DashboardComponent },
-    { path: 'provider', component: ProviderComponent }
+    { path: 'provider', component: ProviderComponent },
+    { path: 'client', component: ClientComponent}
 ];
 
 bootstrapApplication(LoginComponent, {
@@ -32,6 +34,7 @@ bootstrapApplication(LoginComponent, {
         AppRoutingProvider,
         AppComponent,
         ProviderComponent,
+        ClientComponent
     ],
     providers: [],
     bootstrap: [],
