@@ -43,8 +43,6 @@ public class ProviderService implements ProviderServiceInterface {
 
         // Save the provider to the database
         Provider savedProvider = providerRepository.save(provider);
-
-        // Return the DTO response
         return mapToDto(savedProvider);
     }
 
