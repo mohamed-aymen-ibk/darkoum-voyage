@@ -9,11 +9,11 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 
-	<groupId>com.cricar</groupId>
-	<artifactId>Darkoum Voyage</artifactId>
+	<groupId>com.darkoum</groupId>
+	<artifactId>darkoum-voyage</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>cricar_backend</name>
-	<description>CriCar backend</description>
+	<name>Darkoum Voyage</name>
+	<description>Darkoum Voyage</description>
 
 	<properties>
 		<java.version>17</java.version>

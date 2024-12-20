@@ -7,6 +7,7 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="darkoum-voyage" />
         <module name="Darkoum Voyage" />
       </profile>
     </annotationProcessing>
@@ -14,6 +15,7 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="Darkoum Voyage" options="-parameters" />
+      <module name="darkoum-voyage" options="-parameters" />
     </option>
   </component>
 </project>

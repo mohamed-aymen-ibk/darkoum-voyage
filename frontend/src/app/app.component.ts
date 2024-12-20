@@ -6,13 +6,11 @@ import { FooterComponent } from './component/shared/footer/footer.component';
 @Component({
     selector: 'app-root',
     standalone: true,
-    imports: [RouterOutlet, NavbarComponent, FooterComponent],
+    imports: [RouterOutlet],
     template: `
-        <app-navbar></app-navbar>
         <div class="min-h-screen bg-gray-100">
             <router-outlet></router-outlet>
         </div>
-        <app-footer></app-footer>
     `,
     styleUrls: ['./app.component.css'],
 })

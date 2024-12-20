@@ -2,11 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { ProviderService } from '../../services/provider/provider.service';
 import { NgForOf, NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import {NavbarComponent} from "../shared/navbar/navbar.component";
+import {FooterComponent} from "../shared/footer/footer.component";
 
 @Component({
     selector: 'app-provider',
     templateUrl: './provider.component.html',
-    imports: [NgIf, FormsModule, NgForOf],
+    imports: [NgIf, FormsModule, NgForOf, FooterComponent, NavbarComponent],
     styleUrls: ['./provider.component.css'],
 })
 export class ProviderComponent implements OnInit {
