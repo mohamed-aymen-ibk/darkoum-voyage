@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
     providedIn: 'root'
 })
 export class ProviderService {
-    private apiUrl = 'http://localhost:8080/api/providers';  // Adjust this URL with your actual backend API endpoint
+    private apiUrl = 'http://localhost:8080/api/providers';
 
     constructor(private http: HttpClient) {}
 

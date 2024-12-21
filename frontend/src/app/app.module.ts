@@ -10,6 +10,7 @@ import {FormsModule} from "@angular/forms";
 import {NgModule} from "@angular/core";
 import {ClientComponent} from "./component/client/client.component";
 import {PackComponent} from "./component/pack/pack.component";
+import {ArticleComponent} from "./component/article/article.component";
 
 const routes: Routes = [
     { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -17,7 +18,8 @@ const routes: Routes = [
     { path: 'dashboard', component: DashboardComponent },
     { path: 'provider', component: ProviderComponent },
     { path: 'client', component: ClientComponent},
-    { path: 'pack', component: PackComponent }
+    { path: 'pack', component: PackComponent },
+    { path: 'article', component: ArticleComponent}
 ];
 
 bootstrapApplication(LoginComponent, {

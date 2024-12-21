@@ -5,12 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="04e82da8-214b-4e32-b9a0-deed4f1652df" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/app/app-routing.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/app-routing.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/app.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/app.component.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/app/app.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/app.module.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/app/app.routes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/app.routes.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/component/pack/pack.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/component/pack/pack.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/component/pack/pack.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/component/pack/pack.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/component/article/article.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/component/article/article.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/component/article/article.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/component/article/article.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/component/shared/footer/footer.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/component/shared/footer/footer.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/component/shared/footer/footer.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/component/shared/footer/footer.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/component/shared/navbar/navbar.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/component/shared/navbar/navbar.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/services/article/article.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/services/article/article.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/services/client/client.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/services/client/client.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/services/pack/pack.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/services/pack/pack.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/services/provider/provider.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/services/provider/provider.service.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -72,7 +81,7 @@
     "database.data.extractors.current.id": "JSON-Groovy.json.groovy",
     "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/Users/macbook/Documents/cloune/darkoum-voyage",
+    "last_opened_file_path": "/Users/macbook/Documents/client-projects/darkoum-voyage",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -137,6 +146,7 @@
       <workItem from="1734596111339" duration="2219000" />
       <workItem from="1734602888038" duration="34000" />
       <workItem from="1734703381321" duration="4740000" />
+      <workItem from="1734776562516" duration="3304000" />
     </task>
     <servers />
   </component>

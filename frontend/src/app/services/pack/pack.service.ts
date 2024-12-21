@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class PackService {
-  private apiUrl = 'http://localhost:8080/api/packs'; // Adjust this to your actual API endpoint
+  private apiUrl = 'http://localhost:8080/api/packs';
 
   constructor(private http: HttpClient) {}
 

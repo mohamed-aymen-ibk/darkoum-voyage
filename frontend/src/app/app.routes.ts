@@ -7,6 +7,7 @@ import {ProviderComponent} from "./component/provider/provider.component";
 import {ClientComponent} from "./component/client/client.component";
 import path from "node:path";
 import {PackComponent} from "./component/pack/pack.component";
+import {ArticleComponent} from "./component/article/article.component";
 
 
 export const routes: Routes = [
@@ -17,4 +18,5 @@ export const routes: Routes = [
     { path: 'provider', component: ProviderComponent, canActivate: [AuthGuard] },
     { path: 'client', component: ClientComponent, canActivate: [AuthGuard] },
     { path: 'pack', component: PackComponent, canActivate: [AuthGuard] },
+    { path: 'article', component: ArticleComponent, canActivate: [AuthGuard] },
 ];
