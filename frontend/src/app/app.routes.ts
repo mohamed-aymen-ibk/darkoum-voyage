@@ -8,6 +8,7 @@ import {ClientComponent} from "./component/client/client.component";
 import path from "node:path";
 import {PackComponent} from "./component/pack/pack.component";
 import {ArticleComponent} from "./component/article/article.component";
+import {VenteComponent} from "./component/vente/vente.component";
 
 
 export const routes: Routes = [
@@ -19,4 +20,5 @@ export const routes: Routes = [
     { path: 'client', component: ClientComponent, canActivate: [AuthGuard] },
     { path: 'pack', component: PackComponent, canActivate: [AuthGuard] },
     { path: 'article', component: ArticleComponent, canActivate: [AuthGuard] },
+    { path: 'vente', component: VenteComponent, canActivate: [AuthGuard] },
 ];
