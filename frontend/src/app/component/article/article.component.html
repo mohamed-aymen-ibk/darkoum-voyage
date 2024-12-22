@@ -13,7 +13,7 @@
     <!-- Add button -->
     <div class="relative float-right m-[5px] mb-3 hidden sm:block">
         <button
-                class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-400"
+                class="bg-blue-500 text-white py-2 px-4 rounded-xl hover:bg-gray-100 hover:text-blue-500 border border-1 hover:border-blue-500 transition duration-300"
                 (click)="openAddModal()"
         >
             Add Article
@@ -31,13 +31,13 @@
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let article of articles" class="border-b hover:bg-neutral-100">
+        <tr *ngFor="let article of articles" class="border-b hover:bg-neutral-200">
             <th class="border-x px-6 py-2">{{ article.title }}</th>
             <td class="border-x px-6 py-2">{{ article.content }}</td>
             <td class="border-x px-6 py-2">{{ article.author }}</td>
             <td class="border-x px-6 py-2">
                 <button
-                        class="bg-yellow-500 text-white py-1 px-3 rounded hover:bg-yellow-400"
+                        class="bg-gray-100  text-yellow-500 py-1 px-3 rounded border border-1 border-yellow-500 hover:bg-yellow-400 hover:text-white transition duration-200"
                         (click)="openUpdateModal(article)"
                 >
                     Update
@@ -93,17 +93,17 @@
             </div>
             <div class="flex justify-end space-x-4">
                 <button
-                        type="submit"
-                        class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-400"
-                >
-                    Add
-                </button>
-                <button
                         type="button"
-                        class="px-4 py-2 bg-gray-300 rounded-lg hover:bg-gray-200"
+                        class="px-4 py-2 bg-gray-300 rounded-xl hover:bg-gray-200 transition duration-300"
                         (click)="closeAddModal()"
                 >
                     Cancel
+                </button>
+                <button
+                        type="submit"
+                        class="px-4 py-2 bg-green-500 text-white rounded-xl hover:bg-green-400 transition duration-300"
+                >
+                    Add
                 </button>
             </div>
         </form>
@@ -149,17 +149,17 @@
             </div>
             <div class="flex justify-end space-x-4">
                 <button
-                        type="submit"
-                        class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-400"
-                >
-                    Update
-                </button>
-                <button
                         type="button"
-                        class="px-4 py-2 bg-gray-300 rounded-lg hover:bg-gray-200"
+                        class="px-4 py-2 bg-gray-300 rounded-xl hover:bg-gray-200 transition duration-200"
                         (click)="closeUpdateModal()"
                 >
                     Cancel
+                </button>
+                <button
+                        type="submit"
+                        class="px-4 py-2 bg-green-500 text-white rounded-xl hover:bg-green-400 transition duration-200"
+                >
+                    Update
                 </button>
             </div>
         </form>
@@ -176,16 +176,16 @@
         </div>
         <div class="flex justify-end space-x-4">
             <button
-                    class="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-400"
-                    (click)="onDeleteArticle()"
-            >
-                Delete
-            </button>
-            <button
-                    class="px-4 py-2 bg-gray-300 rounded-lg hover:bg-gray-200"
+                    class="px-4 py-2 bg-gray-300 rounded-lg hover:bg-gray-200 transition duration-300"
                     (click)="closeDeleteModal()"
             >
                 Cancel
+            </button>
+            <button
+                    class="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-400 transition duration-300"
+                    (click)="onDeleteArticle()"
+            >
+                Delete
             </button>
         </div>
     </div>
