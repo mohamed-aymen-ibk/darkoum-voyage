@@ -5,24 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="04e82da8-214b-4e32-b9a0-deed4f1652df" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/component/article/article.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/component/article/article.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/component/client/client.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/component/client/client.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/component/pack/pack.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/component/pack/pack.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/component/provider/provider.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/component/provider/provider.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/component/shared/footer/footer.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/component/shared/footer/footer.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/component/shared/navbar/navbar.component.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/component/shared/navbar/navbar.component.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/component/shared/navbar/navbar.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/component/shared/navbar/navbar.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/component/shared/navbar/navbar.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/component/shared/navbar/navbar.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/component/vente/vente.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/component/vente/vente.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/component/vente/vente.component.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/component/vente/vente.component.spec.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/darkoum/darkoum/repository/ClientRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/darkoum/darkoum/repository/ClientRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/darkoum/darkoum/repository/PackRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/darkoum/darkoum/repository/PackRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/darkoum/darkoum/repository/ClientRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/darkoum/darkoum/repository/ClientRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/darkoum/darkoum/repository/PackRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/darkoum/darkoum/repository/PackRepository.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -152,7 +135,7 @@
       <workItem from="1734776562516" duration="13242000" />
       <workItem from="1734859153072" duration="525000" />
       <workItem from="1734861730224" duration="22000" />
-      <workItem from="1734861834374" duration="4986000" />
+      <workItem from="1734861834374" duration="6359000" />
     </task>
     <servers />
   </component>
