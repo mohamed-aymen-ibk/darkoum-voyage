@@ -11,12 +11,12 @@ export class AuthInterceptor implements HttpInterceptor {
 
         let modifiedReq = req;
 
-        // Add the token to the Authorization header if it exists
+        // Add the token and userId to the headers if token exists
         if (token) {
             modifiedReq = req.clone({
                 setHeaders: {
                     Authorization: `Bearer ${token}`,
-                    'X-User-Id': userId || ''
+                    ...(userId ? { 'X-User-Id': userId } : {})
                 }
             });
         }

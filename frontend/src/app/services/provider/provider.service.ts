@@ -1,9 +1,7 @@
-// src/app/services/provider/provider.service.ts
-
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { ProviderDtoRequest, ProviderDtoResponse } from '../../models/provider.dto'; // Import DTOs
+import {ProviderDtoRequest, ProviderDtoResponse} from "../../models/provider.dto";
 
 @Injectable({
     providedIn: 'root'
@@ -29,3 +27,4 @@ export class ProviderService {
         return this.http.delete<void>(`${this.apiUrl}/${id}`);
     }
 }
+

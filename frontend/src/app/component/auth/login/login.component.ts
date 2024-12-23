@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import {Router, RouterLink} from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../auth.service';
 
 @Component({
@@ -37,9 +37,10 @@ export class LoginComponent {
             this.authService.login(email, password).subscribe({
                 next: (response) => {
                     // Store token and user details
-                    localStorage.setItem('token', response.token);
-                    localStorage.setItem('user', JSON.stringify(response.userDetails));
-                    this.router.navigate(['/dashboard'])
+                    localStorage.setItem('authToken', response.token);
+                    localStorage.setItem('userId', response.userDetails.id.toString());
+                    localStorage.setItem('userDetails', JSON.stringify(response.userDetails));
+                    this.router.navigate(['/dashboard']);
                 },
                 error: (err) => {
                     this.errorMessage = err.error?.message || 'Login failed. Please check your credentials.';

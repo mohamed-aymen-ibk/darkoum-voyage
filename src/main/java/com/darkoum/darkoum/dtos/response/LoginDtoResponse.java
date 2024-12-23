@@ -9,6 +9,7 @@ import lombok.Setter;
 @Setter
 @Builder
 public class LoginDtoResponse {
+    private Long userId;
     private String token;
     private UserDtoResponse userDetails;
 }

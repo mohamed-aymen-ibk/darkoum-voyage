@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ProviderService } from '../../services/provider/provider.service';
 import { NgForOf, NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import {NavbarComponent} from "../shared/navbar/navbar.component";
-import {FooterComponent} from "../shared/footer/footer.component";
-import {ProviderDtoRequest} from "../../models/provider.dto";
+import { NavbarComponent } from "../shared/navbar/navbar.component";
+import { FooterComponent } from "../shared/footer/footer.component";
+import { ProviderDtoRequest } from "../../models/provider.dto";
 
 @Component({
     selector: 'app-provider',
@@ -12,15 +12,14 @@ import {ProviderDtoRequest} from "../../models/provider.dto";
     imports: [NgIf, FormsModule, NgForOf, FooterComponent, NavbarComponent],
     styleUrls: ['./provider.component.css'],
 })
-
 export class ProviderComponent implements OnInit {
     providers: any[] = [];
     showAddModal = false;
     showUpdateModal = false;
     showDeleteModal = false;
     newProvider: ProviderDtoRequest = { id: 0, name: '', email: '', phone: '' };
-    editProvider: ProviderDtoRequest = { id: 0,name: '', email: '', phone: '' };
-    providerToDelete: ProviderDtoRequest = { id: 0,name: '', email: '', phone: '' };
+    editProvider: ProviderDtoRequest = { id: 0, name: '', email: '', phone: '' };
+    providerToDelete: ProviderDtoRequest = { id: 0, name: '', email: '', phone: '' };
     addErrorMessage: string | null = null;
     updateErrorMessage: string | null = null;
     generalErrorMessage: string | null = null;
@@ -111,7 +110,7 @@ export class ProviderComponent implements OnInit {
         }
     }
 
-    // Error handling methods (unchanged)
+    // Error handling methods
     private handleAddError(error: any): string {
         if (error.status === 400) {
             return 'Failed to add provider: Invalid input data.';
