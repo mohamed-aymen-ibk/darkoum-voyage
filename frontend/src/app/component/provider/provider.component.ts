@@ -42,7 +42,7 @@ export class ProviderComponent implements OnInit {
     }
 
     openAddModal(): void {
-        this.newProvider = { id: 0, name: '', email: '', phone: '' };  // Default id = 0
+        this.newProvider = { id: 0, name: '', email: '', phone: ''};
         this.showAddModal = true;
         this.addErrorMessage = null; // Reset error message
     }
@@ -66,7 +66,7 @@ export class ProviderComponent implements OnInit {
     openUpdateModal(provider: any): void {
         this.editProvider = { ...provider };
         this.showUpdateModal = true;
-        this.updateErrorMessage = null; // Reset error message
+        this.updateErrorMessage = null;
     }
 
     closeUpdateModal(): void {
@@ -88,12 +88,12 @@ export class ProviderComponent implements OnInit {
     openDeleteModal(provider: any): void {
         this.providerToDelete = provider;
         this.showDeleteModal = true;
-        this.generalErrorMessage = null; // Reset error message
+        this.generalErrorMessage = null; 
     }
 
     closeDeleteModal(): void {
         this.showDeleteModal = false;
-        this.providerToDelete = { id: 0, name: '', email: '', phone: '' };  // Reset to default object
+        this.providerToDelete = { id: 0, name: '', email: '', phone: '' };
     }
 
     onDeleteProvider(): void {
