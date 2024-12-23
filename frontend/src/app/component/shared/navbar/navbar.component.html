@@ -6,17 +6,17 @@
         <nav>
             <ul>
                 <li class="flex space-x-6">
-                    <a class="text-blue-600 hover:text-blue-500 font-medium transition duration-200" routerLink="/dashboard">Dashboard</a>
-                    <a class="text-blue-600 hover:text-blue-500 font-medium transition duration-200" routerLink="/provider">Providers</a>
-                    <a class="text-blue-600 hover:text-blue-500 font-medium transition duration-200" routerLink="/client">Clients</a>
-                    <a class="text-blue-600 hover:text-blue-500 font-medium transition duration-200" routerLink="/pack">Packs</a>
-                    <a class="text-blue-600 hover:text-blue-500 font-medium transition duration-200" routerLink="/article">Articles</a>
-                    <a class="text-blue-600 hover:text-blue-500 font-medium transition duration-200" routerLink="/vente">Sales</a>
+                    <a class="text-blue-600 hover:text-blue-500 font-medium transition duration-300" routerLink="/dashboard">Dashboard</a>
+                    <a class="text-blue-600 hover:text-blue-500 font-medium transition duration-300" routerLink="/provider">Providers</a>
+                    <a class="text-blue-600 hover:text-blue-500 font-medium transition duration-300" routerLink="/client">Clients</a>
+                    <a class="text-blue-600 hover:text-blue-500 font-medium transition duration-300" routerLink="/pack">Packs</a>
+                    <a class="text-blue-600 hover:text-blue-500 font-medium transition duration-300" routerLink="/article">Articles</a>
+                    <a class="text-blue-600 hover:text-blue-500 font-medium transition duration-300" routerLink="/vente">Sales</a>
                 </li>
             </ul>
         </nav>
         <button
-                class="px-6 py-1 border border-blue-500 hover:bg-blue-500 text-blue-500 hover:text-white transition duration-1000 rounded-xl font-medium"
+                class="px-6 py-1 border border-blue-500 hover:bg-blue-500 text-blue-500 hover:text-white rounded-xl font-medium transition duration-1000"
                 (click)="openLogoutModal()"
         >
             Logout
@@ -38,13 +38,13 @@
         <p class="text-gray-800 mt-2">Are you sure you want to log out?</p>
         <div class="mt-4 flex justify-end space-x-3">
             <button
-                    class="px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-xl transition duration-200"
+                    class="px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-xl transition duration-300"
                     (click)="closeLogoutModal()"
             >
                 Cancel
             </button>
             <button
-                    class="px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-xl transition duration-200"
+                    class="px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-xl transition duration-300"
                     (click)="confirmLogout()"
             >
                 Logout

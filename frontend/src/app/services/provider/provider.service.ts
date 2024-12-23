@@ -1,6 +1,9 @@
-import {Injectable, Provider} from '@angular/core';
+// src/app/services/provider/provider.service.ts
+
+import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { ProviderDtoRequest, ProviderDtoResponse } from '../../models/provider.dto'; // Import DTOs
 
 @Injectable({
     providedIn: 'root'
@@ -10,19 +13,19 @@ export class ProviderService {
 
     constructor(private http: HttpClient) {}
 
-    getProviders(): Observable<Provider[]> {
-        return this.http.get<Provider[]>(`${this.apiUrl}`);
+    getProviders(): Observable<ProviderDtoResponse[]> {
+        return this.http.get<ProviderDtoResponse[]>(`${this.apiUrl}`);
     }
 
-    addProvider(provider: { phone: string; name: string; email: string }): Observable<Provider> {
-        return this.http.post<Provider>(`${this.apiUrl}/add`, provider);
+    addProvider(provider: ProviderDtoRequest): Observable<ProviderDtoResponse> {
+        return this.http.post<ProviderDtoResponse>(`${this.apiUrl}`, provider);
     }
 
-    updateProvider(provider: Provider, editProvider: any): Observable<Provider> {
-        return this.http.put<Provider>(`${this.apiUrl}/update`, provider);
+    updateProvider(id: number, provider: ProviderDtoRequest): Observable<ProviderDtoResponse> {
+        return this.http.put<ProviderDtoResponse>(`${this.apiUrl}/${id}`, provider);
     }
 
-    deleteProvider(id: string): Observable<void> {
-        return this.http.delete<void>(`${this.apiUrl}/delete/${id}`);
+    deleteProvider(id: number): Observable<void> {
+        return this.http.delete<void>(`${this.apiUrl}/${id}`);
     }
 }

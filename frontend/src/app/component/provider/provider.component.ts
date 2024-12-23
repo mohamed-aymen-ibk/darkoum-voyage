@@ -4,6 +4,7 @@ import { NgForOf, NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {NavbarComponent} from "../shared/navbar/navbar.component";
 import {FooterComponent} from "../shared/footer/footer.component";
+import {ProviderDtoRequest} from "../../models/provider.dto";
 
 @Component({
     selector: 'app-provider',
@@ -11,14 +12,15 @@ import {FooterComponent} from "../shared/footer/footer.component";
     imports: [NgIf, FormsModule, NgForOf, FooterComponent, NavbarComponent],
     styleUrls: ['./provider.component.css'],
 })
+
 export class ProviderComponent implements OnInit {
     providers: any[] = [];
     showAddModal = false;
     showUpdateModal = false;
     showDeleteModal = false;
-    newProvider = { name: '', email: '', phone: '' };
-    editProvider: any = {};
-    providerToDelete: any = null;
+    newProvider: ProviderDtoRequest = { id: 0, name: '', email: '', phone: '' };
+    editProvider: ProviderDtoRequest = { id: 0,name: '', email: '', phone: '' };
+    providerToDelete: ProviderDtoRequest = { id: 0,name: '', email: '', phone: '' };
     addErrorMessage: string | null = null;
     updateErrorMessage: string | null = null;
     generalErrorMessage: string | null = null;
@@ -41,7 +43,7 @@ export class ProviderComponent implements OnInit {
     }
 
     openAddModal(): void {
-        this.newProvider = { name: '', email: '', phone: '' };
+        this.newProvider = { id: 0, name: '', email: '', phone: '' };  // Default id = 0
         this.showAddModal = true;
         this.addErrorMessage = null; // Reset error message
     }
@@ -92,11 +94,11 @@ export class ProviderComponent implements OnInit {
 
     closeDeleteModal(): void {
         this.showDeleteModal = false;
-        this.providerToDelete = null;
+        this.providerToDelete = { id: 0, name: '', email: '', phone: '' };  // Reset to default object
     }
 
     onDeleteProvider(): void {
-        if (this.providerToDelete) {
+        if (this.providerToDelete && this.providerToDelete.id > 0) {
             this.providerService.deleteProvider(this.providerToDelete.id).subscribe(
                 () => {
                     this.loadProviders();
@@ -109,7 +111,7 @@ export class ProviderComponent implements OnInit {
         }
     }
 
-    // Error handling methods
+    // Error handling methods (unchanged)
     private handleAddError(error: any): string {
         if (error.status === 400) {
             return 'Failed to add provider: Invalid input data.';

@@ -1,6 +1,6 @@
 import {bootstrapApplication, BrowserModule} from '@angular/platform-browser';
 import { provideRouter, Routes } from '@angular/router';
-import {HttpClientModule, provideHttpClient} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule, provideHttpClient} from '@angular/common/http';
 import { LoginComponent } from './component/auth/login/login.component';
 import { DashboardComponent } from './component/dashboard/dashboard.component';
 import {ProviderComponent} from "./component/provider/provider.component";
@@ -12,6 +12,7 @@ import {ClientComponent} from "./component/client/client.component";
 import {PackComponent} from "./component/pack/pack.component";
 import {ArticleComponent} from "./component/article/article.component";
 import {VenteComponent} from "./component/vente/vente.component";
+import {AuthInterceptor} from "./component/auth/auth.interceptor";
 
 const routes: Routes = [
     { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -38,11 +39,12 @@ bootstrapApplication(LoginComponent, {
         HttpClientModule,
         FormsModule,
         AppRoutingProvider,
-        AppComponent,
         ProviderComponent,
         ClientComponent
     ],
-    providers: [],
-    bootstrap: [],
+    providers: [
+        { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+    ],
+    bootstrap: [AppComponent],
 })
 export class AppModule {}
