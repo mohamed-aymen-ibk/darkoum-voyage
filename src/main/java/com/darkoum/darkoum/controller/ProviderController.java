@@ -3,7 +3,7 @@ package com.darkoum.darkoum.controller;
 import com.darkoum.darkoum.dtos.request.ProviderDtoRequest;
 import com.darkoum.darkoum.dtos.response.ProviderDtoResponse;
 import com.darkoum.darkoum.service.interfaces.ProviderServiceInterface;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,10 +11,11 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/providers")
+@CrossOrigin(origins = "*")
+@RequiredArgsConstructor
 public class ProviderController {
 
-    @Autowired
-    private ProviderServiceInterface providerService;
+    private final ProviderServiceInterface providerService;
 
     @PostMapping
     public ResponseEntity<ProviderDtoResponse> createProvider(@RequestBody ProviderDtoRequest providerDtoRequest) {
@@ -35,8 +36,7 @@ public class ProviderController {
     public ResponseEntity<ProviderDtoResponse> updateProvider(
             @PathVariable Long id,
             @RequestBody ProviderDtoRequest providerDtoRequest) {
-        ProviderDtoResponse updatedProvider = providerService.updateProvider(id, providerDtoRequest);
-        return ResponseEntity.ok(updatedProvider);
+        return ResponseEntity.ok(providerService.updateProvider(id, providerDtoRequest));
     }
 
     @DeleteMapping("/{id}")

@@ -1,5 +1,4 @@
 export interface ProviderDtoRequest {
-    id: number;
     name: string;
     email: string;
     phone: string;

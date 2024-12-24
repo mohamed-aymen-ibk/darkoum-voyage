@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import {ProviderDtoRequest, ProviderDtoResponse} from "../../models/provider.dto";
-import {create} from "node:domain";
 
 @Injectable({
     providedIn: 'root'
@@ -17,8 +16,12 @@ export class ProviderService {
     }
 
     addProvider(provider: ProviderDtoRequest): Observable<ProviderDtoResponse> {
-        return this.http.post<ProviderDtoResponse>(`${this.apiUrl}`, provider);
+        const token = localStorage.getItem('authToken');
+        const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+        console.log('Adding provider:', provider);
+        return this.http.post<ProviderDtoResponse>(`${this.apiUrl}`, provider, { headers });
     }
+
 
     updateProvider(id: number, provider: ProviderDtoRequest): Observable<ProviderDtoResponse> {
         return this.http.put<ProviderDtoResponse>(`${this.apiUrl}/${id}`, provider);

@@ -31,16 +31,25 @@ public class ProviderService implements ProviderServiceInterface {
     @Override
     public ProviderDtoResponse createProvider(ProviderDtoRequest providerDtoRequest) {
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
+
+        if (email == null || email.isEmpty()) {
+            throw new ResourceNotFoundException("User not authenticated");
+        }
+
+        // Fetch the authenticated user by email
         User loggedInUser = userRepository.findByEmail(email)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found"));
 
+        // Proceed to create the provider
         Provider provider = new Provider();
         provider.setName(providerDtoRequest.getName());
         provider.setEmail(providerDtoRequest.getEmail());
         provider.setPhoneNumber(providerDtoRequest.getPhone());
-        provider.setUser(loggedInUser);
+        provider.setUser(loggedInUser); // Associate provider with the logged-in user
 
         Provider savedProvider = providerRepository.save(provider);
+
+        // Map the saved provider to response DTO
         return mapToDto(savedProvider);
     }
 

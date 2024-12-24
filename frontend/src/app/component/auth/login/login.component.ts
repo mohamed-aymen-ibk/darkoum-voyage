@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../auth.service';
+import {LoginDtoResponse} from "../../../models/login.dtos";
 
 @Component({
     selector: 'app-login',
@@ -35,11 +36,10 @@ export class LoginComponent {
         if (this.loginForm.valid) {
             const { email, password } = this.loginForm.value;
             this.authService.login(email, password).subscribe({
-                next: (response) => {
+                next: (response: LoginDtoResponse) => {
                     // Store token and user details
                     localStorage.setItem('authToken', response.token);
-                    localStorage.setItem('userId', response.userDetails.id.toString());
-                    localStorage.setItem('userDetails', JSON.stringify(response.userDetails));
+                    localStorage.setItem('user', JSON.stringify(response.userDetails));
                     this.router.navigate(['/dashboard']);
                 },
                 error: (err) => {

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
+import {LoginDtoResponse} from "../../models/login.dtos";
 
 export interface RegisterRequest {
     name: string;
@@ -9,19 +10,7 @@ export interface RegisterRequest {
     phoneNumber: string;
 }
 
-interface LoginResponse {
-    token: string;
-    userDetails: {
-        id: number;
-        name: string;
-        email: string;
-        phoneNumber: string;
-        role: string;
-        createdAt: string;
-        updatedAt: string;
-        active: boolean;
-    };
-}
+
 
 @Injectable({
     providedIn: 'root',
@@ -31,9 +20,9 @@ export class AuthService {
 
     constructor(private http: HttpClient) {}
 
-    login(email: string, password: string): Observable<LoginResponse> {
+    login(email: string, password: string): Observable<LoginDtoResponse> {
         const payload = { email, password };
-        return this.http.post<LoginResponse>(`${this.apiUrl}/login`, payload)
+        return this.http.post<LoginDtoResponse>(`${this.apiUrl}/login`, payload)
             .pipe(
                 tap((response) => {
                     if (typeof window !== 'undefined' && window.localStorage) {

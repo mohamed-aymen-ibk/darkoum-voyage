@@ -29,7 +29,6 @@ public class SecurityConfiguration {
             "/api/**",
             "/api/authentication/login",
             "/api/authentication/register",
-            "/api/providers",
             "/v2/api-docs",
             "/v3/api-docs",
             "/v3/api-docs/**",
@@ -45,7 +44,6 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .cors(cors -> cors.disable())
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(req -> req
                         .requestMatchers(WHITE_LIST_URL).permitAll()

@@ -1,49 +1,29 @@
-import {bootstrapApplication, BrowserModule} from '@angular/platform-browser';
-import { provideRouter, Routes } from '@angular/router';
-import {HTTP_INTERCEPTORS, HttpClientModule, provideHttpClient} from '@angular/common/http';
-import { LoginComponent } from './component/auth/login/login.component';
-import { DashboardComponent } from './component/dashboard/dashboard.component';
+import { BrowserModule } from '@angular/platform-browser';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
+import {NgModule} from "@angular/core";
+import {FormsModule} from "@angular/forms";
 import {ProviderComponent} from "./component/provider/provider.component";
 import {AppComponent} from "./app.component";
-import {AppRoutingProvider} from "./component/provider/app-routing.provider";
-import {FormsModule} from "@angular/forms";
-import {NgModule} from "@angular/core";
+import {AppRoutingModule} from "./app-routing.module";
 import {ClientComponent} from "./component/client/client.component";
 import {PackComponent} from "./component/pack/pack.component";
 import {ArticleComponent} from "./component/article/article.component";
 import {VenteComponent} from "./component/vente/vente.component";
-import {AuthInterceptor} from "./component/auth/auth.interceptor";
-
-const routes: Routes = [
-    { path: '', redirectTo: 'login', pathMatch: 'full' },
-    { path: 'login', component: LoginComponent },
-    { path: 'dashboard', component: DashboardComponent },
-    { path: 'provider', component: ProviderComponent },
-    { path: 'client', component: ClientComponent},
-    { path: 'pack', component: PackComponent },
-    { path: 'article', component: ArticleComponent},
-    { path: 'vente', component: VenteComponent}
-];
-
-bootstrapApplication(LoginComponent, {
-    providers: [
-        provideRouter(routes),
-        provideHttpClient()
-    ],
-}).catch(err => console.error(err));
 
 @NgModule({
-    declarations: [],
+    declarations: [AppComponent],
     imports: [
         BrowserModule,
         HttpClientModule,
         FormsModule,
-        AppRoutingProvider,
+        AppRoutingModule,
         ProviderComponent,
-        ClientComponent
+        ClientComponent,
+        PackComponent,
+        ArticleComponent,
+        VenteComponent
     ],
     providers: [
-        { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
     ],
     bootstrap: [AppComponent],
 })

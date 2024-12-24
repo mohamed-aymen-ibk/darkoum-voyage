@@ -5,7 +5,6 @@ import { DashboardComponent } from './component/dashboard/dashboard.component';
 import { AuthGuard } from './component/auth/auth.guard';
 import {ProviderComponent} from "./component/provider/provider.component";
 import {ClientComponent} from "./component/client/client.component";
-import path from "node:path";
 import {PackComponent} from "./component/pack/pack.component";
 import {ArticleComponent} from "./component/article/article.component";
 import {VenteComponent} from "./component/vente/vente.component";

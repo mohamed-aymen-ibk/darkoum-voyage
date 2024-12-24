@@ -4,7 +4,7 @@ import { NgForOf, NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NavbarComponent } from "../shared/navbar/navbar.component";
 import { FooterComponent } from "../shared/footer/footer.component";
-import { ProviderDtoRequest } from "../../models/provider.dto";
+import { ProviderDtoRequest, ProviderDtoResponse } from "../../models/provider.dto";
 
 @Component({
     selector: 'app-provider',
@@ -13,18 +13,18 @@ import { ProviderDtoRequest } from "../../models/provider.dto";
     styleUrls: ['./provider.component.css'],
 })
 export class ProviderComponent implements OnInit {
-    providers: any[] = [];
+    providers: ProviderDtoResponse[] = [];
     showAddModal = false;
     showUpdateModal = false;
     showDeleteModal = false;
-    newProvider: ProviderDtoRequest = { id: 0, name: '', email: '', phone: '' };
-    editProvider: ProviderDtoRequest = { id: 0, name: '', email: '', phone: '' };
-    providerToDelete: ProviderDtoRequest = { id: 0, name: '', email: '', phone: '' };
+    newProvider: ProviderDtoRequest = { name: '', email: '', phone: '' };
+    editProvider: ProviderDtoResponse = { id: 0, name: '', email: '', phone: '' };
+    providerToDelete: ProviderDtoResponse = { id: 0, name: '', email: '', phone: '' };
     addErrorMessage: string | null = null;
     updateErrorMessage: string | null = null;
     generalErrorMessage: string | null = null;
 
-    constructor(private providerService: ProviderService) {}
+    constructor(private providerService: ProviderService) { }
 
     ngOnInit(): void {
         this.loadProviders();
@@ -42,7 +42,7 @@ export class ProviderComponent implements OnInit {
     }
 
     openAddModal(): void {
-        this.newProvider = { id: 0, name: '', email: '', phone: ''};
+        this.newProvider = { name: '', email: '', phone: '' };
         this.showAddModal = true;
         this.addErrorMessage = null; // Reset error message
     }
@@ -63,7 +63,7 @@ export class ProviderComponent implements OnInit {
         );
     }
 
-    openUpdateModal(provider: any): void {
+    openUpdateModal(provider: ProviderDtoResponse): void {
         this.editProvider = { ...provider };
         this.showUpdateModal = true;
         this.updateErrorMessage = null;
@@ -74,21 +74,23 @@ export class ProviderComponent implements OnInit {
     }
 
     onUpdateProvider(): void {
-        this.providerService.updateProvider(this.editProvider.id, this.editProvider).subscribe(
-            () => {
-                this.loadProviders();
-                this.closeUpdateModal();
-            },
-            (error) => {
-                this.updateErrorMessage = this.handleUpdateError(error);
-            }
-        );
+        if (this.editProvider && this.editProvider.id) {
+            this.providerService.updateProvider(this.editProvider.id, this.editProvider).subscribe(
+                () => {
+                    this.loadProviders();
+                    this.closeUpdateModal();
+                },
+                (error) => {
+                    this.updateErrorMessage = this.handleUpdateError(error);
+                }
+            );
+        }
     }
 
-    openDeleteModal(provider: any): void {
+    openDeleteModal(provider: ProviderDtoResponse): void {
         this.providerToDelete = provider;
         this.showDeleteModal = true;
-        this.generalErrorMessage = null; 
+        this.generalErrorMessage = null;
     }
 
     closeDeleteModal(): void {
@@ -97,7 +99,7 @@ export class ProviderComponent implements OnInit {
     }
 
     onDeleteProvider(): void {
-        if (this.providerToDelete && this.providerToDelete.id > 0) {
+        if (this.providerToDelete && this.providerToDelete.id) {
             this.providerService.deleteProvider(this.providerToDelete.id).subscribe(
                 () => {
                     this.loadProviders();
