@@ -11,6 +11,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,6 +26,7 @@ public class ClientService implements ClientServiceInterface {
     private UserRepository userRepository;
 
     @Override
+    @Transactional
     public ClientDtoResponse createClient(ClientDtoRequest clientDtoRequest) {
         User user = userRepository.findById(clientDtoRequest.getUserId())
                 .orElseThrow(() -> new RuntimeException("User not found"));
@@ -35,12 +37,9 @@ public class ClientService implements ClientServiceInterface {
         client.setPhoneNumber(clientDtoRequest.getPhoneNumber());
         client.setAddress(clientDtoRequest.getAddress());
         client.setUser(user);
-
         Client savedClient = clientRepository.save(client);
-
         return mapToDto(savedClient);
     }
-
     @Override
     public ClientDtoResponse getClientById(Long id) {
         Client client = clientRepository.findById(id)
@@ -50,12 +49,11 @@ public class ClientService implements ClientServiceInterface {
 
     @Override
     public List<ClientDtoResponse> getAllClients() {
-        return clientRepository.findAll()
+        return  clientRepository.findAll()
                 .stream()
                 .map(this::mapToDto)
                 .collect(Collectors.toList());
     }
-
     @Override
     public List<ClientDtoResponse> getClientsByUser(Long userId) {
         return clientRepository.findByUserId(userId)
@@ -63,8 +61,8 @@ public class ClientService implements ClientServiceInterface {
                 .map(this::mapToDto)
                 .collect(Collectors.toList());
     }
-
     @Override
+    @Transactional
     public ClientDtoResponse updateClient(Long id, ClientDtoRequest clientDtoRequest) {
         Client client = clientRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Client not found"));
@@ -74,8 +72,7 @@ public class ClientService implements ClientServiceInterface {
         client.setPhoneNumber(clientDtoRequest.getPhoneNumber());
         client.setAddress(clientDtoRequest.getAddress());
 
-        Client updatedClient = clientRepository.save(client);
-
+        Client updatedClient =   clientRepository.save(client);
         return mapToDto(updatedClient);
     }
 
@@ -85,7 +82,6 @@ public class ClientService implements ClientServiceInterface {
                 .orElseThrow(() -> new RuntimeException("Client not found"));
         clientRepository.delete(client);
     }
-
     private ClientDtoResponse mapToDto(Client client) {
         ClientDtoResponse dto = new ClientDtoResponse();
         dto.setId(client.getId());

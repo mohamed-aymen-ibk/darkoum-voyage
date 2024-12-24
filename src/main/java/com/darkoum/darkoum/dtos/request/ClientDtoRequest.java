@@ -18,6 +18,8 @@ public class ClientDtoRequest {
     private String email;
 
     private String phoneNumber;
+
     private String address;
+
     private Long userId; // ID de l'utilisateur lié
 }

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { ClientDtoRequest, ClientDtoResponse } from '../../models/client.dtos';
 
 @Injectable({
   providedIn: 'root',
@@ -10,27 +11,26 @@ export class ClientService {
 
   constructor(private http: HttpClient) {}
 
-  getClients(): Observable<any> {
-    return this.http.get(`${this.apiUrl}`);
+  getClients(): Observable<ClientDtoResponse[]> {
+    return this.http.get<ClientDtoResponse[]>(this.apiUrl);
   }
 
-  getClientById(id: number): Observable<any> {
-    return this.http.get(`${this.apiUrl}/${id}`);
+  addClient(client: ClientDtoRequest): Observable<ClientDtoResponse> {
+    return this.http.post<ClientDtoResponse>(this.apiUrl, client);
   }
 
-  addClient(client: any): Observable<any> {
-    const token = localStorage.getItem('authToken');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    console.log('Adding Client:', client);
-    return this.http.post(`${this.apiUrl}`, client, { headers });
+  getClientById(id: number): Observable<ClientDtoResponse> {
+    return this.http.get<ClientDtoResponse>(`${this.apiUrl}/${id}`);
   }
 
-
-  updateClient(id: number, client: any): Observable<any> {
-    return this.http.put(`${this.apiUrl}/${id}`, client);
+  updateClient(
+      id: number,
+      client: ClientDtoRequest
+  ): Observable<ClientDtoResponse> {
+    return this.http.put<ClientDtoResponse>(`${this.apiUrl}/${id}`, client);
   }
 
-  deleteClient(id: number): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/${id}`);
+  deleteClient(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
 }
