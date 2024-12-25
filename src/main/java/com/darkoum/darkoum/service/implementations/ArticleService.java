@@ -4,8 +4,10 @@ import com.darkoum.darkoum.dtos.request.ArticleDtoRequest;
 import com.darkoum.darkoum.dtos.response.ArticleDtoResponse;
 import com.darkoum.darkoum.model.Article;
 import com.darkoum.darkoum.model.Provider;
+import com.darkoum.darkoum.model.User;
 import com.darkoum.darkoum.repository.ArticleRepository;
 import com.darkoum.darkoum.repository.ProviderRepository;
+import com.darkoum.darkoum.repository.UserRepository;
 import com.darkoum.darkoum.service.interfaces.ArticleServiceInterface;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,11 +26,16 @@ public class ArticleService implements ArticleServiceInterface {
     @Autowired
     private ProviderRepository providerRepository;
 
+    @Autowired
+    private UserRepository userRepository;
+
     @Override
     @Transactional
     public ArticleDtoResponse createArticle(ArticleDtoRequest articleDtoRequest) {
-        Provider provider = providerRepository.findByName(articleDtoRequest.getProviderName())
+        Provider provider = providerRepository.findProviderByName(articleDtoRequest.getProviderName())
                 .orElseThrow(() -> new RuntimeException("Provider not found"));
+        User user = userRepository.findById(articleDtoRequest.getUserId())
+                .orElseThrow(() -> new RuntimeException("User not found"));
 
         Article article = new Article();
         article.setName(articleDtoRequest.getName());
@@ -42,6 +49,7 @@ public class ArticleService implements ArticleServiceInterface {
             article.setStock(articleDtoRequest.getStock());
         }
         article.setProvider(provider);
+        article.setUser(user); // Set the user here
 
         try {
             Article savedArticle = articleRepository.save(article);
@@ -69,7 +77,7 @@ public class ArticleService implements ArticleServiceInterface {
     @Override
     @Transactional
     public ArticleDtoResponse updateArticle(Long id, ArticleDtoRequest articleDtoRequest) {
-        Provider provider = providerRepository.findByName(articleDtoRequest.getProviderName())
+        Provider provider = providerRepository.findProviderByName(articleDtoRequest.getProviderName())
                 .orElseThrow(() -> new RuntimeException("Provider not found"));
 
         Article article = articleRepository.findById(id)

@@ -11,4 +11,5 @@ public class ArticleDtoRequest {
     private double price;
     private Integer stock;
     private String providerName;
+    private Long userId;
 }

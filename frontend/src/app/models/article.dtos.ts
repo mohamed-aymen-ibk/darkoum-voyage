@@ -4,6 +4,7 @@ export interface ArticleDtoRequest {
     price: number;
     stock: number;
     providerName: string;
+    userId: number;
 }
 
 export interface ArticleDtoResponse {

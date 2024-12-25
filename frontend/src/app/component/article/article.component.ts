@@ -17,7 +17,7 @@ export class ArticleComponent implements OnInit {
     showAddModal = false;
     showUpdateModal = false;
     showDeleteModal = false;
-    newArticle: ArticleDtoRequest = { name: '', description: '', price: 0, stock: 0, providerName: '' };
+    newArticle: ArticleDtoRequest = { name: '', description: '', price: 0, stock: 0, providerName: '', userId: 1 }; // Added userId, default 1
     editArticle: ArticleDtoResponse = { id: 0, name: '', description: '', price: 0, stock: 0, providerName: '' };
     articleToDelete: any = null;
     addErrorMessage: string | null = null;
@@ -42,7 +42,7 @@ export class ArticleComponent implements OnInit {
     }
 
     openAddModal(): void {
-        this.newArticle = { name: '', description: '', price: 0, stock: 0, providerName: '' };
+        this.newArticle = { name: '', description: '', price: 0, stock: 0, providerName: '', userId: 1 }; // Reset userId on open
         this.showAddModal = true;
         this.addErrorMessage = null;
     }
@@ -79,7 +79,8 @@ export class ArticleComponent implements OnInit {
             description: this.editArticle.description,
             price: this.editArticle.price,
             stock: this.editArticle.stock,
-            providerName: this.editArticle.providerName
+            providerName: this.editArticle.providerName,
+            userId: 1 // Assuming user 1, you might need a mechanism to get the current user's ID
         };
 
         this.articleService.updateArticle(this.editArticle.id, articleToUpdate).subscribe(
