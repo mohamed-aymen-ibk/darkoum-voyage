@@ -36,15 +36,19 @@ public class ArticleService implements ArticleServiceInterface {
         article.setPrice(articleDtoRequest.getPrice());
 
         // Handle the null stock here:
-        if (articleDtoRequest.getStock() == null){
+        if (articleDtoRequest.getStock() == null) {
             article.setStock(0);
         } else {
             article.setStock(articleDtoRequest.getStock());
         }
         article.setProvider(provider);
 
-        Article savedArticle = articleRepository.save(article);
-        return mapToDto(savedArticle);
+        try {
+            Article savedArticle = articleRepository.save(article);
+            return mapToDto(savedArticle);
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to create article: " + e.getMessage());
+        }
     }
 
     @Override
@@ -75,7 +79,7 @@ public class ArticleService implements ArticleServiceInterface {
         article.setDescription(articleDtoRequest.getDescription());
         article.setPrice(articleDtoRequest.getPrice());
 
-        if (articleDtoRequest.getStock() == null){
+        if (articleDtoRequest.getStock() == null) {
             article.setStock(0);
         } else {
             article.setStock(articleDtoRequest.getStock());
@@ -83,8 +87,12 @@ public class ArticleService implements ArticleServiceInterface {
 
         article.setProvider(provider);
 
-        Article updatedArticle = articleRepository.save(article);
-        return mapToDto(updatedArticle);
+        try {
+            Article updatedArticle = articleRepository.save(article);
+            return mapToDto(updatedArticle);
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to update article: " + e.getMessage());
+        }
     }
 
     @Override
@@ -100,7 +108,7 @@ public class ArticleService implements ArticleServiceInterface {
         dto.setName(article.getName());
         dto.setDescription(article.getDescription());
         dto.setPrice(article.getPrice());
-        dto.setStock(article.getStock()); // Safe to do this as non-null in DB
+        dto.setStock(article.getStock());
         dto.setProviderName(article.getProvider().getName());
 
         return dto;

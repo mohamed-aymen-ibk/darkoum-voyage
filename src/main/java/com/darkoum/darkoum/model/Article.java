@@ -29,7 +29,6 @@ public class Article {
     @Size(min = 4, max = 70, message = "Name must be between 4 and 70 characters")
     private String name;
 
-
     @Column
     private String description;
 
@@ -37,7 +36,7 @@ public class Article {
     @Positive(message = "Price must be positive")
     private Double price;
 
-    @Column(name = "created_at")
+    @Column(name = "created_at", updatable = false)
     @CreationTimestamp
     private LocalDateTime createdAt;
 
@@ -67,7 +66,4 @@ public class Article {
 
     @ManyToMany(mappedBy = "articles")
     private List<Pack> packs;
-
-    public void setStock(@Positive(message = "Stock must be positive") Integer stock) {
-    }
 }

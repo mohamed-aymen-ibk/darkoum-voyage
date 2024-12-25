@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ClientDtoRequest, ClientDtoResponse } from '../../models/client.dtos';
 
@@ -16,7 +16,10 @@ export class ClientService {
   }
 
   addClient(client: ClientDtoRequest): Observable<ClientDtoResponse> {
-    return this.http.post<ClientDtoResponse>(this.apiUrl, client);
+    const token = localStorage.getItem('authToken');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    console.log('Adding provider:', client);
+    return this.http.post<ClientDtoResponse>(this.apiUrl, client, { headers });
   }
 
   getClientById(id: number): Observable<ClientDtoResponse> {

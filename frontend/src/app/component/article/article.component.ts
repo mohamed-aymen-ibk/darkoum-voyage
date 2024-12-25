@@ -17,8 +17,8 @@ export class ArticleComponent implements OnInit {
     showAddModal = false;
     showUpdateModal = false;
     showDeleteModal = false;
-    newArticle:ArticleDtoRequest = {  name: '',   description:'', price: 0 , stock: 0, providerName:'' } ;
-    editArticle:ArticleDtoResponse = {id:0,  name: '',   description:'', price: 0 , stock: 0, providerName: ''} ;
+    newArticle: ArticleDtoRequest = { name: '', description: '', price: 0, stock: 0, providerName: '' };
+    editArticle: ArticleDtoResponse = { id: 0, name: '', description: '', price: 0, stock: 0, providerName: '' };
     articleToDelete: any = null;
     addErrorMessage: string | null = null;
     updateErrorMessage: string | null = null;
@@ -42,13 +42,15 @@ export class ArticleComponent implements OnInit {
     }
 
     openAddModal(): void {
-        this.newArticle = {   name: '',   description:'', price: 0 , stock: 0, providerName:''  };
+        this.newArticle = { name: '', description: '', price: 0, stock: 0, providerName: '' };
         this.showAddModal = true;
         this.addErrorMessage = null;
     }
+
     closeAddModal(): void {
         this.showAddModal = false;
     }
+
     onAddArticle(): void {
         this.articleService.addArticle(this.newArticle).subscribe(
             () => {
@@ -60,6 +62,7 @@ export class ArticleComponent implements OnInit {
             }
         );
     }
+
     openUpdateModal(article: ArticleDtoResponse): void {
         this.editArticle = { ...article };
         this.showUpdateModal = true;
@@ -71,19 +74,15 @@ export class ArticleComponent implements OnInit {
     }
 
     onUpdateArticle(): void {
-
-        const articleToUpdate: ArticleDtoRequest  =  {
-
+        const articleToUpdate: ArticleDtoRequest = {
             name: this.editArticle.name,
-            description :this.editArticle.description,
-            price :this.editArticle.price,
-            stock:this.editArticle.stock,
+            description: this.editArticle.description,
+            price: this.editArticle.price,
+            stock: this.editArticle.stock,
             providerName: this.editArticle.providerName
-
-        }
+        };
 
         this.articleService.updateArticle(this.editArticle.id, articleToUpdate).subscribe(
-
             () => {
                 this.loadArticles();
                 this.closeUpdateModal();

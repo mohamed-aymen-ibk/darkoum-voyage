@@ -28,7 +28,7 @@ public class ClientService implements ClientServiceInterface {
     @Override
     @Transactional
     public ClientDtoResponse createClient(ClientDtoRequest clientDtoRequest) {
-        User user = userRepository.findById(clientDtoRequest.getUserId())
+        User user = userRepository.findUserById(clientDtoRequest.getUserId())
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
         Client client = new Client();

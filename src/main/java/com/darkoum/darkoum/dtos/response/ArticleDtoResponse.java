@@ -1,13 +1,15 @@
 package com.darkoum.darkoum.dtos.response;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 public class ArticleDtoResponse {
     private Long id;
     private String name;
     private String description;
-    private double price;
-    private int stock;
+    private Double price;
+    private Integer stock;
     private String providerName;
 }

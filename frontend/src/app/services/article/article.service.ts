@@ -7,13 +7,14 @@ import { ArticleDtoRequest, ArticleDtoResponse } from '../../models/article.dtos
     providedIn: 'root'
 })
 export class ArticleService {
-
     private apiUrl = 'http://localhost:8080/api/articles';
 
     constructor(private http: HttpClient) {}
 
     getArticles(): Observable<ArticleDtoResponse[]> {
-        return this.http.get<ArticleDtoResponse[]>(this.apiUrl);
+        const token = localStorage.getItem('authToken');
+        const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+        return this.http.get<ArticleDtoResponse[]>(this.apiUrl, { headers });
     }
 
     addArticle(article: ArticleDtoRequest): Observable<ArticleDtoResponse> {
@@ -29,7 +30,7 @@ export class ArticleService {
     }
 
     deleteArticle(id: number): Observable<void> {
-        const token = localStorage.getItem('authToken'); // Récupérer le token
+        const token = localStorage.getItem('authToken');
         const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
         return this.http.delete<void>(`${this.apiUrl}/${id}`, { headers });
     }
