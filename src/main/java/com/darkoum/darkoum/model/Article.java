@@ -29,9 +29,6 @@ public class Article {
     @Size(min = 4, max = 70, message = "Name must be between 4 and 70 characters")
     private String name;
 
-    @Column(nullable = false)
-    @NotBlank(message = "Title is required")
-    private String title;
 
     @Column
     private String description;
@@ -39,9 +36,6 @@ public class Article {
     @Column(nullable = false)
     @Positive(message = "Price must be positive")
     private Double price;
-
-    @Column
-    private String category;
 
     @Column(name = "created_at")
     @CreationTimestamp

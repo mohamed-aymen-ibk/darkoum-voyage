@@ -10,6 +10,7 @@ import com.darkoum.darkoum.service.interfaces.ArticleServiceInterface;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -17,7 +18,6 @@ import java.util.stream.Collectors;
 @Service
 @AllArgsConstructor
 public class ArticleService implements ArticleServiceInterface {
-
     @Autowired
     private ArticleRepository articleRepository;
 
@@ -25,18 +25,25 @@ public class ArticleService implements ArticleServiceInterface {
     private ProviderRepository providerRepository;
 
     @Override
+    @Transactional
     public ArticleDtoResponse createArticle(ArticleDtoRequest articleDtoRequest) {
-        Provider provider = providerRepository.findById(articleDtoRequest.getProviderId())
+        Provider provider = providerRepository.findByName(articleDtoRequest.getProviderName())
                 .orElseThrow(() -> new RuntimeException("Provider not found"));
 
         Article article = new Article();
         article.setName(articleDtoRequest.getName());
+        article.setDescription(articleDtoRequest.getDescription());
         article.setPrice(articleDtoRequest.getPrice());
-        article.setStock(articleDtoRequest.getStock());
+
+        // Handle the null stock here:
+        if (articleDtoRequest.getStock() == null){
+            article.setStock(0);
+        } else {
+            article.setStock(articleDtoRequest.getStock());
+        }
         article.setProvider(provider);
 
         Article savedArticle = articleRepository.save(article);
-
         return mapToDto(savedArticle);
     }
 
@@ -56,16 +63,27 @@ public class ArticleService implements ArticleServiceInterface {
     }
 
     @Override
+    @Transactional
     public ArticleDtoResponse updateArticle(Long id, ArticleDtoRequest articleDtoRequest) {
+        Provider provider = providerRepository.findByName(articleDtoRequest.getProviderName())
+                .orElseThrow(() -> new RuntimeException("Provider not found"));
+
         Article article = articleRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Article not found"));
 
         article.setName(articleDtoRequest.getName());
+        article.setDescription(articleDtoRequest.getDescription());
         article.setPrice(articleDtoRequest.getPrice());
-        article.setStock(articleDtoRequest.getStock());
+
+        if (articleDtoRequest.getStock() == null){
+            article.setStock(0);
+        } else {
+            article.setStock(articleDtoRequest.getStock());
+        }
+
+        article.setProvider(provider);
 
         Article updatedArticle = articleRepository.save(article);
-
         return mapToDto(updatedArticle);
     }
 
@@ -80,9 +98,11 @@ public class ArticleService implements ArticleServiceInterface {
         ArticleDtoResponse dto = new ArticleDtoResponse();
         dto.setId(article.getId());
         dto.setName(article.getName());
+        dto.setDescription(article.getDescription());
         dto.setPrice(article.getPrice());
-        dto.setStock(article.getStock());
+        dto.setStock(article.getStock()); // Safe to do this as non-null in DB
         dto.setProviderName(article.getProvider().getName());
+
         return dto;
     }
 }
