@@ -9,10 +9,12 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 @RestController
 @RequestMapping("/api/packs")
 public class PackController {
-
+    private static final Logger logger = LoggerFactory.getLogger(PackController.class);
     @Autowired
     private PackServiceInterface packService;
 
@@ -40,8 +42,14 @@ public class PackController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletePack(@PathVariable Long id) {
-        packService.deletePack(id);
-        return ResponseEntity.noContent().build();
+        try {
+            logger.info("Deleting pack with ID: {}", id);
+            packService.deletePack(id);
+            return ResponseEntity.noContent().build();
+        }catch (Exception e){
+            logger.error("Error deleting pack with ID: {}", id,e);
+            throw e;
+        }
     }
     @GetMapping("/articles/names")
     public ResponseEntity<List<String>> getAllArticleNames() {

@@ -26,7 +26,9 @@ export class PackComponent implements OnInit, OnDestroy {
     showArticleDropdownAdd: boolean = false;
     showArticleDropdownUpdate: boolean = false;
     expandedPacks: { [packId: number]: boolean } = {};
-    private isDropdownOpen:boolean = false;
+    private isDropdownOpenTable: boolean = false;
+    private isDropdownOpenAdd: boolean = false;
+    private isDropdownOpenUpdate: boolean = false;
 
 
     constructor(private packService: PackService) {}
@@ -66,9 +68,12 @@ export class PackComponent implements OnInit, OnDestroy {
     closeAddModal(): void {
         this.showAddModal = false;
         this.showArticleDropdownAdd = false;
+        this.isDropdownOpenAdd = false;
     }
     toggleArticleDropdownAdd() {
         this.showArticleDropdownAdd = !this.showArticleDropdownAdd;
+        this.isDropdownOpenAdd = this.showArticleDropdownAdd;
+
     }
     onAddPack(): void {
         this.packService.addPack(this.newPack).subscribe(
@@ -99,10 +104,13 @@ export class PackComponent implements OnInit, OnDestroy {
     closeUpdateModal(): void {
         this.showUpdateModal = false;
         this.showArticleDropdownUpdate = false;
+        this.isDropdownOpenUpdate = false;
     }
 
     toggleArticleDropdownUpdate() {
         this.showArticleDropdownUpdate = !this.showArticleDropdownUpdate;
+        this.isDropdownOpenUpdate = this.showArticleDropdownUpdate;
+
     }
 
     onUpdatePack(): void {
@@ -118,9 +126,13 @@ export class PackComponent implements OnInit, OnDestroy {
     }
 
     openDeleteModal(pack: any): void {
-        this.packToDelete = pack;
-        this.showDeleteModal = true;
-        this.generalErrorMessage = null; // Reset error message
+        if(pack) {
+            this.packToDelete = pack;
+            this.showDeleteModal = true;
+            this.generalErrorMessage = null; // Reset error message
+            console.log("Pack to delete",this.packToDelete)
+        }
+
     }
 
     closeDeleteModal(): void {
@@ -129,26 +141,30 @@ export class PackComponent implements OnInit, OnDestroy {
     }
 
     onDeletePack(): void {
-        if (this.packToDelete) {
+        if (this.packToDelete && this.packToDelete.id) {
+            console.log("Deleting pack with ID", this.packToDelete.id)
             this.packService.deletePack(this.packToDelete.id).subscribe(
                 () => {
                     this.loadPacks();
                     this.closeDeleteModal();
                 },
                 (error) => {
+                    console.error("Delete error", error)
                     this.generalErrorMessage = this.handleGeneralError(error);
                 }
             );
+        }else {
+            console.error("packToDelete or packToDelete.id is not defined")
         }
     }
     togglePackExpansion(packId: number, event: MouseEvent): void {
         this.expandedPacks[packId] = !this.expandedPacks[packId];
-        this.isDropdownOpen = this.expandedPacks[packId];
+        this.isDropdownOpenTable = this.expandedPacks[packId];
         event.stopPropagation()
     }
     @HostListener('document:click', ['$event'])
     onDocumentClick(event: MouseEvent): void {
-        if(this.isDropdownOpen){
+        if(this.isDropdownOpenTable){
             let clickedInside = false;
             let clickedOnTrigger = false
             Object.keys(this.expandedPacks).forEach((packId) => {
@@ -168,9 +184,27 @@ export class PackComponent implements OnInit, OnDestroy {
 
             if (!clickedInside && !clickedOnTrigger) {
                 this.expandedPacks = {};
-                this.isDropdownOpen = false;
+                this.isDropdownOpenTable = false;
             }
         }
+        if(this.isDropdownOpenAdd){
+            const targetElement = document.querySelector(`.articles-dropdown-add`);
+            const triggerElement = document.querySelector(`.articles-trigger-add`);
+            if(targetElement && !targetElement.contains(event.target as Node) && !triggerElement?.contains(event.target as Node)){
+                this.showArticleDropdownAdd = false
+                this.isDropdownOpenAdd = false;
+
+            }
+        }
+        if(this.isDropdownOpenUpdate){
+            const targetElement = document.querySelector(`.articles-dropdown-update`);
+            const triggerElement = document.querySelector(`.articles-trigger-update`);
+            if(targetElement && !targetElement.contains(event.target as Node) && !triggerElement?.contains(event.target as Node)){
+                this.showArticleDropdownUpdate = false
+                this.isDropdownOpenUpdate = false;
+            }
+        }
+
     }
 
     ngOnDestroy(): void {

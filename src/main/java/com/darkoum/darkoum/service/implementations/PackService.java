@@ -13,11 +13,12 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 @Service
 @AllArgsConstructor
 public class PackService implements PackServiceInterface {
-
+    private static final Logger logger = LoggerFactory.getLogger(PackService.class);
     @Autowired
     private PackRepository packRepository;
 
@@ -74,9 +75,12 @@ public class PackService implements PackServiceInterface {
 
     @Override
     public void deletePack(Long id) {
+        logger.info("Deleting pack with id: {}", id);
         Pack pack = packRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Pack not found"));
+        logger.info("Pack found: {}", pack);
         packRepository.delete(pack);
+        logger.info("Pack with id: {} deleted", id);
     }
 
     private PackDtoResponse mapToDto(Pack pack) {
