@@ -4,6 +4,9 @@ import {DatePipe, NgForOf, NgIf} from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NavbarComponent } from "../shared/navbar/navbar.component";
 import { FooterComponent } from "../shared/footer/footer.component";
+import {ClientService} from "../../services/client/client.service";
+import {PackService} from "../../services/pack/pack.service";
+import {PaymentStatus} from "../../models/Enums/PaymentStatus";
 
 @Component({
     selector: 'app-vente',
@@ -16,17 +19,45 @@ export class VenteComponent implements OnInit {
     showAddModal = false;
     showUpdateModal = false;
     showDeleteModal = false;
-    newVente = { productName: '', customer: '', date: '' };
+    newVente: any = { clientId: null, packId: null, paymentStatus: null, description: '' };
     editVente: any = {};
     venteToDelete: any = null;
     addErrorMessage: string | null = null;
     updateErrorMessage: string | null = null;
     generalErrorMessage: string | null = null;
+    clients: any[] = [];
+    packs: any[] = [];
+    paymentStatuses = Object.values(PaymentStatus);
 
-    constructor(private venteService: VenteService) {}
+
+
+    constructor(private venteService: VenteService, private clientService: ClientService,  private packService: PackService) {}
+
 
     ngOnInit(): void {
         this.loadVentes();
+        this.loadClients();
+        this.loadPacks();
+    }
+    loadClients(): void {
+        this.clientService.getClients().subscribe(
+            (data) => {
+                this.clients = data;
+            },
+            (error) => {
+                this.generalErrorMessage = 'Error loading clients. Please try again later.';
+            }
+        );
+    }
+    loadPacks(): void {
+        this.packService.getPacks().subscribe(
+            (data) => {
+                this.packs = data;
+            },
+            (error) => {
+                this.generalErrorMessage = 'Error loading packs. Please try again later.';
+            }
+        );
     }
 
     loadVentes(): void {
@@ -41,7 +72,7 @@ export class VenteComponent implements OnInit {
     }
 
     openAddModal(): void {
-        this.newVente = { productName: '', customer: '', date: '' };
+        this.newVente = { clientId: null, packId: null, paymentStatus: null, description: '' };
         this.showAddModal = true;
         this.addErrorMessage = null;
     }
@@ -102,17 +133,22 @@ export class VenteComponent implements OnInit {
                     this.closeDeleteModal();
                 },
                 (error) => {
-                    this.generalErrorMessage = 'Error deleting vente. Please try again later.';
+                    this.generalErrorMessage = this.handleGeneralError(error);
                 }
             );
         }
     }
 
+    // Error handling methods
     private handleAddError(error: any): string {
-        return 'Error adding vente. Please try again later.';
+        return 'Error adding sale. Please try again later.';
     }
 
     private handleUpdateError(error: any): string {
-        return 'Error updating vente. Please try again later.';
+        return 'Error updating sale. Please try again later.';
+    }
+
+    private handleGeneralError(error: any): string {
+        return 'Error deleting sale. Please try again later.';
     }
 }

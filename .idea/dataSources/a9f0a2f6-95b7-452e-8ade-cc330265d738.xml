@@ -3,7 +3,15 @@
   <database-model serializer="dbm" dbms="POSTGRES" family-id="POSTGRES" format-version="4.53">
     <root id="1">
       <DateStyle>mdy</DateStyle>
-      <IntrospectionStateNumber>1502</IntrospectionStateNumber>
+      <Grants>1||-9223372036854775808|c|G
+1||10|c|G
+1||10|C|G
+1||10|T|G
+4||-9223372036854775808|c|G
+4||10|c|G
+4||10|C|G
+4||10|T|G</Grants>
+      <IntrospectionStateNumber>1503</IntrospectionStateNumber>
       <ServerVersion>17.0</ServerVersion>
       <StartupTime>1735146875</StartupTime>
       <TimeZones>true ACDT
@@ -800,17 +808,17 @@ false Zulu
 13459||10|C|G
 13459||-9223372036854775808|U|G
 13459||10|U|G</Grants>
-      <IntrospectionStateNumber>1502</IntrospectionStateNumber>
+      <IntrospectionStateNumber>1503</IntrospectionStateNumber>
       <ObjectId>65880</ObjectId>
       <OwnerName>postgres</OwnerName>
     </database>
-    <database id="3" parent="1" name="postgres">
-      <Comment>default administrative connection database</Comment>
-      <ObjectId>5</ObjectId>
+    <database id="3" parent="1" name="juridique">
+      <ObjectId>49353</ObjectId>
       <OwnerName>postgres</OwnerName>
     </database>
-    <database id="4" parent="1" name="juridique">
-      <ObjectId>49353</ObjectId>
+    <database id="4" parent="1" name="postgres">
+      <Comment>default administrative connection database</Comment>
+      <ObjectId>5</ObjectId>
       <OwnerName>postgres</OwnerName>
     </database>
     <role id="5" parent="1" name="pg_checkpoint">
@@ -4231,8 +4239,8 @@ false Zulu
     <schema id="266" parent="2" name="public">
       <Comment>standard public schema</Comment>
       <Current>1</Current>
-      <IntrospectionStateNumber>1502</IntrospectionStateNumber>
-      <LastIntrospectionLocalTimestamp>2024-12-26.15:33:46</LastIntrospectionLocalTimestamp>
+      <IntrospectionStateNumber>1503</IntrospectionStateNumber>
+      <LastIntrospectionLocalTimestamp>2024-12-26.15:36:48</LastIntrospectionLocalTimestamp>
       <ObjectId>2200</ObjectId>
       <StateNumber>532</StateNumber>
       <OwnerName>pg_database_owner</OwnerName>

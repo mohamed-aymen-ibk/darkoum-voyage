@@ -1,7 +1,6 @@
 package com.darkoum.darkoum.model;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Positive;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -21,14 +20,6 @@ public class Vente {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "sale_date")
-    @CreationTimestamp
-    private LocalDateTime saleDate;
-
-    @Column(name = "total_amount")
-    @Positive(message = "Total amount must be positive")
-    private Float totalAmount;
-
     @Column(name = "payment_status")
     @Enumerated(EnumType.STRING)
     private PaymentStatus paymentStatus;
@@ -40,12 +31,6 @@ public class Vente {
     @Column(name = "updated_at")
     @UpdateTimestamp
     private LocalDateTime updatedAt;
-
-    @Column(name = "quantity")
-    private Integer quantity;
-
-    @Column(name = "total_price")
-    private Double totalPrice;
 
     @Column(name = "description")
     private String description;

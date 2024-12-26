@@ -2,7 +2,11 @@ package com.darkoum.darkoum.service.implementations;
 
 import com.darkoum.darkoum.dtos.request.VenteDtoRequest;
 import com.darkoum.darkoum.dtos.response.VenteDtoResponse;
+import com.darkoum.darkoum.model.Client;
+import com.darkoum.darkoum.model.Pack;
 import com.darkoum.darkoum.model.Vente;
+import com.darkoum.darkoum.repository.ClientRepository;
+import com.darkoum.darkoum.repository.PackRepository;
 import com.darkoum.darkoum.repository.VenteRepository;
 import com.darkoum.darkoum.service.interfaces.VenteServiceInterface;
 import lombok.AllArgsConstructor;
@@ -19,15 +23,25 @@ public class VenteService implements VenteServiceInterface {
     @Autowired
     private VenteRepository venteRepository;
 
+    @Autowired
+    private ClientRepository clientRepository;
+
+    @Autowired
+    private PackRepository packRepository;
+
     @Override
     public VenteDtoResponse createVente(VenteDtoRequest venteDtoRequest) {
         Vente vente = new Vente();
-        vente.setQuantity(venteDtoRequest.getQuantity());
-        vente.setTotalPrice(venteDtoRequest.getTotalPrice());
+        Client client = clientRepository.findById(venteDtoRequest.getClientId())
+                .orElseThrow(() -> new RuntimeException("Client not found"));
+        Pack pack = packRepository.findById(venteDtoRequest.getPackId())
+                .orElseThrow(() -> new RuntimeException("Pack not found"));
+        vente.setClient(client);
+        vente.setPack(pack);
+        vente.setPaymentStatus(venteDtoRequest.getPaymentStatus());
         vente.setDescription(venteDtoRequest.getDescription());
 
         Vente savedVente = venteRepository.save(vente);
-
         return mapToDto(savedVente);
     }
 
@@ -40,8 +54,7 @@ public class VenteService implements VenteServiceInterface {
 
     @Override
     public List<VenteDtoResponse> getAllVentes() {
-        return venteRepository.findAll()
-                .stream()
+        return venteRepository.findAll().stream()
                 .map(this::mapToDto)
                 .collect(Collectors.toList());
     }
@@ -50,13 +63,15 @@ public class VenteService implements VenteServiceInterface {
     public VenteDtoResponse updateVente(Long id, VenteDtoRequest venteDtoRequest) {
         Vente vente = venteRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Vente not found"));
-
-        vente.setQuantity(venteDtoRequest.getQuantity());
-        vente.setTotalPrice(venteDtoRequest.getTotalPrice());
+        Client client = clientRepository.findById(venteDtoRequest.getClientId())
+                .orElseThrow(() -> new RuntimeException("Client not found"));
+        Pack pack = packRepository.findById(venteDtoRequest.getPackId())
+                .orElseThrow(() -> new RuntimeException("Pack not found"));
+        vente.setClient(client);
+        vente.setPack(pack);
+        vente.setPaymentStatus(venteDtoRequest.getPaymentStatus());
         vente.setDescription(venteDtoRequest.getDescription());
-
         Vente updatedVente = venteRepository.save(vente);
-
         return mapToDto(updatedVente);
     }
 
@@ -70,8 +85,10 @@ public class VenteService implements VenteServiceInterface {
     private VenteDtoResponse mapToDto(Vente vente) {
         VenteDtoResponse dto = new VenteDtoResponse();
         dto.setId(vente.getId());
-        dto.setQuantity(vente.getQuantity());
-        dto.setTotalPrice(vente.getTotalPrice());
+        dto.setClientName(vente.getClient().getName());
+        dto.setPackName(vente.getPack().getName());
+        dto.setPaymentStatus(vente.getPaymentStatus());
+        dto.setCreatedAt(vente.getCreatedAt());
         dto.setDescription(vente.getDescription());
         return dto;
     }
