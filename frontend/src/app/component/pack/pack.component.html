@@ -27,6 +27,7 @@
             <th class="border-x px-6 py-2">Name</th>
             <th class="border-x px-6 py-2">Description</th>
             <th class="border-x px-6 py-2">Price</th>
+            <th class="border-x px-6 py-2">Articles</th>
             <th class="border-x px-6 py-2">Operations</th>
         </tr>
         </thead>
@@ -34,7 +35,20 @@
         <tr *ngFor="let pack of packs" class="border-b hover:bg-neutral-200">
             <th class="border-x px-6 py-2">{{ pack.name }}</th>
             <td class="border-x px-6 py-2">{{ pack.description }}</td>
-            <td class="border-x px-6 py-2">{{ pack.price | currency }}</td>
+            <td class="border-x px-6 py-2">{{ pack.price | number: '1.2-2' }} MAD</td>
+            <td class="border-x px-6 py-2 relative">
+                <span
+                        (click)="togglePackExpansion(pack.id, $event)"
+                        class="cursor-pointer text-blue-500 hover:underline articles-trigger-{{pack.id}}"
+                >
+                        {{ pack.articleNames[0] || 'No Articles' }}
+                    </span>
+                <div *ngIf="expandedPacks[pack.id]" class="absolute left-0 mt-2 w-48 bg-white border border-gray-300 rounded-md shadow-lg z-10 articles-dropdown-{{pack.id}}" style="max-height: 200px; overflow-y: auto;">
+                    <div *ngFor="let articleName of pack.articleNames" class="p-2 hover:bg-gray-100">
+                        {{articleName}}
+                    </div>
+                </div>
+            </td>
             <td class="border-x px-6 py-2">
                 <button
                         class="bg-gray-100  text-yellow-500 py-1 px-3 rounded border border-1 border-yellow-500 hover:bg-yellow-400 hover:text-white transition duration-300"
@@ -88,6 +102,27 @@
                         class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
                         required
                 />
+            </div>
+            <div class="mb-4 relative">
+                <button type="button"
+                        (click)="toggleArticleDropdownAdd()"
+                        class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 text-left"
+                >
+                    Select Articles
+                </button>
+                <div *ngIf="showArticleDropdownAdd" class="absolute left-0 mt-2 w-full bg-white border border-gray-300 rounded-md shadow-lg z-10"
+                     style="max-height: 150px; overflow-y: auto;"
+                >
+                    <div *ngFor="let article of allArticleNames" class="flex items-center p-2">
+                        <input
+                                type="checkbox"
+                                [value]="article"
+                                (change)="updateSelectedArticles(article, $event, newPack)"
+                                class="mr-2"
+                        />
+                        <label>{{ article }}</label>
+                    </div>
+                </div>
             </div>
             <div *ngIf="addErrorMessage" class="text-red-500 mb-4">
                 {{ addErrorMessage }}
@@ -145,6 +180,28 @@
                         class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
                         required
                 />
+            </div>
+            <div class="mb-4 relative">
+                <button type="button"
+                        (click)="toggleArticleDropdownUpdate()"
+                        class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 text-left"
+                >
+                    Select Articles
+                </button>
+                <div *ngIf="showArticleDropdownUpdate" class="absolute left-0 mt-2 w-full bg-white border border-gray-300 rounded-md shadow-lg z-10"
+                     style="max-height: 150px; overflow-y: auto;"
+                >
+                    <div *ngFor="let article of allArticleNames" class="flex items-center p-2">
+                        <input
+                                type="checkbox"
+                                [value]="article"
+                                [checked]="editPack.articleNames.includes(article)"
+                                (change)="updateSelectedArticles(article, $event, editPack)"
+                                class="mr-2"
+                        />
+                        <label>{{ article }}</label>
+                    </div>
+                </div>
             </div>
             <div *ngIf="updateErrorMessage" class="text-red-500 mb-4">
                 {{ updateErrorMessage }}

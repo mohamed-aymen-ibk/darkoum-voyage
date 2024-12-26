@@ -1,4 +1,3 @@
-// Updated src/main/java/com/darkoum/darkoum/controller/AuthController.java
 package com.darkoum.darkoum.controller;
 
 import com.darkoum.darkoum.dtos.request.LoginDtoRequest;

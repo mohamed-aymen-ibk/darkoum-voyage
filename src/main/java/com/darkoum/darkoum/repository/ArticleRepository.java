@@ -9,4 +9,6 @@ import java.util.List;
 public interface ArticleRepository extends JpaRepository<Article, Long> {
     @Query("SELECT a.name FROM Article a")
     List<String> findAllArticleNames();
+
+    List<Article> findByNameIn(List<String> names);
 }

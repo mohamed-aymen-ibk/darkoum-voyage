@@ -1,4 +1,3 @@
-// Updated src/main/java/com/darkoum/darkoum/service/implementations/PackService.java
 package com.darkoum.darkoum.service.implementations;
 
 import com.darkoum.darkoum.dtos.request.PackDtoRequest;
@@ -31,8 +30,9 @@ public class PackService implements PackServiceInterface {
         pack.setName(packDtoRequest.getName());
         pack.setDescription(packDtoRequest.getDescription());
         pack.setPrice(packDtoRequest.getPrice());
-        if (packDtoRequest.getArticleIds() != null && !packDtoRequest.getArticleIds().isEmpty()) {
-            List<Article> articles = articleRepository.findAllById(packDtoRequest.getArticleIds());
+
+        if (packDtoRequest.getArticleNames() != null && !packDtoRequest.getArticleNames().isEmpty()) {
+            List<Article> articles = articleRepository.findByNameIn(packDtoRequest.getArticleNames());
             pack.setArticles(articles);
         }
         Pack savedPack = packRepository.save(pack);
@@ -62,10 +62,11 @@ public class PackService implements PackServiceInterface {
         pack.setName(packDtoRequest.getName());
         pack.setDescription(packDtoRequest.getDescription());
         pack.setPrice(packDtoRequest.getPrice());
-        if (packDtoRequest.getArticleIds() != null && !packDtoRequest.getArticleIds().isEmpty()) {
-            List<Article> articles = articleRepository.findAllById(packDtoRequest.getArticleIds());
+        if (packDtoRequest.getArticleNames() != null && !packDtoRequest.getArticleNames().isEmpty()) {
+            List<Article> articles = articleRepository.findByNameIn(packDtoRequest.getArticleNames());
             pack.setArticles(articles);
         }
+
         Pack updatedPack = packRepository.save(pack);
 
         return mapToDto(updatedPack);
@@ -85,7 +86,7 @@ public class PackService implements PackServiceInterface {
         dto.setDescription(pack.getDescription());
         dto.setPrice(pack.getPrice());
         if (pack.getArticles() != null) {
-            dto.setArticleIds(pack.getArticles().stream().map(Article::getId).collect(Collectors.toList()));
+            dto.setArticleNames(pack.getArticles().stream().map(Article::getName).collect(Collectors.toList()));
         }
         return dto;
     }
@@ -93,5 +94,4 @@ public class PackService implements PackServiceInterface {
     public List<String> getAllArticleNames() {
         return articleRepository.findAllArticleNames();
     }
-
 }

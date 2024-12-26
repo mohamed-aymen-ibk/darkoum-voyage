@@ -21,5 +21,5 @@ public class PackDtoRequest {
     @Positive(message = "Price must be positive")
     private Float price;
 
-    private List<Long> articleIds;
+    private List<String> articleNames;
 }

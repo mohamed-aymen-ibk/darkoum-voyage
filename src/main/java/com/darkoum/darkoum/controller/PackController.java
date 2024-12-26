@@ -1,4 +1,3 @@
-// Updated src/main/java/com/darkoum/darkoum/controller/PackController.java
 package com.darkoum.darkoum.controller;
 
 import com.darkoum.darkoum.dtos.request.PackDtoRequest;
@@ -43,5 +42,9 @@ public class PackController {
     public ResponseEntity<Void> deletePack(@PathVariable Long id) {
         packService.deletePack(id);
         return ResponseEntity.noContent().build();
+    }
+    @GetMapping("/articles/names")
+    public ResponseEntity<List<String>> getAllArticleNames() {
+        return ResponseEntity.ok(packService.getAllArticleNames());
     }
 }

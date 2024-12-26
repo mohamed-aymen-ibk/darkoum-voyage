@@ -13,5 +13,5 @@ public class PackDtoResponse {
     private String name;
     private String description;
     private Float price;
-    private List<Long> articleIds;
+    private List<String> articleNames;
 }

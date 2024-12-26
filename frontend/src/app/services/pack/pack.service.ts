@@ -25,4 +25,7 @@ export class PackService {
   deletePack(id: number): Observable<any> {
     return this.http.delete<any>(`${this.apiUrl}/${id}`);
   }
+  getArticleNames(): Observable<string[]> {
+    return this.http.get<string[]>(`${this.apiUrl}/articles/names`);
+  }
 }
