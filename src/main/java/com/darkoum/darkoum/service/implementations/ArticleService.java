@@ -1,3 +1,4 @@
+// Updated src/main/java/com/darkoum/darkoum/service/implementations/ArticleService.java
 package com.darkoum.darkoum.service.implementations;
 
 import com.darkoum.darkoum.dtos.request.ArticleDtoRequest;
@@ -37,6 +38,17 @@ public class ArticleService implements ArticleServiceInterface {
         User user = userRepository.findById(articleDtoRequest.getUserId())
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
+        Article article = getArticle(articleDtoRequest, provider, user);
+
+        try {
+            Article savedArticle = articleRepository.save(article);
+            return mapToDto(savedArticle);
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to create article: " + e.getMessage());
+        }
+    }
+
+    private static Article getArticle(ArticleDtoRequest articleDtoRequest, Provider provider, User user) {
         Article article = new Article();
         article.setName(articleDtoRequest.getName());
         article.setDescription(articleDtoRequest.getDescription());
@@ -50,13 +62,7 @@ public class ArticleService implements ArticleServiceInterface {
         }
         article.setProvider(provider);
         article.setUser(user); // Set the user here
-
-        try {
-            Article savedArticle = articleRepository.save(article);
-            return mapToDto(savedArticle);
-        } catch (Exception e) {
-            throw new RuntimeException("Failed to create article: " + e.getMessage());
-        }
+        return article;
     }
 
     @Override
@@ -117,8 +123,10 @@ public class ArticleService implements ArticleServiceInterface {
         dto.setDescription(article.getDescription());
         dto.setPrice(article.getPrice());
         dto.setStock(article.getStock());
-        dto.setProviderName(article.getProvider().getName());
-
+        if(article.getProvider() != null)
+        {
+            dto.setProviderName(article.getProvider().getName());
+        }
         return dto;
     }
 }

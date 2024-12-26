@@ -1,0 +1,13 @@
+{
+  "routes": {
+    "/": {},
+    "/article": {},
+    "/auth/login": {},
+    "/auth/register": {},
+    "/client": {},
+    "/dashboard": {},
+    "/pack": {},
+    "/provider": {},
+    "/vente": {}
+  }
+}

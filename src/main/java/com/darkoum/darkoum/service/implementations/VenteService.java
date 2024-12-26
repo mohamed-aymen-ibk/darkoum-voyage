@@ -1,3 +1,4 @@
+// Updated src/main/java/com/darkoum/darkoum/service/implementations/VenteService.java
 package com.darkoum.darkoum.service.implementations;
 
 import com.darkoum.darkoum.dtos.request.VenteDtoRequest;
@@ -16,7 +17,7 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class VenteService implements VenteServiceInterface {
 
-
+    @Autowired
     private VenteRepository venteRepository;
 
     @Override

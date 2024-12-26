@@ -6,6 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 
 public interface PackRepository extends JpaRepository<Pack, Long> {
-    Optional<Pack> findByName(String name);
-    Optional<Pack> findById(Long id);
+    Optional<Pack> findPackByName(String name);
+    Optional<Pack> findPackById(Long id);
 }

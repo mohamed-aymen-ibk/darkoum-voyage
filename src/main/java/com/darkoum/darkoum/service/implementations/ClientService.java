@@ -1,3 +1,4 @@
+// Updated src/main/java/com/darkoum/darkoum/service/implementations/ClientService.java
 package com.darkoum.darkoum.service.implementations;
 
 import com.darkoum.darkoum.dtos.request.ClientDtoRequest;
@@ -89,7 +90,10 @@ public class ClientService implements ClientServiceInterface {
         dto.setEmail(client.getEmail());
         dto.setPhoneNumber(client.getPhoneNumber());
         dto.setAddress(client.getAddress());
-        dto.setUserName(client.getUser().getName());
+        if (client.getUser() != null)
+        {
+            dto.setUserName(client.getUser().getName());
+        }
         return dto;
     }
 }

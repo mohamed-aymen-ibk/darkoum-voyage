@@ -1,3 +1,4 @@
+// Updated src/main/java/com/darkoum/darkoum/service/implementations/UserService.java
 package com.darkoum.darkoum.service.implementations;
 
 import com.darkoum.darkoum.dtos.request.UserDtoRequest;
@@ -50,6 +51,7 @@ public class UserService implements UserServiceInterface {
         existingUser.setPassword(passwordEncoder.encode(userRequest.getPassword()));
         existingUser.setPhoneNumber(userRequest.getPhoneNumber());
 
+
         User updatedUser = userRepository.save(existingUser);
         return modelMapper.map(updatedUser, UserDtoResponse.class);
     }
@@ -72,7 +74,6 @@ public class UserService implements UserServiceInterface {
                 .orElseThrow(() -> new ResourceNotFoundException("User with email " + email + " not found"));
         return modelMapper.map(user, UserDtoResponse.class);
     }
-
 
     public void delete(Long id) {
         User user = userRepository.findById(id)

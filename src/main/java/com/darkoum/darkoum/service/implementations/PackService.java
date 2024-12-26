@@ -1,8 +1,11 @@
+// Updated src/main/java/com/darkoum/darkoum/service/implementations/PackService.java
 package com.darkoum.darkoum.service.implementations;
 
 import com.darkoum.darkoum.dtos.request.PackDtoRequest;
 import com.darkoum.darkoum.dtos.response.PackDtoResponse;
+import com.darkoum.darkoum.model.Article;
 import com.darkoum.darkoum.model.Pack;
+import com.darkoum.darkoum.repository.ArticleRepository;
 import com.darkoum.darkoum.repository.PackRepository;
 import com.darkoum.darkoum.service.interfaces.PackServiceInterface;
 import lombok.AllArgsConstructor;
@@ -19,14 +22,20 @@ public class PackService implements PackServiceInterface {
     @Autowired
     private PackRepository packRepository;
 
+    @Autowired
+    private ArticleRepository articleRepository;
+
     @Override
     public PackDtoResponse createPack(PackDtoRequest packDtoRequest) {
         Pack pack = new Pack();
         pack.setName(packDtoRequest.getName());
         pack.setDescription(packDtoRequest.getDescription());
-
+        pack.setPrice(packDtoRequest.getPrice());
+        if (packDtoRequest.getArticleIds() != null && !packDtoRequest.getArticleIds().isEmpty()) {
+            List<Article> articles = articleRepository.findAllById(packDtoRequest.getArticleIds());
+            pack.setArticles(articles);
+        }
         Pack savedPack = packRepository.save(pack);
-
         return mapToDto(savedPack);
     }
 
@@ -52,7 +61,11 @@ public class PackService implements PackServiceInterface {
 
         pack.setName(packDtoRequest.getName());
         pack.setDescription(packDtoRequest.getDescription());
-
+        pack.setPrice(packDtoRequest.getPrice());
+        if (packDtoRequest.getArticleIds() != null && !packDtoRequest.getArticleIds().isEmpty()) {
+            List<Article> articles = articleRepository.findAllById(packDtoRequest.getArticleIds());
+            pack.setArticles(articles);
+        }
         Pack updatedPack = packRepository.save(pack);
 
         return mapToDto(updatedPack);
@@ -70,6 +83,15 @@ public class PackService implements PackServiceInterface {
         dto.setId(pack.getId());
         dto.setName(pack.getName());
         dto.setDescription(pack.getDescription());
+        dto.setPrice(pack.getPrice());
+        if (pack.getArticles() != null) {
+            dto.setArticleIds(pack.getArticles().stream().map(Article::getId).collect(Collectors.toList()));
+        }
         return dto;
     }
+
+    public List<String> getAllArticleNames() {
+        return articleRepository.findAllArticleNames();
+    }
+
 }
