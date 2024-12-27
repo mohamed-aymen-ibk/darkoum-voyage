@@ -3,27 +3,32 @@
         <div class="text-blue-600 font-bold text-xl">
             Darkoum Voyage
         </div>
-        <nav>
-            <ul>
-                <li class="flex space-x-6">
-                    <a class="text-blue-600 hover:text-blue-500 font-medium transition duration-300" routerLink="/dashboard">Dashboard</a>
-                    <a class="text-blue-600 hover:text-blue-500 font-medium transition duration-300" routerLink="/client">Clients</a>
-                    <a class="text-blue-600 hover:text-blue-500 font-medium transition duration-300" routerLink="/vente">Sales</a>
-                    <a class="text-blue-600 hover:text-blue-500 font-medium transition duration-300" routerLink="/pack">Packs</a>
-                    <a class="text-blue-600 hover:text-blue-500 font-medium transition duration-300" routerLink="/provider">Providers</a>
-                    <a class="text-blue-600 hover:text-blue-500 font-medium transition duration-300" routerLink="/article">Articles</a>
-                </li>
+        <button
+                class="md:hidden text-blue-600 hover:text-blue-500 transition duration-300"
+                (click)="toggleMenu()"
+        >
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+            </svg>
+        </button>
+        <nav [class.hidden]="!isMenuOpen" class="md:flex md:items-center space-y-4 md:space-y-0 md:space-x-6">
+            <ul class="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-6">
+                <li><a class="text-blue-600 hover:text-blue-500 font-medium transition duration-300" routerLink="/dashboard">Dashboard</a></li>
+                <li><a class="text-blue-600 hover:text-blue-500 font-medium transition duration-300" routerLink="/client">Clients</a></li>
+                <li><a class="text-blue-600 hover:text-blue-500 font-medium transition duration-300" routerLink="/vente">Sales</a></li>
+                <li><a class="text-blue-600 hover:text-blue-500 font-medium transition duration-300" routerLink="/pack">Packs</a></li>
+                <li><a class="text-blue-600 hover:text-blue-500 font-medium transition duration-300" routerLink="/provider">Providers</a></li>
+                <li><a class="text-blue-600 hover:text-blue-500 font-medium transition duration-300" routerLink="/article">Articles</a></li>
             </ul>
         </nav>
         <button
-                class="px-6 py-1 border border-blue-500 hover:bg-blue-500 text-blue-500 hover:text-white rounded-xl font-medium transition duration-1000"
+                class="hidden md:block px-6 py-1 border border-blue-500 hover:bg-blue-500 text-blue-500 hover:text-white rounded-xl font-medium transition duration-300"
                 (click)="openLogoutModal()"
         >
             Logout
         </button>
     </div>
 </div>
-
 <!-- Logout Confirmation Modal -->
 <div
         *ngIf="isLogoutModalVisible"
