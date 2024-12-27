@@ -3,9 +3,11 @@ package com.darkoum.darkoum.service.implementations;
 import com.darkoum.darkoum.dtos.request.ArticleDtoRequest;
 import com.darkoum.darkoum.dtos.response.ArticleDtoResponse;
 import com.darkoum.darkoum.model.Article;
+import com.darkoum.darkoum.model.Pack;
 import com.darkoum.darkoum.model.Provider;
 import com.darkoum.darkoum.model.User;
 import com.darkoum.darkoum.repository.ArticleRepository;
+import com.darkoum.darkoum.repository.PackRepository;
 import com.darkoum.darkoum.repository.ProviderRepository;
 import com.darkoum.darkoum.repository.UserRepository;
 import com.darkoum.darkoum.service.interfaces.ArticleServiceInterface;
@@ -28,6 +30,10 @@ public class ArticleService implements ArticleServiceInterface {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private PackRepository packRepository;
+
 
     @Override
     @Transactional
@@ -109,9 +115,26 @@ public class ArticleService implements ArticleServiceInterface {
     }
 
     @Override
+    @Transactional
     public void deleteArticle(Long id) {
         Article article = articleRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Article not found"));
+
+        // Get all packs that reference this article
+        List<Pack> packs = packRepository.findAll();
+        for (Pack pack : packs) {
+            // Get the articles in this pack
+            List<Article> articles = pack.getArticles();
+
+            if (articles != null && articles.contains(article)) {
+                // if this article is part of the list, remove it
+                articles.remove(article);
+
+                // Persist the updated pack
+                packRepository.save(pack);
+            }
+        }
+        // Then delete the article
         articleRepository.delete(article);
     }
 

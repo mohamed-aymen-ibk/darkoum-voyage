@@ -44,9 +44,6 @@ public class Vente {
     @JoinColumn(name = "client_id")
     private Client client;
 
-    @ManyToOne
-    @JoinColumn(name = "article_id")
-    private Article article;
 
     @ManyToOne
     @JoinColumn(name = "pack_id")

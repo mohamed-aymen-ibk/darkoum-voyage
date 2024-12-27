@@ -63,12 +63,7 @@ public class VenteService implements VenteServiceInterface {
     public VenteDtoResponse updateVente(Long id, VenteDtoRequest venteDtoRequest) {
         Vente vente = venteRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Vente not found"));
-        Client client = clientRepository.findById(venteDtoRequest.getClientId())
-                .orElseThrow(() -> new RuntimeException("Client not found"));
-        Pack pack = packRepository.findById(venteDtoRequest.getPackId())
-                .orElseThrow(() -> new RuntimeException("Pack not found"));
-        vente.setClient(client);
-        vente.setPack(pack);
+
         vente.setPaymentStatus(venteDtoRequest.getPaymentStatus());
         vente.setDescription(venteDtoRequest.getDescription());
         Vente updatedVente = venteRepository.save(vente);

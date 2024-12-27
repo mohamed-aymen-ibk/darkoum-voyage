@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { VenteService } from '../../services/vente/vente.service';
-import {DatePipe, NgForOf, NgIf} from '@angular/common';
+import { DatePipe, NgForOf, NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { NavbarComponent } from "../shared/navbar/navbar.component";
-import { FooterComponent } from "../shared/footer/footer.component";
-import {ClientService} from "../../services/client/client.service";
-import {PackService} from "../../services/pack/pack.service";
-import {PaymentStatus} from "../../models/Enums/PaymentStatus";
+import { NavbarComponent } from '../shared/navbar/navbar.component';
+import { FooterComponent } from '../shared/footer/footer.component';
+import { ClientService } from '../../services/client/client.service';
+import { PackService } from '../../services/pack/pack.service';
+import { PaymentStatus } from '../../models/Enums/PaymentStatus';
 
 @Component({
     selector: 'app-vente',
@@ -29,10 +29,11 @@ export class VenteComponent implements OnInit {
     packs: any[] = [];
     paymentStatuses = Object.values(PaymentStatus);
 
-
-
-    constructor(private venteService: VenteService, private clientService: ClientService,  private packService: PackService) {}
-
+    constructor(
+        private venteService: VenteService,
+        private clientService: ClientService,
+        private packService: PackService
+    ) {}
 
     ngOnInit(): void {
         this.loadVentes();
@@ -104,7 +105,11 @@ export class VenteComponent implements OnInit {
     }
 
     onUpdateVente(): void {
-        this.venteService.updateVente(this.editVente.id, this.editVente).subscribe(
+        const updateData = {
+            paymentStatus: this.editVente.paymentStatus,
+            description: this.editVente.description
+        };
+        this.venteService.updateVente(this.editVente.id, updateData).subscribe(
             () => {
                 this.loadVentes();
                 this.closeUpdateModal();

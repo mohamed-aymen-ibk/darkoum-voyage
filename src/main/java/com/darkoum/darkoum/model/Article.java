@@ -61,9 +61,6 @@ public class Article {
     @JoinColumn(name = "provider_id", nullable = false)
     private Provider provider;
 
-    @OneToMany(mappedBy = "article", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Vente> ventes;
-
     @ManyToMany(mappedBy = "articles")
     private List<Pack> packs;
 }
