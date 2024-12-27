@@ -12,5 +12,6 @@ public class ClientDtoResponse {
     private String email;
     private String phoneNumber;
     private String address;
-    private String userName; // Nom de l'utilisateur lié
+    private String cin;
+    private String userName;
 }

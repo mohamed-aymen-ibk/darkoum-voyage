@@ -26,8 +26,9 @@
         <thead class="border-b-2 border-t uppercase tracking-wider">
         <tr>
             <th class="border-x px-6 py-2">Name</th>
-            <th class="border-x px-6 py-2">Email</th>
+            <th class="border-x px-6 py-2">CIN</th>
             <th class="border-x px-6 py-2">Phone</th>
+            <th class="border-x px-6 py-2">Email</th>
             <th class="border-x px-6 py-2">Address</th>
             <th class="border-x px-6 py-2">Operations</th>
         </tr>
@@ -35,8 +36,9 @@
         <tbody>
         <tr *ngFor="let client of clients" class="border-b hover:bg-neutral-200">
             <th class="border-x px-6 py-2">{{ client.name }}</th>
-            <td class="border-x px-6 py-2">{{ client.email }}</td>
+            <td class="border-x px-6 py-2">{{ client.cin }}</td>
             <td class="border-x px-6 py-2">{{ client.phoneNumber }}</td>
+            <td class="border-x px-6 py-2">{{ client.email }}</td>
             <td class="border-x px-6 py-2">{{ client.address }}</td>
             <td class="border-x px-6 py-2">
                 <button
@@ -97,6 +99,16 @@
                         [(ngModel)]="newClient.address"
                         name="address"
                         placeholder="Address"
+                        class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+                        required
+                />
+            </div>
+            <div class="mb-4">
+                <input
+                        type="text"
+                        [(ngModel)]="newClient.cin"
+                        name="cin"
+                        placeholder="CIN"
                         class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
                         required
                 />
@@ -163,6 +175,16 @@
                         [(ngModel)]="editClient.address"
                         name="address"
                         placeholder="Address"
+                        class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+                        required
+                />
+            </div>
+            <div class="mb-4">
+                <input
+                        type="text"
+                        [(ngModel)]="editClient.cin"
+                        name="cin"
+                        placeholder="CIN"
                         class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
                         required
                 />

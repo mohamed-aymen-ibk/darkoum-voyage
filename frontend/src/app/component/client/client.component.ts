@@ -17,9 +17,9 @@ export class ClientComponent implements OnInit {
     showAddModal = false;
     showUpdateModal = false;
     showDeleteModal = false;
-    newClient: ClientDtoRequest = { name: '', email: '', phoneNumber: '', address: '', userId: 0 };
-    editClient: ClientDtoResponse = { id:0, name: '', email: '', phoneNumber: '', address: '' };
-    clientToDelete:  ClientDtoResponse = { id:0, name: '', email: '', phoneNumber: '', address: '' };
+    newClient: ClientDtoRequest = { name: '', cin: '', email: '', phoneNumber: '', address: '', userId: 0 };
+    editClient: ClientDtoResponse = { id:0, cin: '', name: '', email: '', phoneNumber: '', address: ''};
+    clientToDelete:  ClientDtoResponse = { id:0, name: '', cin: '', email: '', phoneNumber: '', address: ''};
     addErrorMessage: string | null = null;
     updateErrorMessage: string | null = null;
     generalErrorMessage: string | null = null;
@@ -41,8 +41,10 @@ export class ClientComponent implements OnInit {
             }
         );
     }
+
+
     openAddModal(): void {
-        this.newClient = { name: '', email: '', phoneNumber: '', address: '', userId: this.getUserId() };
+        this.newClient = { name: '', email: '', phoneNumber: '', address: '', cin: '', userId: this.getUserId() };
         this.showAddModal = true;
         this.addErrorMessage = null; // Reset error message
     }
@@ -82,6 +84,7 @@ export class ClientComponent implements OnInit {
                 email: this.editClient.email,
                 phoneNumber: this.editClient.phoneNumber,
                 address: this.editClient.address,
+                cin: this.editClient.cin,
                 userId: this.getUserId()
             };
 
@@ -105,7 +108,7 @@ export class ClientComponent implements OnInit {
 
     closeDeleteModal(): void {
         this.showDeleteModal = false;
-        this.clientToDelete = { id:0, name: '', email: '', phoneNumber: '', address: '' };
+        this.clientToDelete = { id:0, name: '', email: '', phoneNumber: '', address: '', cin:'' };
     }
 
     onDeleteClient(): void {

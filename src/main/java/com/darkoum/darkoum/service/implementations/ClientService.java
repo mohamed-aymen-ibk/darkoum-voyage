@@ -10,8 +10,8 @@ import com.darkoum.darkoum.service.interfaces.ClientServiceInterface;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import org.springframework.transaction.annotation.Transactional;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -36,6 +36,7 @@ public class ClientService implements ClientServiceInterface {
         client.setEmail(clientDtoRequest.getEmail());
         client.setPhoneNumber(clientDtoRequest.getPhoneNumber());
         client.setAddress(clientDtoRequest.getAddress());
+        client.setCin(clientDtoRequest.getCin());
         client.setUser(user);
         Client savedClient = clientRepository.save(client);
         return mapToDto(savedClient);
@@ -54,6 +55,7 @@ public class ClientService implements ClientServiceInterface {
                 .map(this::mapToDto)
                 .collect(Collectors.toList());
     }
+
     @Override
     public List<ClientDtoResponse> searchClientsByName(String name) {
         return clientRepository.findByNameContainingIgnoreCase(name)
@@ -78,6 +80,7 @@ public class ClientService implements ClientServiceInterface {
         client.setEmail(clientDtoRequest.getEmail());
         client.setPhoneNumber(clientDtoRequest.getPhoneNumber());
         client.setAddress(clientDtoRequest.getAddress());
+        client.setCin(clientDtoRequest.getCin());
 
         Client updatedClient =   clientRepository.save(client);
         return mapToDto(updatedClient);
@@ -96,6 +99,7 @@ public class ClientService implements ClientServiceInterface {
         dto.setEmail(client.getEmail());
         dto.setPhoneNumber(client.getPhoneNumber());
         dto.setAddress(client.getAddress());
+        dto.setCin(client.getCin());
         if (client.getUser() != null)
         {
             dto.setUserName(client.getUser().getName());

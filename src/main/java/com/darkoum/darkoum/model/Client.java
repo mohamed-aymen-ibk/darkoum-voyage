@@ -29,6 +29,9 @@ public class Client {
     @Size(min = 2, max = 70, message = "Name must be between 2 and 70 characters")
     private String name;
 
+    @Column(name = "cin", unique = true)
+    private String cin;
+
     @Column(unique = true, nullable = false)
     @Email(message = "Email should be valid")
     private String email;

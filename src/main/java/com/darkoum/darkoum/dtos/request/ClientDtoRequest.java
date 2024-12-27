@@ -21,5 +21,7 @@ public class ClientDtoRequest {
 
     private String address;
 
-    private Long userId; // ID de l'utilisateur lié
+    private String cin;
+
+    private Long userId;
 }

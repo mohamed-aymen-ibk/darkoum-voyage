@@ -36,6 +36,7 @@ public class ClientController {
         return ResponseEntity.ok(clientService.searchClientsByName(name));
     }
 
+
     @GetMapping("/user/{userId}")
     public ResponseEntity<List<ClientDtoResponse>> getClientsByUser(@PathVariable Long userId) {
         return ResponseEntity.ok(clientService.getClientsByUser(userId));
