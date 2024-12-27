@@ -12,6 +12,8 @@ public interface ProviderServiceInterface {
 
     List<ProviderDtoResponse> getAllProviders();
 
+    List<ProviderDtoResponse> searchProvidersByName(String name);
+
     ProviderDtoResponse updateProvider(Long id, ProviderDtoRequest providerDtoRequest);
 
     void deleteProvider(Long id);

@@ -2,12 +2,12 @@ package com.darkoum.darkoum.service.implementations;
 
 import com.darkoum.darkoum.dtos.request.ProviderDtoRequest;
 import com.darkoum.darkoum.dtos.response.ProviderDtoResponse;
+import com.darkoum.darkoum.exeption.ResourceNotFoundException;
 import com.darkoum.darkoum.model.Provider;
 import com.darkoum.darkoum.model.User;
 import com.darkoum.darkoum.repository.ProviderRepository;
 import com.darkoum.darkoum.repository.UserRepository;
 import com.darkoum.darkoum.service.interfaces.ProviderServiceInterface;
-import com.darkoum.darkoum.exeption.ResourceNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,7 +67,13 @@ public class ProviderService implements ProviderServiceInterface {
                 .map(this::mapToDto)
                 .collect(Collectors.toList());
     }
-
+    @Override
+    public List<ProviderDtoResponse> searchProvidersByName(String name) {
+        return providerRepository.findByNameContainingIgnoreCase(name)
+                .stream()
+                .map(this::mapToDto)
+                .collect(Collectors.toList());
+    }
     @Override
     public ProviderDtoResponse updateProvider(Long id, ProviderDtoRequest providerDtoRequest) {
         Provider provider = providerRepository.findById(id)

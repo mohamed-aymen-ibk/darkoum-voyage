@@ -23,6 +23,7 @@ export class ProviderComponent implements OnInit {
     addErrorMessage: string | null = null;
     updateErrorMessage: string | null = null;
     generalErrorMessage: string | null = null;
+    searchName: string = '';
 
     constructor(private providerService: ProviderService) { }
 
@@ -31,7 +32,7 @@ export class ProviderComponent implements OnInit {
     }
 
     loadProviders(): void {
-        this.providerService.getProviders().subscribe(
+        this.providerService.getProviders(this.searchName).subscribe(
             (data) => {
                 this.providers = data;
             },
@@ -110,6 +111,10 @@ export class ProviderComponent implements OnInit {
                 }
             );
         }
+    }
+    onSearch(value: string) {
+        this.searchName = value;
+        this.loadProviders();
     }
 
     // Error handling methods

@@ -29,7 +29,7 @@ export class PackComponent implements OnInit, OnDestroy {
     private isDropdownOpenTable: boolean = false;
     private isDropdownOpenAdd: boolean = false;
     private isDropdownOpenUpdate: boolean = false;
-
+    searchName: string = '';
 
     constructor(private packService: PackService) {}
 
@@ -48,7 +48,7 @@ export class PackComponent implements OnInit, OnDestroy {
         );
     }
     loadPacks(): void {
-        this.packService.getPacks().subscribe(
+        this.packService.getPacks(this.searchName).subscribe(
             (data) => {
                 this.packs = data;
             },
@@ -156,6 +156,10 @@ export class PackComponent implements OnInit, OnDestroy {
         }else {
             console.error("packToDelete or packToDelete.id is not defined")
         }
+    }
+    onSearch(value: string) {
+        this.searchName = value;
+        this.loadPacks();
     }
     togglePackExpansion(packId: number, event: MouseEvent): void {
         this.expandedPacks[packId] = !this.expandedPacks[packId];

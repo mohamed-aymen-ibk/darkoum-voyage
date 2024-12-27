@@ -14,6 +14,8 @@ public interface PackServiceInterface {
 
     List<PackDtoResponse> getAllPacks();
 
+    List<PackDtoResponse> searchPacksByName(String name);
+
     PackDtoResponse updatePack(Long id, PackDtoRequest packDtoRequest);
 
     void deletePack(Long id);

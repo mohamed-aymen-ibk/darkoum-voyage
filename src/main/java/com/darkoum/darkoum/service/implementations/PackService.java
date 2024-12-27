@@ -4,19 +4,18 @@ import com.darkoum.darkoum.dtos.request.PackDtoRequest;
 import com.darkoum.darkoum.dtos.response.PackDtoResponse;
 import com.darkoum.darkoum.model.Article;
 import com.darkoum.darkoum.model.Pack;
-import com.darkoum.darkoum.model.Provider;
 import com.darkoum.darkoum.repository.ArticleRepository;
 import com.darkoum.darkoum.repository.PackRepository;
-import com.darkoum.darkoum.repository.ProviderRepository;
 import com.darkoum.darkoum.service.interfaces.PackServiceInterface;
 import lombok.AllArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
 @Service
 @AllArgsConstructor
 public class PackService implements PackServiceInterface {
@@ -57,6 +56,14 @@ public class PackService implements PackServiceInterface {
                 .map(this::mapToDto)
                 .collect(Collectors.toList());
     }
+    @Override
+    public List<PackDtoResponse> searchPacksByName(String name) {
+        return packRepository.findByNameContainingIgnoreCase(name)
+                .stream()
+                .map(this::mapToDto)
+                .collect(Collectors.toList());
+    }
+
 
     @Override
     public PackDtoResponse updatePack(Long id, PackDtoRequest packDtoRequest) {

@@ -3,14 +3,14 @@ package com.darkoum.darkoum.controller;
 import com.darkoum.darkoum.dtos.request.PackDtoRequest;
 import com.darkoum.darkoum.dtos.response.PackDtoResponse;
 import com.darkoum.darkoum.service.interfaces.PackServiceInterface;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 @RestController
 @RequestMapping("/api/packs")
 public class PackController {
@@ -27,10 +27,14 @@ public class PackController {
     public ResponseEntity<PackDtoResponse> getPackById(@PathVariable Long id) {
         return ResponseEntity.ok(packService.getPackById(id));
     }
-
     @GetMapping
-    public ResponseEntity<List<PackDtoResponse>> getAllPacks() {
-        return ResponseEntity.ok(packService.getAllPacks());
+    public ResponseEntity<List<PackDtoResponse>> getAllPacks(
+            @RequestParam(required = false) String name
+    ){
+        if(name == null || name.isEmpty()){
+            return ResponseEntity.ok(packService.getAllPacks());
+        }
+        return ResponseEntity.ok(packService.searchPacksByName(name));
     }
 
     @PutMapping("/{id}")

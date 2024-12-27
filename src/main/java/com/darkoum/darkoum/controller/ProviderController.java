@@ -28,9 +28,15 @@ public class ProviderController {
     }
 
     @GetMapping
-    public ResponseEntity<List<ProviderDtoResponse>> getAllProviders() {
-        return ResponseEntity.ok(providerService.getAllProviders());
+    public ResponseEntity<List<ProviderDtoResponse>> getAllProviders(
+            @RequestParam(required = false) String name
+    ){
+        if(name == null || name.isEmpty()){
+            return ResponseEntity.ok(providerService.getAllProviders());
+        }
+        return ResponseEntity.ok(providerService.searchProvidersByName(name));
     }
+
 
     @PutMapping("/{id}")
     public ResponseEntity<ProviderDtoResponse> updateProvider(
