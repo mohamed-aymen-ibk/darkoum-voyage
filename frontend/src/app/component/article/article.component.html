@@ -116,15 +116,15 @@
 
             <div class="mb-4">
                 <label class="block text-gray-700 text-sm font-bold mb-2" for="article-providerName-add">Provider</label>
-                <input
+                <select
                         id="article-providerName-add"
-                        type="text"
                         [(ngModel)]="newArticle.providerName"
                         name="providerName"
-                        placeholder="Provider Name"
                         class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
                         required
-                />
+                >
+                    <option *ngFor="let provider of providers" [value]="provider.name">{{ provider.name }}</option>
+                </select>
             </div>
 
             <div *ngIf="addErrorMessage" class="text-red-500 mb-4">
@@ -208,16 +208,17 @@
 
             <div class="mb-4">
                 <label class="block text-gray-700 text-sm font-bold mb-2" for="article-providerName-update">Provider</label>
-                <input
+                <select
                         id="article-providerName-update"
-                        type="text"
                         [(ngModel)]="editArticle.providerName"
                         name="providerName"
-                        placeholder="Provider Name"
                         class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
                         required
-                />
+                >
+                    <option *ngFor="let provider of providers" [value]="provider.name">{{ provider.name }}</option>
+                </select>
             </div>
+
 
             <div *ngIf="updateErrorMessage" class="text-red-500 mb-4">
                 {{ updateErrorMessage }}

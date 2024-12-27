@@ -5,6 +5,8 @@ import { FormsModule } from '@angular/forms';
 import { NavbarComponent } from "../shared/navbar/navbar.component";
 import { FooterComponent } from "../shared/footer/footer.component";
 import { ArticleDtoRequest, ArticleDtoResponse } from "../../models/article.dtos";
+import { ProviderService } from "../../services/provider/provider.service";
+import {ProviderDtoResponse} from "../../models/provider.dto";
 
 @Component({
     selector: 'app-article',
@@ -17,17 +19,19 @@ export class ArticleComponent implements OnInit {
     showAddModal = false;
     showUpdateModal = false;
     showDeleteModal = false;
-    newArticle: ArticleDtoRequest = { name: '', description: '', price: 0, stock: 0, providerName: '', userId: 1 }; // Added userId, default 1
+    newArticle: ArticleDtoRequest = { name: '', description: '', price: 0, stock: 0, providerName: '', userId: 1 };
     editArticle: ArticleDtoResponse = { id: 0, name: '', description: '', price: 0, stock: 0, providerName: '' };
     articleToDelete: any = null;
     addErrorMessage: string | null = null;
     updateErrorMessage: string | null = null;
     generalErrorMessage: string | null = null;
+    providers: ProviderDtoResponse[] = [];
 
-    constructor(private articleService: ArticleService) {}
+    constructor(private articleService: ArticleService, private providerService: ProviderService) { }
 
     ngOnInit(): void {
         this.loadArticles();
+        this.loadProviders();
     }
 
     loadArticles(): void {
@@ -41,8 +45,19 @@ export class ArticleComponent implements OnInit {
         );
     }
 
+    loadProviders(): void {
+        this.providerService.getProviders().subscribe(
+            (data) => {
+                this.providers = data;
+            },
+            (error) => {
+                this.generalErrorMessage = 'Error loading providers. Please try again later.';
+            }
+        );
+    }
+
     openAddModal(): void {
-        this.newArticle = { name: '', description: '', price: 0, stock: 0, providerName: '', userId: 1 }; // Reset userId on open
+        this.newArticle = { name: '', description: '', price: 0, stock: 0, providerName: '', userId: 1 };
         this.showAddModal = true;
         this.addErrorMessage = null;
     }
@@ -80,7 +95,7 @@ export class ArticleComponent implements OnInit {
             price: this.editArticle.price,
             stock: this.editArticle.stock,
             providerName: this.editArticle.providerName,
-            userId: 1 // Assuming user 1, you might need a mechanism to get the current user's ID
+            userId: 1
         };
 
         this.articleService.updateArticle(this.editArticle.id, articleToUpdate).subscribe(

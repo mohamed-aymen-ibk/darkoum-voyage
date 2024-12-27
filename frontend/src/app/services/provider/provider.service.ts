@@ -12,7 +12,9 @@ export class ProviderService {
     constructor(private http: HttpClient) {}
 
     getProviders(): Observable<ProviderDtoResponse[]> {
-        return this.http.get<ProviderDtoResponse[]>(`${this.apiUrl}`);
+        const token = localStorage.getItem('authToken');
+        const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+        return this.http.get<ProviderDtoResponse[]>(this.apiUrl, { headers });
     }
 
     addProvider(provider: ProviderDtoRequest): Observable<ProviderDtoResponse> {
