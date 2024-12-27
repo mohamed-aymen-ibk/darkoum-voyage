@@ -26,6 +26,7 @@ export class ArticleComponent implements OnInit {
     updateErrorMessage: string | null = null;
     generalErrorMessage: string | null = null;
     providers: ProviderDtoResponse[] = [];
+    searchName: string = '';
 
     constructor(private articleService: ArticleService, private providerService: ProviderService) { }
 
@@ -35,7 +36,7 @@ export class ArticleComponent implements OnInit {
     }
 
     loadArticles(): void {
-        this.articleService.getArticles().subscribe(
+        this.articleService.getArticles(this.searchName).subscribe(
             (data) => {
                 this.articles = data;
             },
@@ -128,6 +129,11 @@ export class ArticleComponent implements OnInit {
                 this.generalErrorMessage = 'Error deleting article. Please try again later.';
             }
         );
+    }
+
+    onSearch(value: string) {
+        this.searchName = value;
+        this.loadArticles();
     }
 
     private handleAddError(error: any): string {

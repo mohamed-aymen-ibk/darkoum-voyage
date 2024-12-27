@@ -27,9 +27,15 @@ public class ArticleController {
     }
 
     @GetMapping
-    public ResponseEntity<List<ArticleDtoResponse>> getAllArticles() {
-        return ResponseEntity.ok(articleService.getAllArticles());
+    public ResponseEntity<List<ArticleDtoResponse>> getAllArticles(
+            @RequestParam(required = false) String name
+    ){
+        if(name == null || name.isEmpty()){
+            return ResponseEntity.ok(articleService.getAllArticles());
+        }
+        return ResponseEntity.ok(articleService.searchArticlesByName(name));
     }
+
 
     @PutMapping("/{id}")
     public ResponseEntity<ArticleDtoResponse> updateArticle(

@@ -86,6 +86,14 @@ public class ArticleService implements ArticleServiceInterface {
     }
 
     @Override
+    public List<ArticleDtoResponse> searchArticlesByName(String name) {
+        return articleRepository.findByNameContainingIgnoreCase(name)
+                .stream()
+                .map(this::mapToDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
     @Transactional
     public ArticleDtoResponse updateArticle(Long id, ArticleDtoRequest articleDtoRequest) {
         Provider provider = providerRepository.findProviderByName(articleDtoRequest.getProviderName())

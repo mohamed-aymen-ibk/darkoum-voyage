@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ArticleDtoRequest, ArticleDtoResponse } from '../../models/article.dtos';
 
@@ -11,10 +11,14 @@ export class ArticleService {
 
     constructor(private http: HttpClient) {}
 
-    getArticles(): Observable<ArticleDtoResponse[]> {
+    getArticles(name?: string): Observable<ArticleDtoResponse[]> {
         const token = localStorage.getItem('authToken');
+        let params = new HttpParams();
+        if(name){
+            params = params.set('name', name)
+        }
         const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-        return this.http.get<ArticleDtoResponse[]>(this.apiUrl, { headers });
+        return this.http.get<ArticleDtoResponse[]>(this.apiUrl, { headers , params});
     }
 
     addArticle(article: ArticleDtoRequest): Observable<ArticleDtoResponse> {

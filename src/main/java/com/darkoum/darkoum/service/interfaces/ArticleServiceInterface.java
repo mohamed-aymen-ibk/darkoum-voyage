@@ -12,6 +12,8 @@ public interface ArticleServiceInterface {
 
     List<ArticleDtoResponse> getAllArticles();
 
+    List<ArticleDtoResponse> searchArticlesByName(String name);
+
     ArticleDtoResponse updateArticle(Long id, ArticleDtoRequest articleDtoRequest);
 
     void deleteArticle(Long id);
