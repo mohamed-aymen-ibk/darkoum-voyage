@@ -23,6 +23,7 @@ export class ClientComponent implements OnInit {
     addErrorMessage: string | null = null;
     updateErrorMessage: string | null = null;
     generalErrorMessage: string | null = null;
+    searchName: string = '';
 
     constructor(private clientService: ClientService) {}
 
@@ -31,7 +32,7 @@ export class ClientComponent implements OnInit {
     }
 
     loadClients(): void {
-        this.clientService.getClients().subscribe(
+        this.clientService.getClients(this.searchName).subscribe(
             (data) => {
                 this.clients = data;
             },
@@ -40,8 +41,6 @@ export class ClientComponent implements OnInit {
             }
         );
     }
-
-
     openAddModal(): void {
         this.newClient = { name: '', email: '', phoneNumber: '', address: '', userId: this.getUserId() };
         this.showAddModal = true;
@@ -122,7 +121,10 @@ export class ClientComponent implements OnInit {
             );
         }
     }
-
+    onSearch(value: string) {
+        this.searchName = value;
+        this.loadClients();
+    }
 
     private handleAddError(error: any): string {
         if (error.status === 400) {

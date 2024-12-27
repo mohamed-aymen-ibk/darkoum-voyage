@@ -12,6 +12,8 @@ public interface ClientServiceInterface {
 
     List<ClientDtoResponse> getAllClients();
 
+    List<ClientDtoResponse> searchClientsByName(String name);
+
     List<ClientDtoResponse> getClientsByUser(Long userId);
 
     ClientDtoResponse updateClient(Long id, ClientDtoRequest clientDtoRequest);

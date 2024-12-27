@@ -55,6 +55,13 @@ public class ClientService implements ClientServiceInterface {
                 .collect(Collectors.toList());
     }
     @Override
+    public List<ClientDtoResponse> searchClientsByName(String name) {
+        return clientRepository.findByNameContainingIgnoreCase(name)
+                .stream()
+                .map(this::mapToDto)
+                .collect(Collectors.toList());
+    }
+    @Override
     public List<ClientDtoResponse> getClientsByUser(Long userId) {
         return clientRepository.findByUserId(userId)
                 .stream()

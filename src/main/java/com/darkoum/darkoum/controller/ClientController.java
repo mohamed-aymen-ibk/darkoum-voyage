@@ -27,9 +27,13 @@ public class ClientController {
     }
 
     @GetMapping
-    public ResponseEntity<List<ClientDtoResponse>> getAllClients() {
-        return ResponseEntity.ok(clientService.getAllClients());
-
+    public ResponseEntity<List<ClientDtoResponse>> getAllClients(
+            @RequestParam(required = false) String name
+    ){
+        if(name == null || name.isEmpty()){
+            return ResponseEntity.ok(clientService.getAllClients());
+        }
+        return ResponseEntity.ok(clientService.searchClientsByName(name));
     }
 
     @GetMapping("/user/{userId}")

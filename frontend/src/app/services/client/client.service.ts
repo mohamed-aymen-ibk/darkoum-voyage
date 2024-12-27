@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ClientDtoRequest, ClientDtoResponse } from '../../models/client.dtos';
 
@@ -11,8 +11,12 @@ export class ClientService {
 
   constructor(private http: HttpClient) {}
 
-  getClients(): Observable<ClientDtoResponse[]> {
-    return this.http.get<ClientDtoResponse[]>(this.apiUrl);
+  getClients(name?:string): Observable<ClientDtoResponse[]> {
+    let params = new HttpParams();
+    if(name){
+      params = params.set('name', name)
+    }
+    return this.http.get<ClientDtoResponse[]>(this.apiUrl, { params });
   }
 
   addClient(client: ClientDtoRequest): Observable<ClientDtoResponse> {
