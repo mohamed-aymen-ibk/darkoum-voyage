@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ArticleService } from '../../services/article/article.service';
-import {NgClass, NgForOf, NgIf} from '@angular/common';
+import {DecimalPipe, NgClass, NgForOf, NgIf} from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NavbarComponent } from "../shared/navbar/navbar.component";
 import { FooterComponent } from "../shared/footer/footer.component";
@@ -11,7 +11,7 @@ import {ProviderDtoResponse} from "../../models/provider.dto";
 @Component({
     selector: 'app-article',
     templateUrl: './article.component.html',
-    imports: [NgIf, FormsModule, NgForOf, FooterComponent, NavbarComponent, NgClass],
+    imports: [NgIf, FormsModule, NgForOf, FooterComponent, NavbarComponent, NgClass, DecimalPipe],
     styleUrls: ['./article.component.css'],
 })
 export class ArticleComponent implements OnInit {

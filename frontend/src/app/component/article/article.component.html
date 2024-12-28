@@ -36,7 +36,7 @@
         <tr *ngFor="let article of articles" class="border-b hover:bg-neutral-200">
             <th class="border-x px-6 py-2">{{ article.name }}</th>
             <td class="border-x px-6 py-2">{{ article.description }}</td>
-            <td class="border-x px-6 py-2">{{ article.price }}</td>
+            <td class="border-x px-6 py-2">{{ article.price | number: '1.2-2' }} MAD</td>
             <td class="border-x px-6 py-2">{{ article.stock }}</td>
             <td class="border-x px-6 py-2">{{ article.providerName }}</td>
             <td class="border-x px-6 py-2">
