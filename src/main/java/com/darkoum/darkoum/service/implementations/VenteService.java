@@ -11,9 +11,11 @@ import com.darkoum.darkoum.repository.VenteRepository;
 import com.darkoum.darkoum.service.interfaces.VenteServiceInterface;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
@@ -53,11 +55,12 @@ public class VenteService implements VenteServiceInterface {
     }
 
     @Override
-    public List<VenteDtoResponse> getAllVentes() {
-        return venteRepository.findAll().stream()
-                .map(this::mapToDto)
-                .collect(Collectors.toList());
+    public Page<VenteDtoResponse> getAllVentes(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return venteRepository.findAll(pageable)
+                .map(this::mapToDto);
     }
+
 
     @Override
     public VenteDtoResponse updateVente(Long id, VenteDtoRequest venteDtoRequest) {

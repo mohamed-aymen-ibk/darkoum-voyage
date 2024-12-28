@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -10,8 +10,15 @@ export class VenteService {
 
     constructor(private http: HttpClient) {}
 
-    getVentes(): Observable<any[]> {
-        return this.http.get<any[]>(this.apiUrl);
+    getVentes(page?:number, size?:number): Observable<any> {
+        let params = new HttpParams();
+        if(page !== undefined){
+            params = params.set('page', page.toString())
+        }
+        if(size !== undefined){
+            params = params.set('size', size.toString())
+        }
+        return this.http.get<any>(this.apiUrl, {params});
     }
 
     addVente(vente: any): Observable<any> {

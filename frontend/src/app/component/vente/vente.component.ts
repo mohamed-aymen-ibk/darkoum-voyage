@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { VenteService } from '../../services/vente/vente.service';
-import { DatePipe, NgForOf, NgIf } from '@angular/common';
+import {DatePipe, NgClass, NgForOf, NgIf} from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NavbarComponent } from '../shared/navbar/navbar.component';
 import { FooterComponent } from '../shared/footer/footer.component';
@@ -11,7 +11,7 @@ import { PaymentStatus } from '../../models/Enums/PaymentStatus';
 @Component({
     selector: 'app-vente',
     templateUrl: './vente.component.html',
-    imports: [NgIf, FormsModule, NgForOf, FooterComponent, NavbarComponent, DatePipe],
+    imports: [NgIf, FormsModule, NgForOf, FooterComponent, NavbarComponent, DatePipe, NgClass],
     styleUrls: ['./vente.component.css'],
 })
 export class VenteComponent implements OnInit {
@@ -28,6 +28,11 @@ export class VenteComponent implements OnInit {
     clients: any[] = [];
     packs: any[] = [];
     paymentStatuses = Object.values(PaymentStatus);
+    currentPage = 0;
+    pageSize = 10;
+    totalPages = 0;
+    totalElements = 0;
+    pages: number[] = [];
 
     constructor(
         private venteService: VenteService,
@@ -62,9 +67,12 @@ export class VenteComponent implements OnInit {
     }
 
     loadVentes(): void {
-        this.venteService.getVentes().subscribe(
-            (data) => {
-                this.ventes = data;
+        this.venteService.getVentes(this.currentPage, this.pageSize).subscribe(
+            (data: any) => {
+                this.ventes = data.content;
+                this.totalPages = data.totalPages;
+                this.totalElements = data.totalElements;
+                this.generatePageNumbers();
             },
             (error) => {
                 this.generalErrorMessage = 'Error loading ventes. Please try again later.';
@@ -143,7 +151,16 @@ export class VenteComponent implements OnInit {
             );
         }
     }
-
+    goToPage(page: number):void{
+        this.currentPage = page;
+        this.loadVentes()
+    }
+    generatePageNumbers():void{
+        this.pages = [];
+        for (let i = 0; i < this.totalPages; i++) {
+            this.pages.push(i);
+        }
+    }
     // Error handling methods
     private handleAddError(error: any): string {
         return 'Error adding sale. Please try again later.';

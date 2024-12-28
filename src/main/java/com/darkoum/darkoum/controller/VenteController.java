@@ -4,10 +4,9 @@ import com.darkoum.darkoum.dtos.request.VenteDtoRequest;
 import com.darkoum.darkoum.dtos.response.VenteDtoResponse;
 import com.darkoum.darkoum.service.interfaces.VenteServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/sales")
@@ -27,8 +26,11 @@ public class VenteController {
     }
 
     @GetMapping
-    public ResponseEntity<List<VenteDtoResponse>> getAllVentes() {
-        return ResponseEntity.ok(venteService.getAllVentes());
+    public ResponseEntity<Page<VenteDtoResponse>> getAllVentes(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size
+    ) {
+        return ResponseEntity.ok(venteService.getAllVentes(page, size));
     }
 
     @PutMapping("/{id}")
