@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ProviderService } from '../../services/provider/provider.service';
-import { NgForOf, NgIf } from '@angular/common';
+import {NgClass, NgForOf, NgIf} from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NavbarComponent } from "../shared/navbar/navbar.component";
 import { FooterComponent } from "../shared/footer/footer.component";
@@ -9,7 +9,7 @@ import { ProviderDtoRequest, ProviderDtoResponse } from "../../models/provider.d
 @Component({
     selector: 'app-provider',
     templateUrl: './provider.component.html',
-    imports: [NgIf, FormsModule, NgForOf, FooterComponent, NavbarComponent],
+    imports: [NgIf, FormsModule, NgForOf, FooterComponent, NavbarComponent, NgClass],
     styleUrls: ['./provider.component.css'],
 })
 export class ProviderComponent implements OnInit {
@@ -25,6 +25,12 @@ export class ProviderComponent implements OnInit {
     generalErrorMessage: string | null = null;
     searchName: string = '';
 
+    currentPage = 0;
+    pageSize = 10;
+    totalPages = 0;
+    totalElements = 0;
+    pages: number[] = [];
+
     constructor(private providerService: ProviderService) { }
 
     ngOnInit(): void {
@@ -32,9 +38,12 @@ export class ProviderComponent implements OnInit {
     }
 
     loadProviders(): void {
-        this.providerService.getProviders(this.searchName).subscribe(
-            (data) => {
-                this.providers = data;
+        this.providerService.getProviders(this.searchName, this.currentPage, this.pageSize).subscribe(
+            (data: any) => {
+                this.providers = data.content;
+                this.totalPages = data.totalPages;
+                this.totalElements = data.totalElements;
+                this.generatePageNumbers();
             },
             (error) => {
                 this.generalErrorMessage = 'Error loading providers. Please try again later.';
@@ -114,7 +123,18 @@ export class ProviderComponent implements OnInit {
     }
     onSearch(value: string) {
         this.searchName = value;
+        this.currentPage = 0;
         this.loadProviders();
+    }
+    goToPage(page: number):void{
+        this.currentPage = page;
+        this.loadProviders()
+    }
+    generatePageNumbers():void{
+        this.pages = [];
+        for (let i = 0; i < this.totalPages; i++) {
+            this.pages.push(i);
+        }
     }
 
     // Error handling methods

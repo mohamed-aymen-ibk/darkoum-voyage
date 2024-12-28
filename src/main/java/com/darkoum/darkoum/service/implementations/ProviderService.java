@@ -11,11 +11,14 @@ import com.darkoum.darkoum.service.interfaces.ProviderServiceInterface;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.stream.Collectors;
+
 
 @Service
 @Transactional
@@ -61,18 +64,16 @@ public class ProviderService implements ProviderServiceInterface {
     }
 
     @Override
-    public List<ProviderDtoResponse> getAllProviders() {
-        return providerRepository.findAll()
-                .stream()
-                .map(this::mapToDto)
-                .collect(Collectors.toList());
+    public Page<ProviderDtoResponse> getAllProviders(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return providerRepository.findAll(pageable)
+                .map(this::mapToDto);
     }
     @Override
-    public List<ProviderDtoResponse> searchProvidersByName(String name) {
-        return providerRepository.findByNameContainingIgnoreCase(name)
-                .stream()
-                .map(this::mapToDto)
-                .collect(Collectors.toList());
+    public Page<ProviderDtoResponse> searchProvidersByName(String name, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return providerRepository.findByNameContainingIgnoreCase(name, pageable)
+                .map(this::mapToDto);
     }
     @Override
     public ProviderDtoResponse updateProvider(Long id, ProviderDtoRequest providerDtoRequest) {

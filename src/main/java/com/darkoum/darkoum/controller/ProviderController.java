@@ -4,10 +4,9 @@ import com.darkoum.darkoum.dtos.request.ProviderDtoRequest;
 import com.darkoum.darkoum.dtos.response.ProviderDtoResponse;
 import com.darkoum.darkoum.service.interfaces.ProviderServiceInterface;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/providers")
@@ -28,13 +27,15 @@ public class ProviderController {
     }
 
     @GetMapping
-    public ResponseEntity<List<ProviderDtoResponse>> getAllProviders(
+    public ResponseEntity<Page<ProviderDtoResponse>> getAllProviders(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
             @RequestParam(required = false) String name
     ){
         if(name == null || name.isEmpty()){
-            return ResponseEntity.ok(providerService.getAllProviders());
+            return ResponseEntity.ok(providerService.getAllProviders(page, size));
         }
-        return ResponseEntity.ok(providerService.searchProvidersByName(name));
+        return ResponseEntity.ok(providerService.searchProvidersByName(name, page, size));
     }
 
 
