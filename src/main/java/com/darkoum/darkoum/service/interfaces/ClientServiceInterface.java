@@ -2,6 +2,7 @@ package com.darkoum.darkoum.service.interfaces;
 
 import com.darkoum.darkoum.dtos.request.ClientDtoRequest;
 import com.darkoum.darkoum.dtos.response.ClientDtoResponse;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 
@@ -10,9 +11,9 @@ public interface ClientServiceInterface {
 
     ClientDtoResponse getClientById(Long id);
 
-    List<ClientDtoResponse> getAllClients();
+    Page<ClientDtoResponse> getAllClients(int page, int size);
 
-    List<ClientDtoResponse> searchClientsByName(String name);
+    Page<ClientDtoResponse> searchClientsByName(String name, int page, int size);
 
     List<ClientDtoResponse> getClientsByUser(Long userId);
 

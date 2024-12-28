@@ -11,12 +11,18 @@ export class ClientService {
 
   constructor(private http: HttpClient) {}
 
-  getClients(name?:string): Observable<ClientDtoResponse[]> {
+  getClients(name?:string, page?:number, size?:number): Observable<any> {
     let params = new HttpParams();
     if(name){
       params = params.set('name', name)
     }
-    return this.http.get<ClientDtoResponse[]>(this.apiUrl, { params });
+    if(page !== undefined){
+      params = params.set('page', page.toString())
+    }
+    if(size !== undefined){
+      params = params.set('size', size.toString())
+    }
+    return this.http.get<any>(this.apiUrl, { params });
   }
 
   addClient(client: ClientDtoRequest): Observable<ClientDtoResponse> {

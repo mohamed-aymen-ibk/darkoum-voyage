@@ -4,6 +4,7 @@ import com.darkoum.darkoum.dtos.request.ClientDtoRequest;
 import com.darkoum.darkoum.dtos.response.ClientDtoResponse;
 import com.darkoum.darkoum.service.interfaces.ClientServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,13 +28,15 @@ public class ClientController {
     }
 
     @GetMapping
-    public ResponseEntity<List<ClientDtoResponse>> getAllClients(
+    public ResponseEntity<Page<ClientDtoResponse>> getAllClients(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
             @RequestParam(required = false) String name
     ){
         if(name == null || name.isEmpty()){
-            return ResponseEntity.ok(clientService.getAllClients());
+            return ResponseEntity.ok(clientService.getAllClients(page, size));
         }
-        return ResponseEntity.ok(clientService.searchClientsByName(name));
+        return ResponseEntity.ok(clientService.searchClientsByName(name, page, size));
     }
 
 

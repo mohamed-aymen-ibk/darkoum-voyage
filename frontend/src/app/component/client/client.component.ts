@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ClientService } from '../../services/client/client.service';
-import { NgForOf, NgIf } from '@angular/common';
+import {NgClass, NgForOf, NgIf} from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {NavbarComponent} from "../shared/navbar/navbar.component";
 import {FooterComponent} from "../shared/footer/footer.component";
@@ -9,7 +9,7 @@ import {ClientDtoRequest, ClientDtoResponse} from "../../models/client.dtos";
 @Component({
     selector: 'app-client',
     templateUrl: './client.component.html',
-    imports: [NgIf, FormsModule, NgForOf, FooterComponent, NavbarComponent],
+    imports: [NgIf, FormsModule, NgForOf, FooterComponent, NavbarComponent, NgClass],
     styleUrls: ['./client.component.css'],
 })
 export class ClientComponent implements OnInit {
@@ -24,6 +24,11 @@ export class ClientComponent implements OnInit {
     updateErrorMessage: string | null = null;
     generalErrorMessage: string | null = null;
     searchName: string = '';
+    currentPage = 0;
+    pageSize = 10;
+    totalPages = 0;
+    totalElements = 0;
+    pages: number[] = [];
 
     constructor(private clientService: ClientService) {}
 
@@ -32,9 +37,12 @@ export class ClientComponent implements OnInit {
     }
 
     loadClients(): void {
-        this.clientService.getClients(this.searchName).subscribe(
-            (data) => {
-                this.clients = data;
+        this.clientService.getClients(this.searchName, this.currentPage, this.pageSize).subscribe(
+            (data: any) => {
+                this.clients = data.content;
+                this.totalPages = data.totalPages;
+                this.totalElements = data.totalElements;
+                this.generatePageNumbers();
             },
             (error) => {
                 this.generalErrorMessage = 'Error loading clients. Please try again later.';
@@ -126,7 +134,18 @@ export class ClientComponent implements OnInit {
     }
     onSearch(value: string) {
         this.searchName = value;
+        this.currentPage = 0;
         this.loadClients();
+    }
+    goToPage(page: number):void{
+        this.currentPage = page;
+        this.loadClients()
+    }
+    generatePageNumbers():void{
+        this.pages = [];
+        for (let i = 0; i < this.totalPages; i++) {
+            this.pages.push(i);
+        }
     }
 
     private handleAddError(error: any): string {
