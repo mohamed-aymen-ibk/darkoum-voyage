@@ -11,6 +11,9 @@ import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -48,20 +51,17 @@ public class PackService implements PackServiceInterface {
 
         return mapToDto(pack);
     }
-
     @Override
-    public List<PackDtoResponse> getAllPacks() {
-        return packRepository.findAll()
-                .stream()
-                .map(this::mapToDto)
-                .collect(Collectors.toList());
+    public Page<PackDtoResponse> getAllPacks(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return packRepository.findAll(pageable)
+                .map(this::mapToDto);
     }
     @Override
-    public List<PackDtoResponse> searchPacksByName(String name) {
-        return packRepository.findByNameContainingIgnoreCase(name)
-                .stream()
-                .map(this::mapToDto)
-                .collect(Collectors.toList());
+    public Page<PackDtoResponse> searchPacksByName(String name, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return packRepository.findByNameContainingIgnoreCase(name, pageable)
+                .map(this::mapToDto);
     }
 
 

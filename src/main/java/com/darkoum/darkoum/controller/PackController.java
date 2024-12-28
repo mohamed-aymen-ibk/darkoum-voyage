@@ -6,6 +6,7 @@ import com.darkoum.darkoum.service.interfaces.PackServiceInterface;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,13 +29,15 @@ public class PackController {
         return ResponseEntity.ok(packService.getPackById(id));
     }
     @GetMapping
-    public ResponseEntity<List<PackDtoResponse>> getAllPacks(
+    public ResponseEntity<Page<PackDtoResponse>> getAllPacks(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
             @RequestParam(required = false) String name
     ){
         if(name == null || name.isEmpty()){
-            return ResponseEntity.ok(packService.getAllPacks());
+            return ResponseEntity.ok(packService.getAllPacks(page, size));
         }
-        return ResponseEntity.ok(packService.searchPacksByName(name));
+        return ResponseEntity.ok(packService.searchPacksByName(name, page, size));
     }
 
     @PutMapping("/{id}")

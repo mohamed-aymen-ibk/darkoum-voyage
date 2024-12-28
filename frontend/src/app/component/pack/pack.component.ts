@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
 import { PackService } from '../../services/pack/pack.service';
-import {NgForOf, NgIf, DecimalPipe} from '@angular/common';
+import {NgForOf, NgIf, DecimalPipe, NgClass} from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NavbarComponent } from "../shared/navbar/navbar.component";
 import { FooterComponent } from "../shared/footer/footer.component";
@@ -8,7 +8,7 @@ import { FooterComponent } from "../shared/footer/footer.component";
 @Component({
     selector: 'app-pack',
     templateUrl: './pack.component.html',
-    imports: [NgIf, FormsModule, NgForOf, FooterComponent, NavbarComponent, DecimalPipe],
+    imports: [NgIf, FormsModule, NgForOf, FooterComponent, NavbarComponent, DecimalPipe, NgClass],
     styleUrls: ['./pack.component.css'],
 })
 export class PackComponent implements OnInit, OnDestroy {
@@ -31,6 +31,12 @@ export class PackComponent implements OnInit, OnDestroy {
     private isDropdownOpenUpdate: boolean = false;
     searchName: string = '';
 
+    currentPage = 0;
+    pageSize = 10;
+    totalPages = 0;
+    totalElements = 0;
+    pages: number[] = [];
+
     constructor(private packService: PackService) {}
 
     ngOnInit(): void {
@@ -48,9 +54,12 @@ export class PackComponent implements OnInit, OnDestroy {
         );
     }
     loadPacks(): void {
-        this.packService.getPacks(this.searchName).subscribe(
-            (data) => {
-                this.packs = data;
+        this.packService.getPacks(this.searchName, this.currentPage, this.pageSize).subscribe(
+            (data: any) => {
+                this.packs = data.content;
+                this.totalPages = data.totalPages;
+                this.totalElements = data.totalElements;
+                this.generatePageNumbers();
             },
             (error) => {
                 this.generalErrorMessage = 'Error loading packs. Please try again later.';
@@ -159,7 +168,18 @@ export class PackComponent implements OnInit, OnDestroy {
     }
     onSearch(value: string) {
         this.searchName = value;
+        this.currentPage = 0;
         this.loadPacks();
+    }
+    goToPage(page: number):void{
+        this.currentPage = page;
+        this.loadPacks()
+    }
+    generatePageNumbers():void{
+        this.pages = [];
+        for (let i = 0; i < this.totalPages; i++) {
+            this.pages.push(i);
+        }
     }
     togglePackExpansion(packId: number, event: MouseEvent): void {
         this.expandedPacks[packId] = !this.expandedPacks[packId];

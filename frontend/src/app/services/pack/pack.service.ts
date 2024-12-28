@@ -10,12 +10,18 @@ export class PackService {
 
   constructor(private http: HttpClient) {}
 
-  getPacks(name?:string): Observable<any[]> {
+  getPacks(name?:string, page?:number, size?:number): Observable<any> {
     let params = new HttpParams();
     if(name){
       params = params.set('name', name)
     }
-    return this.http.get<any[]>(this.apiUrl, { params });
+    if(page !== undefined){
+      params = params.set('page', page.toString())
+    }
+    if(size !== undefined){
+      params = params.set('size', size.toString())
+    }
+    return this.http.get<any>(this.apiUrl, { params });
   }
 
   addPack(pack: any): Observable<any> {

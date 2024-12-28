@@ -2,6 +2,7 @@ package com.darkoum.darkoum.service.interfaces;
 
 import com.darkoum.darkoum.dtos.request.PackDtoRequest;
 import com.darkoum.darkoum.dtos.response.PackDtoResponse;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 
@@ -12,9 +13,9 @@ public interface PackServiceInterface {
 
     PackDtoResponse getPackById(Long id);
 
-    List<PackDtoResponse> getAllPacks();
+    Page<PackDtoResponse> getAllPacks(int page, int size);
 
-    List<PackDtoResponse> searchPacksByName(String name);
+    Page<PackDtoResponse> searchPacksByName(String name, int page, int size);
 
     PackDtoResponse updatePack(Long id, PackDtoRequest packDtoRequest);
 
