@@ -11,14 +11,20 @@ export class ArticleService {
 
     constructor(private http: HttpClient) {}
 
-    getArticles(name?: string): Observable<ArticleDtoResponse[]> {
+    getArticles(name?: string, page?:number, size?:number): Observable<any> {
         const token = localStorage.getItem('authToken');
         let params = new HttpParams();
         if(name){
             params = params.set('name', name)
         }
+        if(page !== undefined){
+            params = params.set('page', page.toString())
+        }
+        if(size !== undefined){
+            params = params.set('size', size.toString())
+        }
         const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-        return this.http.get<ArticleDtoResponse[]>(this.apiUrl, { headers , params});
+        return this.http.get<any>(this.apiUrl, { headers , params});
     }
 
     addArticle(article: ArticleDtoRequest): Observable<ArticleDtoResponse> {

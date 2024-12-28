@@ -4,10 +4,9 @@ import com.darkoum.darkoum.dtos.request.ArticleDtoRequest;
 import com.darkoum.darkoum.dtos.response.ArticleDtoResponse;
 import com.darkoum.darkoum.service.interfaces.ArticleServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/articles")
@@ -27,15 +26,16 @@ public class ArticleController {
     }
 
     @GetMapping
-    public ResponseEntity<List<ArticleDtoResponse>> getAllArticles(
+    public ResponseEntity<Page<ArticleDtoResponse>> getAllArticles(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
             @RequestParam(required = false) String name
     ){
         if(name == null || name.isEmpty()){
-            return ResponseEntity.ok(articleService.getAllArticles());
+            return ResponseEntity.ok(articleService.getAllArticles(page, size));
         }
-        return ResponseEntity.ok(articleService.searchArticlesByName(name));
+        return ResponseEntity.ok(articleService.searchArticlesByName(name, page, size));
     }
-
 
     @PutMapping("/{id}")
     public ResponseEntity<ArticleDtoResponse> updateArticle(

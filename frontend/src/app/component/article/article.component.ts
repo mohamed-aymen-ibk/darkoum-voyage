@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ArticleService } from '../../services/article/article.service';
-import { NgForOf, NgIf } from '@angular/common';
+import {NgClass, NgForOf, NgIf} from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NavbarComponent } from "../shared/navbar/navbar.component";
 import { FooterComponent } from "../shared/footer/footer.component";
@@ -11,7 +11,7 @@ import {ProviderDtoResponse} from "../../models/provider.dto";
 @Component({
     selector: 'app-article',
     templateUrl: './article.component.html',
-    imports: [NgIf, FormsModule, NgForOf, FooterComponent, NavbarComponent],
+    imports: [NgIf, FormsModule, NgForOf, FooterComponent, NavbarComponent, NgClass],
     styleUrls: ['./article.component.css'],
 })
 export class ArticleComponent implements OnInit {
@@ -27,6 +27,11 @@ export class ArticleComponent implements OnInit {
     generalErrorMessage: string | null = null;
     providers: ProviderDtoResponse[] = [];
     searchName: string = '';
+    currentPage = 0;
+    pageSize = 10;
+    totalPages = 0;
+    totalElements = 0;
+    pages: number[] = [];
 
     constructor(private articleService: ArticleService, private providerService: ProviderService) { }
 
@@ -36,15 +41,19 @@ export class ArticleComponent implements OnInit {
     }
 
     loadArticles(): void {
-        this.articleService.getArticles(this.searchName).subscribe(
-            (data) => {
-                this.articles = data;
+        this.articleService.getArticles(this.searchName, this.currentPage, this.pageSize).subscribe(
+            (data: any) => {
+                this.articles = data.content;
+                this.totalPages = data.totalPages;
+                this.totalElements = data.totalElements;
+                this.generatePageNumbers();
             },
             (error) => {
                 this.generalErrorMessage = 'Error loading articles. Please try again later.';
             }
         );
     }
+
 
     loadProviders(): void {
         this.providerService.getProviders().subscribe(
@@ -133,7 +142,19 @@ export class ArticleComponent implements OnInit {
 
     onSearch(value: string) {
         this.searchName = value;
+        this.currentPage = 0;
         this.loadArticles();
+    }
+
+    goToPage(page: number):void{
+        this.currentPage = page;
+        this.loadArticles()
+    }
+    generatePageNumbers():void{
+        this.pages = [];
+        for (let i = 0; i < this.totalPages; i++) {
+            this.pages.push(i);
+        }
     }
 
     private handleAddError(error: any): string {

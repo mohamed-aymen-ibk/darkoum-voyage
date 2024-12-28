@@ -13,11 +13,13 @@ import com.darkoum.darkoum.repository.UserRepository;
 import com.darkoum.darkoum.service.interfaces.ArticleServiceInterface;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -78,19 +80,16 @@ public class ArticleService implements ArticleServiceInterface {
     }
 
     @Override
-    public List<ArticleDtoResponse> getAllArticles() {
-        return articleRepository.findAll()
-                .stream()
-                .map(this::mapToDto)
-                .collect(Collectors.toList());
+    public Page<ArticleDtoResponse> getAllArticles(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return articleRepository.findAll(pageable)
+                .map(this::mapToDto);
     }
-
     @Override
-    public List<ArticleDtoResponse> searchArticlesByName(String name) {
-        return articleRepository.findByNameContainingIgnoreCase(name)
-                .stream()
-                .map(this::mapToDto)
-                .collect(Collectors.toList());
+    public Page<ArticleDtoResponse> searchArticlesByName(String name, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return articleRepository.findByNameContainingIgnoreCase(name, pageable)
+                .map(this::mapToDto);
     }
 
     @Override
