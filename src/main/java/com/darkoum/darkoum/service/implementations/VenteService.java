@@ -15,8 +15,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.stream.Collectors;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -32,20 +33,35 @@ public class VenteService implements VenteServiceInterface {
     private PackRepository packRepository;
 
     @Override
+    @Transactional
     public VenteDtoResponse createVente(VenteDtoRequest venteDtoRequest) {
         Vente vente = new Vente();
+
+        if (venteDtoRequest.getClientId() == null) {
+            throw new RuntimeException("Client ID cannot be null");
+        }
+        if (venteDtoRequest.getPackId() == null) {
+            throw new RuntimeException("Pack ID cannot be null");
+        }
+
         Client client = clientRepository.findById(venteDtoRequest.getClientId())
                 .orElseThrow(() -> new RuntimeException("Client not found"));
         Pack pack = packRepository.findById(venteDtoRequest.getPackId())
                 .orElseThrow(() -> new RuntimeException("Pack not found"));
+
         vente.setClient(client);
         vente.setPack(pack);
         vente.setPaymentStatus(venteDtoRequest.getPaymentStatus());
         vente.setDescription(venteDtoRequest.getDescription());
 
-        Vente savedVente = venteRepository.save(vente);
-        return mapToDto(savedVente);
+        try {
+            Vente savedVente = venteRepository.save(vente);
+            return mapToDto(savedVente);
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to create sale: " + e.getMessage());
+        }
     }
+
 
     @Override
     public VenteDtoResponse getVenteById(Long id) {
@@ -63,17 +79,23 @@ public class VenteService implements VenteServiceInterface {
 
 
     @Override
+    @Transactional
     public VenteDtoResponse updateVente(Long id, VenteDtoRequest venteDtoRequest) {
         Vente vente = venteRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Vente not found"));
 
         vente.setPaymentStatus(venteDtoRequest.getPaymentStatus());
         vente.setDescription(venteDtoRequest.getDescription());
-        Vente updatedVente = venteRepository.save(vente);
-        return mapToDto(updatedVente);
+        try {
+            Vente updatedVente = venteRepository.save(vente);
+            return mapToDto(updatedVente);
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to update sale: " + e.getMessage());
+        }
     }
 
     @Override
+    @Transactional
     public void deleteVente(Long id) {
         Vente vente = venteRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Vente not found"));
@@ -83,8 +105,12 @@ public class VenteService implements VenteServiceInterface {
     private VenteDtoResponse mapToDto(Vente vente) {
         VenteDtoResponse dto = new VenteDtoResponse();
         dto.setId(vente.getId());
-        dto.setClientName(vente.getClient().getName());
-        dto.setPackName(vente.getPack().getName());
+        if (vente.getClient() != null) {
+            dto.setClientName(vente.getClient().getName());
+        }
+        if (vente.getPack() != null) {
+            dto.setPackName(vente.getPack().getName());
+        }
         dto.setPaymentStatus(vente.getPaymentStatus());
         dto.setCreatedAt(vente.getCreatedAt());
         dto.setDescription(vente.getDescription());

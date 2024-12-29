@@ -65,7 +65,7 @@
                 [disabled]="currentPage === 0"
                 (click)="goToPage(currentPage -1)"
         >
-            <svg class="shrink-0 size-3.5" xmlns= "http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <svg class="shrink-0 size-3.5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="m15 18-6-6 6-6"></path>
             </svg>
             <span>Previous</span>
@@ -114,7 +114,7 @@
                         required
                 >
                     <option value="" disabled selected>Select Client</option>
-                    <option *ngFor="let client of clients" [value]="client.id">
+                    <option *ngFor="let client of clients" [ngValue]="client.id">
                         {{ client.name }}
                     </option>
                 </select>
@@ -128,7 +128,7 @@
                         required
                 >
                     <option value="" disabled selected>Select Pack</option>
-                    <option *ngFor="let pack of packs" [value]="pack.id">
+                    <option *ngFor="let pack of packs" [ngValue]="pack.id">
                         {{ pack.name }}
                     </option>
                 </select>

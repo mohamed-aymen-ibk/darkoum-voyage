@@ -7,6 +7,8 @@ import { FooterComponent } from '../shared/footer/footer.component';
 import { ClientService } from '../../services/client/client.service';
 import { PackService } from '../../services/pack/pack.service';
 import { PaymentStatus } from '../../models/Enums/PaymentStatus';
+import { ClientDtoResponse } from "../../models/client.dtos";
+import {PackDtoResponse} from "../../models/pack.dtos";
 
 @Component({
     selector: 'app-vente',
@@ -25,8 +27,8 @@ export class VenteComponent implements OnInit {
     addErrorMessage: string | null = null;
     updateErrorMessage: string | null = null;
     generalErrorMessage: string | null = null;
-    clients: any[] = [];
-    packs: any[] = [];
+    clients: ClientDtoResponse[] = [];
+    packs: PackDtoResponse[] = [];
     paymentStatuses = Object.values(PaymentStatus);
     currentPage = 0;
     pageSize = 10;
@@ -47,8 +49,8 @@ export class VenteComponent implements OnInit {
     }
     loadClients(): void {
         this.clientService.getClients().subscribe(
-            (data) => {
-                this.clients = data;
+            (data: any) => {
+                this.clients = data.content;
             },
             (error) => {
                 this.generalErrorMessage = 'Error loading clients. Please try again later.';
@@ -57,8 +59,8 @@ export class VenteComponent implements OnInit {
     }
     loadPacks(): void {
         this.packService.getPacks().subscribe(
-            (data) => {
-                this.packs = data;
+            (data: any) => {
+                this.packs = data.content;
             },
             (error) => {
                 this.generalErrorMessage = 'Error loading packs. Please try again later.';
