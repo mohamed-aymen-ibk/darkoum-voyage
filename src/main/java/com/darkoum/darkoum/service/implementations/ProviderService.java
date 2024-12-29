@@ -17,8 +17,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import java.util.stream.Collectors;
 
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -62,19 +63,26 @@ public class ProviderService implements ProviderServiceInterface {
                 .orElseThrow(() -> new ResourceNotFoundException("Provider not found"));
         return mapToDto(provider);
     }
-
     @Override
     public Page<ProviderDtoResponse> getAllProviders(int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
         return providerRepository.findAll(pageable)
                 .map(this::mapToDto);
     }
+
     @Override
     public Page<ProviderDtoResponse> searchProvidersByName(String name, int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
         return providerRepository.findByNameContainingIgnoreCase(name, pageable)
                 .map(this::mapToDto);
     }
+
+
+    @Override
+    public List<String> getAllProviderNames() {
+        return providerRepository.findAllProviderNames();
+    }
+
     @Override
     public ProviderDtoResponse updateProvider(Long id, ProviderDtoRequest providerDtoRequest) {
         Provider provider = providerRepository.findById(id)

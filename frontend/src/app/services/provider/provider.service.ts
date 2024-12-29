@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import {ProviderDtoRequest, ProviderDtoResponse} from "../../models/provider.dto";
+import { ProviderDtoRequest, ProviderDtoResponse } from "../../models/provider.dto";
 
 @Injectable({
     providedIn: 'root'
@@ -9,7 +9,7 @@ import {ProviderDtoRequest, ProviderDtoResponse} from "../../models/provider.dto
 export class ProviderService {
     private apiUrl = 'http://localhost:8080/api/providers';
 
-    constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient) { }
 
     getProviders(name?:string, page?:number, size?:number): Observable<any> {
         const token = localStorage.getItem('authToken');
@@ -27,6 +27,11 @@ export class ProviderService {
         return this.http.get<any>(this.apiUrl, { headers, params });
     }
 
+    getProviderNames(): Observable<string[]> {
+        const token = localStorage.getItem('authToken');
+        const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+        return this.http.get<string[]>(`${this.apiUrl}/names`, { headers });
+    }
     addProvider(provider: ProviderDtoRequest): Observable<ProviderDtoResponse> {
         const token = localStorage.getItem('authToken');
         const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
@@ -36,10 +41,14 @@ export class ProviderService {
 
 
     updateProvider(id: number, provider: ProviderDtoRequest): Observable<ProviderDtoResponse> {
-        return this.http.put<ProviderDtoResponse>(`${this.apiUrl}/${id}`, provider);
+        const token = localStorage.getItem('authToken');
+        const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+        return this.http.put<ProviderDtoResponse>(`${this.apiUrl}/${id}`, provider, { headers });
     }
 
     deleteProvider(id: number): Observable<void> {
-        return this.http.delete<void>(`${this.apiUrl}/${id}`);
+        const token = localStorage.getItem('authToken');
+        const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+        return this.http.delete<void>(`${this.apiUrl}/${id}`, { headers });
     }
 }

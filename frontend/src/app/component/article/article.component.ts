@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ArticleService } from '../../services/article/article.service';
-import {DecimalPipe, NgClass, NgForOf, NgIf} from '@angular/common';
+import { DecimalPipe, NgClass, NgForOf, NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NavbarComponent } from "../shared/navbar/navbar.component";
 import { FooterComponent } from "../shared/footer/footer.component";
 import { ArticleDtoRequest, ArticleDtoResponse } from "../../models/article.dtos";
 import { ProviderService } from "../../services/provider/provider.service";
-import {ProviderDtoResponse} from "../../models/provider.dto";
 
 @Component({
     selector: 'app-article',
@@ -25,7 +24,7 @@ export class ArticleComponent implements OnInit {
     addErrorMessage: string | null = null;
     updateErrorMessage: string | null = null;
     generalErrorMessage: string | null = null;
-    providers: ProviderDtoResponse[] = [];
+    providerNames: string[] = [];
     searchName: string = '';
     currentPage = 0;
     pageSize = 10;
@@ -48,7 +47,7 @@ export class ArticleComponent implements OnInit {
                 this.totalElements = data.totalElements;
                 this.generatePageNumbers();
             },
-            (error) => {
+            (error: any) => {
                 this.generalErrorMessage = 'Error loading articles. Please try again later.';
             }
         );
@@ -56,11 +55,11 @@ export class ArticleComponent implements OnInit {
 
 
     loadProviders(): void {
-        this.providerService.getProviders().subscribe(
+        this.providerService.getProviderNames().subscribe(
             (data) => {
-                this.providers = data;
+                this.providerNames = data;
             },
-            (error) => {
+            (error: any) => {
                 this.generalErrorMessage = 'Error loading providers. Please try again later.';
             }
         );
@@ -82,7 +81,7 @@ export class ArticleComponent implements OnInit {
                 this.loadArticles();
                 this.closeAddModal();
             },
-            (error) => {
+            (error: any) => {
                 this.addErrorMessage = this.handleAddError(error);
             }
         );
@@ -113,7 +112,7 @@ export class ArticleComponent implements OnInit {
                 this.loadArticles();
                 this.closeUpdateModal();
             },
-            (error) => {
+            (error: any) => {
                 this.updateErrorMessage = this.handleUpdateError(error);
             }
         );
@@ -134,7 +133,7 @@ export class ArticleComponent implements OnInit {
                 this.loadArticles();
                 this.closeDeleteModal();
             },
-            (error) => {
+            (error: any) => {
                 this.generalErrorMessage = 'Error deleting article. Please try again later.';
             }
         );
@@ -146,11 +145,11 @@ export class ArticleComponent implements OnInit {
         this.loadArticles();
     }
 
-    goToPage(page: number):void{
+    goToPage(page: number): void {
         this.currentPage = page;
-        this.loadArticles()
+        this.loadArticles();
     }
-    generatePageNumbers():void{
+    generatePageNumbers(): void {
         this.pages = [];
         for (let i = 0; i < this.totalPages; i++) {
             this.pages.push(i);

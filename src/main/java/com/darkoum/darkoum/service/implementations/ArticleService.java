@@ -41,7 +41,8 @@ public class ArticleService implements ArticleServiceInterface {
     @Transactional
     public ArticleDtoResponse createArticle(ArticleDtoRequest articleDtoRequest) {
         Provider provider = providerRepository.findProviderByName(articleDtoRequest.getProviderName())
-                .orElseThrow(() -> new RuntimeException("Provider not found"));
+                .orElseThrow(() -> new RuntimeException("Provider not found or multiple providers with the same name were found"));
+
         User user = userRepository.findById(articleDtoRequest.getUserId())
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
@@ -96,7 +97,7 @@ public class ArticleService implements ArticleServiceInterface {
     @Transactional
     public ArticleDtoResponse updateArticle(Long id, ArticleDtoRequest articleDtoRequest) {
         Provider provider = providerRepository.findProviderByName(articleDtoRequest.getProviderName())
-                .orElseThrow(() -> new RuntimeException("Provider not found"));
+                .orElseThrow(() -> new RuntimeException("Provider not found or multiple providers with the same name were found"));
 
         Article article = articleRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Article not found"));

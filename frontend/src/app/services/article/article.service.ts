@@ -9,22 +9,22 @@ import { ArticleDtoRequest, ArticleDtoResponse } from '../../models/article.dtos
 export class ArticleService {
     private apiUrl = 'http://localhost:8080/api/articles';
 
-    constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient) { }
 
-    getArticles(name?: string, page?:number, size?:number): Observable<any> {
+    getArticles(name?: string, page?: number, size?: number): Observable<any> {
         const token = localStorage.getItem('authToken');
         let params = new HttpParams();
-        if(name){
+        if (name) {
             params = params.set('name', name)
         }
-        if(page !== undefined){
+        if (page !== undefined) {
             params = params.set('page', page.toString())
         }
-        if(size !== undefined){
+        if (size !== undefined) {
             params = params.set('size', size.toString())
         }
         const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-        return this.http.get<any>(this.apiUrl, { headers , params});
+        return this.http.get<any>(this.apiUrl, { headers, params });
     }
 
     addArticle(article: ArticleDtoRequest): Observable<ArticleDtoResponse> {

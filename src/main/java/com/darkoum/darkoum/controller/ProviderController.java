@@ -8,6 +8,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/providers")
 @CrossOrigin(origins = "*")
@@ -25,6 +27,12 @@ public class ProviderController {
     public ResponseEntity<ProviderDtoResponse> getProviderById(@PathVariable Long id) {
         return ResponseEntity.ok(providerService.getProviderById(id));
     }
+
+    @GetMapping("/names")
+    public ResponseEntity<List<String>> getAllProviderNames() {
+        return ResponseEntity.ok(providerService.getAllProviderNames());
+    }
+
 
     @GetMapping
     public ResponseEntity<Page<ProviderDtoResponse>> getAllProviders(

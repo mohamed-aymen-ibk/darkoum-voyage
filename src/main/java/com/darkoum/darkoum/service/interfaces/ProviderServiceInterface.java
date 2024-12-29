@@ -4,6 +4,8 @@ import com.darkoum.darkoum.dtos.request.ProviderDtoRequest;
 import com.darkoum.darkoum.dtos.response.ProviderDtoResponse;
 import org.springframework.data.domain.Page;
 
+import java.util.List;
+
 
 public interface ProviderServiceInterface {
     ProviderDtoResponse createProvider(ProviderDtoRequest providerDtoRequest);
@@ -17,4 +19,6 @@ public interface ProviderServiceInterface {
     ProviderDtoResponse updateProvider(Long id, ProviderDtoRequest providerDtoRequest);
 
     void deleteProvider(Long id);
+
+    List<String> getAllProviderNames();
 }
