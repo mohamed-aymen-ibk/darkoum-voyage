@@ -12,6 +12,7 @@
       <change beforePath="$PROJECT_DIR$/frontend/src/app/component/provider/provider.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/component/provider/provider.component.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/app/component/provider/provider.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/component/provider/provider.component.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/darkoum/darkoum/model/Provider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/darkoum/darkoum/model/Provider.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/darkoum/darkoum/model/Provider.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/darkoum/darkoum/model/Provider.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

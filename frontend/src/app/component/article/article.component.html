@@ -58,7 +58,7 @@
         </tbody>
     </table>
     <!-- Pagination -->
-    <nav class="flex items-center gap-x-1 float-right mt-4" aria-label="Pagination">
+    <nav class="flex items-center gap-x-1 float-right mt-4" aria-label="Pagination" >
         <button
                 type="button"
                 class="min-h-[38px] min-w-[38px] py-2 px-2.5 inline-flex justify-center items-center gap-x-1.5 text-sm rounded-lg text-blue-400 hover:text-blue-500  hover:bg-gray-100 focus:outline-none focus:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none"
@@ -72,18 +72,21 @@
             <span>Previous</span>
         </button>
         <div class="flex items-center gap-x-1">
-            <button
-                    *ngFor="let page of pages"
-                    type="button"
-                    [ngClass]="{
-          'min-h-[38px] min-w-[38px] flex justify-center items-center text-blue-400  py-2 px-3 text-sm rounded-lg focus:outline-none disabled:opacity-50 disabled:pointer-events-none': true,
-          'bg-blue-100 text-blue-600 hover:bg-blue-200': page === currentPage,
-          'hover:text-blue-500 hover:bg-gray-100': page !== currentPage
-        }"
-                    (click)="goToPage(page)"
-            >
-                {{ page+1 }}
-            </button>
+            <ng-container *ngFor="let page of pages">
+                <button
+                        *ngIf="page !== '...' && typeof page === 'number'"
+                        type="button"
+                        [ngClass]="{
+              'min-h-[38px] min-w-[38px] flex justify-center items-center text-blue-400  py-2 px-3 text-sm rounded-lg focus:outline-none disabled:opacity-50 disabled:pointer-events-none': true,
+              'bg-blue-100 text-blue-600 hover:bg-blue-200': page === currentPage,
+              'hover:text-blue-500 hover:bg-gray-100': page !== currentPage
+            }"
+                        (click)="goToPage(page)"
+                >
+                    {{ page+1 }}
+                </button>
+                <span *ngIf="page === '...'" class="text-blue-400">...</span>
+            </ng-container>
         </div>
         <button
                 type="button"
