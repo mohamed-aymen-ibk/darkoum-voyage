@@ -29,7 +29,7 @@ export class ProviderComponent implements OnInit {
     pageSize = 10;
     totalPages = 0;
     totalElements = 0;
-    pages: number[] = [];
+    pages: (number | '...')[] = [];
 
     constructor(private providerService: ProviderService) { }
 
@@ -130,12 +130,39 @@ export class ProviderComponent implements OnInit {
         this.currentPage = page;
         this.loadProviders()
     }
-    generatePageNumbers():void{
+    generatePageNumbers(): void {
         this.pages = [];
-        for (let i = 0; i < this.totalPages; i++) {
-            this.pages.push(i);
+        if (this.totalPages <= 10) {
+            for (let i = 0; i < this.totalPages; i++) {
+                this.pages.push(i);
+            }
+        } else {
+            if (this.currentPage < 5) {
+                for (let i = 0; i < 7 && i < this.totalPages ; i++) {
+                    this.pages.push(i)
+                }
+                this.pages.push('...');
+                this.pages.push(this.totalPages - 1)
+            }
+            else if (this.currentPage >= this.totalPages - 5){
+                this.pages.push(0);
+                this.pages.push('...');
+                for (let i = this.totalPages - 7; i < this.totalPages; i++) {
+                    this.pages.push(i);
+                }
+            }
+            else{
+                this.pages.push(0)
+                this.pages.push('...')
+                for (let i = this.currentPage -2; i <= this.currentPage + 2; i++) {
+                    this.pages.push(i);
+                }
+                this.pages.push('...')
+                this.pages.push(this.totalPages-1)
+            }
         }
     }
+
 
     // Error handling methods
     private handleAddError(error: any): string {
