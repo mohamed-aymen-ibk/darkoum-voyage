@@ -4,6 +4,7 @@ import {NgForOf, NgIf, DecimalPipe, NgClass} from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NavbarComponent } from "../shared/navbar/navbar.component";
 import { FooterComponent } from "../shared/footer/footer.component";
+import {PackDtoResponse} from "../../models/pack.dtos";
 
 @Component({
     selector: 'app-pack',
@@ -35,7 +36,7 @@ export class PackComponent implements OnInit, OnDestroy {
     pageSize = 10;
     totalPages = 0;
     totalElements = 0;
-    pages: number[] = [];
+    pages: ({ value: number | '...', display: string })[] = [];
 
     constructor(private packService: PackService) {}
 
@@ -171,14 +172,43 @@ export class PackComponent implements OnInit, OnDestroy {
         this.currentPage = 0;
         this.loadPacks();
     }
-    goToPage(page: number):void{
-        this.currentPage = page;
+    goToPage(page: number | string):void{
+        if (page === '...') {
+            return;
+        }
+        this.currentPage = page as number;
         this.loadPacks()
     }
-    generatePageNumbers():void{
+    generatePageNumbers(): void {
         this.pages = [];
-        for (let i = 0; i < this.totalPages; i++) {
-            this.pages.push(i);
+        if (this.totalPages <= 10) {
+            for (let i = 0; i < this.totalPages; i++) {
+                this.pages.push({value: i, display: String(i+1)  });
+            }
+        } else {
+            if (this.currentPage < 5) {
+                for (let i = 0; i < 7 && i < this.totalPages ; i++) {
+                    this.pages.push({value: i, display: String(i+1) })
+                }
+                this.pages.push({value: '...', display: '...' });
+                this.pages.push({value: this.totalPages - 1, display: String(this.totalPages) })
+            }
+            else if (this.currentPage >= this.totalPages - 5){
+                this.pages.push({value: 0, display: String(1) });
+                this.pages.push({value: '...', display: '...' });
+                for (let i = this.totalPages - 7; i < this.totalPages; i++) {
+                    this.pages.push({value: i, display: String(i+1) })
+                }
+            }
+            else{
+                this.pages.push({value: 0, display: String(1)});
+                this.pages.push({value: '...', display: '...' });
+                for (let i = this.currentPage -2; i <= this.currentPage + 2; i++) {
+                    this.pages.push({value: i, display: String(i+1) })
+                }
+                this.pages.push({value: '...', display: '...' });
+                this.pages.push({value: this.totalPages-1, display: String(this.totalPages) })
+            }
         }
     }
     togglePackExpansion(packId: number, event: MouseEvent): void {

@@ -34,7 +34,7 @@ export class VenteComponent implements OnInit {
     pageSize = 10;
     totalPages = 0;
     totalElements = 0;
-    pages: number[] = [];
+    pages: ({ value: number | '...', display: string })[] = [];
 
     constructor(
         private venteService: VenteService,
@@ -133,7 +133,6 @@ export class VenteComponent implements OnInit {
     openDeleteModal(vente: any): void {
         this.venteToDelete = vente;
         this.showDeleteModal = true;
-        this.generalErrorMessage = null;
     }
 
     closeDeleteModal(): void {
@@ -148,19 +147,48 @@ export class VenteComponent implements OnInit {
                     this.closeDeleteModal();
                 },
                 (error) => {
-                    this.generalErrorMessage = this.handleGeneralError(error);
+                    this.generalErrorMessage = 'Error deleting sale. Please try again later.';
                 }
             );
         }
     }
-    goToPage(page: number):void{
-        this.currentPage = page;
+    goToPage(page: number | string):void{
+        if (page === '...') {
+            return;
+        }
+        this.currentPage = page as number;
         this.loadVentes()
     }
     generatePageNumbers():void{
         this.pages = [];
-        for (let i = 0; i < this.totalPages; i++) {
-            this.pages.push(i);
+        if (this.totalPages <= 10) {
+            for (let i = 0; i < this.totalPages; i++) {
+                this.pages.push({value: i, display: String(i+1)  });
+            }
+        } else {
+            if (this.currentPage < 5) {
+                for (let i = 0; i < 7 && i < this.totalPages ; i++) {
+                    this.pages.push({value: i, display: String(i+1) })
+                }
+                this.pages.push({value: '...', display: '...' });
+                this.pages.push({value: this.totalPages - 1, display: String(this.totalPages) })
+            }
+            else if (this.currentPage >= this.totalPages - 5){
+                this.pages.push({value: 0, display: String(1) });
+                this.pages.push({value: '...', display: '...' });
+                for (let i = this.totalPages - 7; i < this.totalPages; i++) {
+                    this.pages.push({value: i, display: String(i+1) })
+                }
+            }
+            else{
+                this.pages.push({value: 0, display: String(1)});
+                this.pages.push({value: '...', display: '...' });
+                for (let i = this.currentPage -2; i <= this.currentPage + 2; i++) {
+                    this.pages.push({value: i, display: String(i+1) })
+                }
+                this.pages.push({value: '...', display: '...' });
+                this.pages.push({value: this.totalPages-1, display: String(this.totalPages) })
+            }
         }
     }
     // Error handling methods
