@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { VenteService } from '../../services/vente/vente.service';
-import {DatePipe, NgClass, NgForOf, NgIf} from '@angular/common';
+import { DatePipe, NgClass, NgForOf, NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NavbarComponent } from '../shared/navbar/navbar.component';
 import { FooterComponent } from '../shared/footer/footer.component';
 import { ClientService } from '../../services/client/client.service';
 import { PackService } from '../../services/pack/pack.service';
 import { PaymentStatus } from '../../models/Enums/PaymentStatus';
-import { ClientDtoResponse } from "../../models/client.dtos";
-import {PackDtoResponse} from "../../models/pack.dtos";
+import { ClientDtoResponse } from '../../models/client.dtos';
+import { PackDtoResponse } from '../../models/pack.dtos';
 
 @Component({
     selector: 'app-vente',
@@ -40,13 +40,14 @@ export class VenteComponent implements OnInit {
         private venteService: VenteService,
         private clientService: ClientService,
         private packService: PackService
-    ) {}
+    ) { }
 
     ngOnInit(): void {
         this.loadVentes();
         this.loadClients();
         this.loadPacks();
     }
+
     loadClients(): void {
         this.clientService.getClients().subscribe(
             (data: any) => {
@@ -57,6 +58,7 @@ export class VenteComponent implements OnInit {
             }
         );
     }
+
     loadPacks(): void {
         this.packService.getPacks().subscribe(
             (data: any) => {
@@ -93,7 +95,13 @@ export class VenteComponent implements OnInit {
     }
 
     onAddVente(): void {
-        this.venteService.addVente(this.newVente).subscribe(
+        const venteData = {
+            clientId: this.newVente.clientId,
+            packId: this.newVente.packId,
+            paymentStatus: this.newVente.paymentStatus,
+            description: this.newVente.description,
+        };
+        this.venteService.addVente(venteData).subscribe(
             () => {
                 this.loadVentes();
                 this.closeAddModal();
@@ -105,7 +113,7 @@ export class VenteComponent implements OnInit {
     }
 
     openUpdateModal(vente: any): void {
-        this.editVente = { ...vente };
+        this.editVente = { ...vente, clientId: vente.clientId, packId: vente.packId };
         this.showUpdateModal = true;
         this.updateErrorMessage = null;
     }
@@ -152,42 +160,42 @@ export class VenteComponent implements OnInit {
             );
         }
     }
-    goToPage(page: number | string):void{
+    goToPage(page: number | string): void {
         if (page === '...') {
             return;
         }
         this.currentPage = page as number;
-        this.loadVentes()
+        this.loadVentes();
     }
-    generatePageNumbers():void{
+    generatePageNumbers(): void {
         this.pages = [];
         if (this.totalPages <= 10) {
             for (let i = 0; i < this.totalPages; i++) {
-                this.pages.push({value: i, display: String(i+1)  });
+                this.pages.push({ value: i, display: String(i + 1) });
             }
         } else {
             if (this.currentPage < 5) {
-                for (let i = 0; i < 7 && i < this.totalPages ; i++) {
-                    this.pages.push({value: i, display: String(i+1) })
+                for (let i = 0; i < 7 && i < this.totalPages; i++) {
+                    this.pages.push({ value: i, display: String(i + 1) });
                 }
-                this.pages.push({value: '...', display: '...' });
-                this.pages.push({value: this.totalPages - 1, display: String(this.totalPages) })
+                this.pages.push({ value: '...', display: '...' });
+                this.pages.push({ value: this.totalPages - 1, display: String(this.totalPages) });
             }
-            else if (this.currentPage >= this.totalPages - 5){
-                this.pages.push({value: 0, display: String(1) });
-                this.pages.push({value: '...', display: '...' });
+            else if (this.currentPage >= this.totalPages - 5) {
+                this.pages.push({ value: 0, display: String(1) });
+                this.pages.push({ value: '...', display: '...' });
                 for (let i = this.totalPages - 7; i < this.totalPages; i++) {
-                    this.pages.push({value: i, display: String(i+1) })
+                    this.pages.push({ value: i, display: String(i + 1) });
                 }
             }
-            else{
-                this.pages.push({value: 0, display: String(1)});
-                this.pages.push({value: '...', display: '...' });
-                for (let i = this.currentPage -2; i <= this.currentPage + 2; i++) {
-                    this.pages.push({value: i, display: String(i+1) })
+            else {
+                this.pages.push({ value: 0, display: String(1) });
+                this.pages.push({ value: '...', display: '...' });
+                for (let i = this.currentPage - 2; i <= this.currentPage + 2; i++) {
+                    this.pages.push({ value: i, display: String(i + 1) });
                 }
-                this.pages.push({value: '...', display: '...' });
-                this.pages.push({value: this.totalPages-1, display: String(this.totalPages) })
+                this.pages.push({ value: '...', display: '...' });
+                this.pages.push({ value: this.totalPages - 1, display: String(this.totalPages) });
             }
         }
     }

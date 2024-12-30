@@ -1,5 +1,6 @@
 <app-navbar></app-navbar>
 <div class="m-10 mt-[130px] overflow-x-auto bg-gray-100">
+    <h1 class="text-3xl font-bold mb-5 text-blue-600">Sales</h1>
     <!-- Search input -->
     <div class="relative float-left m-[2px] mb-3 mr-5">
         <input
@@ -117,7 +118,7 @@
                         required
                 >
                     <option value="" disabled selected>Select Client</option>
-                    <option *ngFor="let client of clients" [ngValue]="client.id">
+                    <option *ngFor="let client of clients" [value]="client.id">
                         {{ client.name }}
                     </option>
                 </select>
@@ -131,7 +132,7 @@
                         required
                 >
                     <option value="" disabled selected>Select Pack</option>
-                    <option *ngFor="let pack of packs" [ngValue]="pack.id">
+                    <option *ngFor="let pack of packs" [value]="pack.id">
                         {{ pack.name }}
                     </option>
                 </select>
