@@ -103,7 +103,7 @@
 <!-- Add Modal -->
 <div *ngIf="showAddModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
     <div class="bg-white rounded-lg shadow-lg p-6 w-96">
-        <h2 class="text-lg font-semibold mb-4">Add Vente</h2>
+        <h2 class="text-lg font-semibold mb-4">Add Sale</h2>
         <form (ngSubmit)="onAddVente()">
             <div class="mb-4">
                 <label class="block text-sm font-medium text-gray-700">Client</label>
@@ -181,7 +181,7 @@
 <!-- Update Modal -->
 <div *ngIf="showUpdateModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
     <div class="bg-white rounded-lg shadow-lg p-6 w-96">
-        <h2 class="text-lg font-semibold mb-4">Update Vente</h2>
+        <h2 class="text-lg font-semibold mb-4">Update Sale</h2>
         <form (ngSubmit)="onUpdateVente()">
             <div class="mb-4">
                 <label class="block text-sm font-medium text-gray-700">Client Name</label>
@@ -249,8 +249,8 @@
 <!-- Delete Modal -->
 <div *ngIf="showDeleteModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
     <div class="bg-white rounded-lg shadow-lg p-6 w-96">
-        <h2 class="text-lg font-semibold mb-4">Delete Vente</h2>
-        <p class="mb-4">Are you sure you want to delete this vente?</p>
+        <h2 class="text-lg font-semibold mb-4">Delete sale</h2>
+        <p class="mb-4">Are you sure you want to delete this sale?</p>
         <div *ngIf="generalErrorMessage" class="text-red-500 mb-4">
             {{ generalErrorMessage }}
         </div>

@@ -28,7 +28,7 @@ export class ClientComponent implements OnInit {
     pageSize = 10;
     totalPages = 0;
     totalElements = 0;
-    pages: number[] = [];
+    pages: ({ value: number | '...', display: string })[] = [];
 
     constructor(private clientService: ClientService) {}
 
@@ -137,14 +137,43 @@ export class ClientComponent implements OnInit {
         this.currentPage = 0;
         this.loadClients();
     }
-    goToPage(page: number):void{
-        this.currentPage = page;
+    goToPage(page: number | string):void{
+        if (page === '...') {
+            return;
+        }
+        this.currentPage = page as number;
         this.loadClients()
     }
     generatePageNumbers():void{
         this.pages = [];
-        for (let i = 0; i < this.totalPages; i++) {
-            this.pages.push(i);
+        if (this.totalPages <= 10) {
+            for (let i = 0; i < this.totalPages; i++) {
+                this.pages.push({value: i, display: String(i+1)  });
+            }
+        } else {
+            if (this.currentPage < 5) {
+                for (let i = 0; i < 7 && i < this.totalPages ; i++) {
+                    this.pages.push({value: i, display: String(i+1) })
+                }
+                this.pages.push({value: '...', display: '...' });
+                this.pages.push({value: this.totalPages - 1, display: String(this.totalPages) })
+            }
+            else if (this.currentPage >= this.totalPages - 5){
+                this.pages.push({value: 0, display: String(1) });
+                this.pages.push({value: '...', display: '...' });
+                for (let i = this.totalPages - 7; i < this.totalPages; i++) {
+                    this.pages.push({value: i, display: String(i+1) })
+                }
+            }
+            else{
+                this.pages.push({value: 0, display: String(1)});
+                this.pages.push({value: '...', display: '...' });
+                for (let i = this.currentPage -2; i <= this.currentPage + 2; i++) {
+                    this.pages.push({value: i, display: String(i+1) })
+                }
+                this.pages.push({value: '...', display: '...' });
+                this.pages.push({value: this.totalPages-1, display: String(this.totalPages) })
+            }
         }
     }
 
@@ -156,8 +185,12 @@ export class ClientComponent implements OnInit {
     }
 
     private handleUpdateError(error: any): string {
-        if (error.status === 400) {
+        if (error.status === 404) {
+            return 'Failed to update client: Client not found.';
+        } else if (error.status === 400) {
             return 'Bad request. Please check the input values.';
+        } else if (error.status === 500) {
+            return 'Failed to update client: Server error. Please try again later.';
         }
         return 'An error occurred while updating the client. Please try again later.';
     }

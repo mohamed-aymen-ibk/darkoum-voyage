@@ -145,12 +145,9 @@ export class ArticleComponent implements OnInit {
         this.loadArticles();
     }
 
-    goToPage(page: number | string): void {
-        if (page === '...') {
-            return;
-        }
-        this.currentPage = page as number;
-        this.loadArticles();
+    goToPage(page: number):void{
+        this.currentPage = page;
+        this.loadArticles()
     }
     generatePageNumbers(): void {
         this.pages = [];
