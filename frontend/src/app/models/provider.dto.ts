@@ -2,6 +2,8 @@ export interface ProviderDtoRequest {
     name: string;
     email: string;
     phone: string;
+    address?:string;
+    serviceType?:string;
 }
 
 export interface ProviderDtoResponse {
@@ -9,4 +11,7 @@ export interface ProviderDtoResponse {
     name: string;
     email: string;
     phone: string;
+    address: string;
+    serviceType: string;
+    createdAt: Date;
 }

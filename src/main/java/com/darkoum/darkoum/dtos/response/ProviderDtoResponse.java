@@ -3,6 +3,8 @@ package com.darkoum.darkoum.dtos.response;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
 public class ProviderDtoResponse {
@@ -10,4 +12,7 @@ public class ProviderDtoResponse {
     private String name;
     private String email;
     private String phone;
+    private String address;
+    private String serviceType;
+    private LocalDateTime createdAt;
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ProviderService } from '../../services/provider/provider.service';
-import {NgClass, NgForOf, NgIf} from '@angular/common';
+import {DatePipe, NgClass, NgForOf, NgIf} from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NavbarComponent } from "../shared/navbar/navbar.component";
 import { FooterComponent } from "../shared/footer/footer.component";
@@ -9,7 +9,7 @@ import { ProviderDtoRequest, ProviderDtoResponse } from "../../models/provider.d
 @Component({
     selector: 'app-provider',
     templateUrl: './provider.component.html',
-    imports: [NgIf, FormsModule, NgForOf, FooterComponent, NavbarComponent, NgClass],
+    imports: [NgIf, FormsModule, NgForOf, FooterComponent, NavbarComponent, NgClass, DatePipe],
     styleUrls: ['./provider.component.css'],
 })
 export class ProviderComponent implements OnInit {
@@ -17,9 +17,9 @@ export class ProviderComponent implements OnInit {
     showAddModal = false;
     showUpdateModal = false;
     showDeleteModal = false;
-    newProvider: ProviderDtoRequest = { name: '', email: '', phone: '' };
-    editProvider: ProviderDtoResponse = { id: 0, name: '', email: '', phone: '' };
-    providerToDelete: ProviderDtoResponse = { id: 0, name: '', email: '', phone: '' };
+    newProvider: ProviderDtoRequest = { name: '', email: '', phone: '' , address: '', serviceType: ''};
+    editProvider: ProviderDtoResponse = { id: 0, name: '', email: '', phone: '', address: '', serviceType: '', createdAt: new Date() };
+    providerToDelete: ProviderDtoResponse = { id: 0, name: '', email: '', phone: '', address: '', serviceType: '', createdAt: new Date() };
     addErrorMessage: string | null = null;
     updateErrorMessage: string | null = null;
     generalErrorMessage: string | null = null;
@@ -52,7 +52,7 @@ export class ProviderComponent implements OnInit {
     }
 
     openAddModal(): void {
-        this.newProvider = { name: '', email: '', phone: '' };
+        this.newProvider = { name: '', email: '', phone: '', address: '', serviceType: '' };
         this.showAddModal = true;
         this.addErrorMessage = null; // Reset error message
     }
@@ -105,7 +105,7 @@ export class ProviderComponent implements OnInit {
 
     closeDeleteModal(): void {
         this.showDeleteModal = false;
-        this.providerToDelete = { id: 0, name: '', email: '', phone: '' };
+        this.providerToDelete = { id: 0, name: '', email: '', phone: '', address: '', serviceType: '', createdAt: new Date() };
     }
 
     onDeleteProvider(): void {

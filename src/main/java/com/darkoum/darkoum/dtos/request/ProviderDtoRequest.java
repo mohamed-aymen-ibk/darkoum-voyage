@@ -20,4 +20,10 @@ public class ProviderDtoRequest {
 
     @Pattern(regexp = "^[0-9]{10}$", message = "Phone number should be valid")
     private String phone;
+
+    @NotBlank(message = "Address is required")
+    private String address;
+
+    @NotBlank(message = "Service Type is required")
+    private String serviceType;
 }

@@ -29,6 +29,9 @@
             <th class="border-x px-6 py-2">Name</th>
             <th class="border-x px-6 py-2">Email</th>
             <th class="border-x px-6 py-2">Phone</th>
+            <th class="border-x px-6 py-2">Address</th>
+            <th class="border-x px-6 py-2">Service</th>
+            <th class="border-x px-6 py-2">Date</th>
             <th class="border-x px-6 py-2">Operations</th>
         </tr>
         </thead>
@@ -37,6 +40,9 @@
             <th class="border-x px-6 py-2">{{ provider.name }}</th>
             <td class="border-x px-6 py-2">{{ provider.email }}</td>
             <td class="border-x px-6 py-2">{{ provider.phone }}</td>
+            <td class="border-x px-6 py-2">{{ provider.address }}</td>
+            <td class="border-x px-6 py-2">{{ provider.serviceType }}</td>
+            <td class="border-x px-6 py-2">{{ provider.createdAt | date : 'short' }}</td>
             <td class="border-x px-6 py-2">
                 <button
                         class="bg-gray-100 text-yellow-500 py-1 px-3 rounded border border-1 border-yellow-500 hover:bg-yellow-400 hover:text-white transition duration-200"
@@ -135,6 +141,26 @@
                         required
                 />
             </div>
+            <div class="mb-4">
+                <input
+                        type="text"
+                        [(ngModel)]="newProvider.address"
+                        name="address"
+                        placeholder="Address"
+                        class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+                        required
+                />
+            </div>
+            <div class="mb-4">
+                <input
+                        type="text"
+                        [(ngModel)]="newProvider.serviceType"
+                        name="serviceType"
+                        placeholder="Service Type"
+                        class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+                        required
+                />
+            </div>
             <div *ngIf="addErrorMessage" class="text-red-500 mb-4">
                 {{ addErrorMessage }}
             </div>
@@ -188,6 +214,26 @@
                         [(ngModel)]="editProvider.phone"
                         name="phone"
                         placeholder="Phone"
+                        class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+                        required
+                />
+            </div>
+            <div class="mb-4">
+                <input
+                        type="text"
+                        [(ngModel)]="editProvider.address"
+                        name="address"
+                        placeholder="Address"
+                        class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+                        required
+                />
+            </div>
+            <div class="mb-4">
+                <input
+                        type="text"
+                        [(ngModel)]="editProvider.serviceType"
+                        name="serviceType"
+                        placeholder="Service Type"
                         class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
                         required
                 />

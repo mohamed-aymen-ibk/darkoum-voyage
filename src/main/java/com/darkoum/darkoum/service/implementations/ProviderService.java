@@ -49,6 +49,8 @@ public class ProviderService implements ProviderServiceInterface {
         provider.setName(providerDtoRequest.getName());
         provider.setEmail(providerDtoRequest.getEmail());
         provider.setPhoneNumber(providerDtoRequest.getPhone());
+        provider.setAddress(providerDtoRequest.getAddress());
+        provider.setServiceType(providerDtoRequest.getServiceType());
         provider.setUser(loggedInUser); // Associate provider with the logged-in user
 
         Provider savedProvider = providerRepository.save(provider);
@@ -91,7 +93,8 @@ public class ProviderService implements ProviderServiceInterface {
         provider.setName(providerDtoRequest.getName());
         provider.setEmail(providerDtoRequest.getEmail());
         provider.setPhoneNumber(providerDtoRequest.getPhone());
-
+        provider.setAddress(providerDtoRequest.getAddress());
+        provider.setServiceType(providerDtoRequest.getServiceType());
 
         Provider updatedProvider = providerRepository.save(provider);
         return mapToDto(updatedProvider);
@@ -110,6 +113,9 @@ public class ProviderService implements ProviderServiceInterface {
         dto.setName(provider.getName());
         dto.setEmail(provider.getEmail());
         dto.setPhone(provider.getPhoneNumber());
+        dto.setAddress(provider.getAddress());
+        dto.setServiceType(provider.getServiceType());
+        dto.setCreatedAt(provider.getCreatedAt());
         return dto;
     }
 }
