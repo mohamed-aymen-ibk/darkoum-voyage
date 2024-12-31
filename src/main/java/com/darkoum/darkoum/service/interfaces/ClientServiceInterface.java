@@ -20,4 +20,6 @@ public interface ClientServiceInterface {
     ClientDtoResponse updateClient(Long id, ClientDtoRequest clientDtoRequest);
 
     void deleteClient(Long id);
+
+    List<String> getAllClientNames();
 }

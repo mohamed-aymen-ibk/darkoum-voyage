@@ -104,6 +104,10 @@ public class PackService implements PackServiceInterface {
         }
         return dto;
     }
+    @Override
+    public List<String> getAllPackNames() {
+        return packRepository.findAllPackNames();
+    }
 
     public List<String> getAllArticleNames() {
         return articleRepository.findAllArticleNames();

@@ -107,4 +107,8 @@ public class ClientService implements ClientServiceInterface {
         }
         return dto;
     }
+    @Override
+    public List<String> getAllClientNames() {
+        return clientRepository.findAllClientNames();
+    }
 }

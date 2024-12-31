@@ -9,6 +9,8 @@ import java.util.List;
 public interface PackServiceInterface {
     PackDtoResponse createPack(PackDtoRequest packDtoRequest);
 
+    List<String> getAllPackNames();
+
     List<String> getAllArticleNames();
 
     PackDtoResponse getPackById(Long id);

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -10,32 +10,52 @@ export class PackService {
 
   constructor(private http: HttpClient) {}
 
-  getPacks(name?:string, page?:number, size?:number): Observable<any> {
+  getPacks(name?: string, page?: number, size?: number): Observable<any> {
     let params = new HttpParams();
-    if(name){
-      params = params.set('name', name)
+    if (name) {
+      params = params.set('name', name);
     }
-    if(page !== undefined){
-      params = params.set('page', page.toString())
+    if (page !== undefined) {
+      params = params.set('page', page.toString());
     }
-    if(size !== undefined){
-      params = params.set('size', size.toString())
+    if (size !== undefined) {
+      params = params.set('size', size.toString());
     }
-    return this.http.get<any>(this.apiUrl, { params });
+    const token = localStorage.getItem('authToken');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.get<any>(this.apiUrl, { params, headers });
+  }
+  getAllPacks(): Observable<any> {
+    const token = localStorage.getItem('authToken');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.get<any>(this.apiUrl, { headers });
+  }
+  getAllPackNames(): Observable<string[]> {
+    const token = localStorage.getItem('authToken');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.get<string[]>(`${this.apiUrl}/names`,{ headers });
   }
 
   addPack(pack: any): Observable<any> {
-    return this.http.post<any>(this.apiUrl, pack);
+    const token = localStorage.getItem('authToken');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.post<any>(this.apiUrl, pack, { headers });
   }
 
   updatePack(id: number, pack: any): Observable<any> {
-    return this.http.put<any>(`${this.apiUrl}/${id}`, pack);
+    const token = localStorage.getItem('authToken');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.put<any>(`${this.apiUrl}/${id}`, pack, { headers });
   }
 
   deletePack(id: number): Observable<any> {
-    return this.http.delete<any>(`${this.apiUrl}/${id}`);
+    const token = localStorage.getItem('authToken');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.delete<any>(`${this.apiUrl}/${id}`, { headers });
   }
   getArticleNames(): Observable<string[]> {
-    return this.http.get<string[]>(`${this.apiUrl}/articles/names`);
+    const token = localStorage.getItem('authToken');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.get<string[]>(`${this.apiUrl}/articles/names`, { headers });
   }
 }

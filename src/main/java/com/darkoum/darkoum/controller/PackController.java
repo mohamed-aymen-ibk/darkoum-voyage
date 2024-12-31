@@ -39,6 +39,10 @@ public class PackController {
         }
         return ResponseEntity.ok(packService.searchPacksByName(name, page, size));
     }
+    @GetMapping("/names")
+    public ResponseEntity<List<String>> getAllPackNames(){
+        return ResponseEntity.ok(packService.getAllPackNames());
+    }
 
     @PutMapping("/{id}")
     public ResponseEntity<PackDtoResponse> updatePack(

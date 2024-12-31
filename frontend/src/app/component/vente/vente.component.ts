@@ -27,8 +27,8 @@ export class VenteComponent implements OnInit {
     addErrorMessage: string | null = null;
     updateErrorMessage: string | null = null;
     generalErrorMessage: string | null = null;
-    clients: ClientDtoResponse[] = [];
-    packs: PackDtoResponse[] = [];
+    clients: {id: number, name: string }[] = [];
+    packs: {id: number, name: string }[] = [];
     paymentStatuses = Object.values(PaymentStatus);
     currentPage = 0;
     pageSize = 10;
@@ -44,25 +44,24 @@ export class VenteComponent implements OnInit {
 
     ngOnInit(): void {
         this.loadVentes();
-        this.loadClients();
-        this.loadPacks();
+        this.loadClientNames();
+        this.loadPackNames();
     }
 
-    loadClients(): void {
-        this.clientService.getClients().subscribe(
-            (data: any) => {
-                this.clients = data.content;
+    loadClientNames(): void {
+        this.clientService.getAllClientNames().subscribe(
+            (data: string[]) => {
+                this.clients = data.map((name, index) => ({id: index + 1, name}));
             },
             (error) => {
                 this.generalErrorMessage = 'Error loading clients. Please try again later.';
             }
         );
     }
-
-    loadPacks(): void {
-        this.packService.getPacks().subscribe(
-            (data: any) => {
-                this.packs = data.content;
+    loadPackNames(): void {
+        this.packService.getAllPackNames().subscribe(
+            (data: string[]) => {
+                this.packs = data.map((name, index) => ({id: index + 1, name}));
             },
             (error) => {
                 this.generalErrorMessage = 'Error loading packs. Please try again later.';
@@ -99,7 +98,7 @@ export class VenteComponent implements OnInit {
             clientId: this.newVente.clientId,
             packId: this.newVente.packId,
             paymentStatus: this.newVente.paymentStatus,
-            description: this.newVente.description,
+            description: this.newVente.description
         };
         this.venteService.addVente(venteData).subscribe(
             () => {

@@ -38,7 +38,10 @@ public class ClientController {
         }
         return ResponseEntity.ok(clientService.searchClientsByName(name, page, size));
     }
-
+    @GetMapping("/names")
+    public ResponseEntity<List<String>> getAllClientNames(){
+        return ResponseEntity.ok(clientService.getAllClientNames());
+    }
 
     @GetMapping("/user/{userId}")
     public ResponseEntity<List<ClientDtoResponse>> getClientsByUser(@PathVariable Long userId) {
