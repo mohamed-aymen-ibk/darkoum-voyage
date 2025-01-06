@@ -5,20 +5,71 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="04e82da8-214b-4e32-b9a0-deed4f1652df" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources/a9f0a2f6-95b7-452e-8ade-cc330265d738.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/a9f0a2f6-95b7-452e-8ade-cc330265d738.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources/a9f0a2f6-95b7-452e-8ade-cc330265d738/storage_v2/_src_/database/agency.BRxhqw/schema/public.abK9xQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/a9f0a2f6-95b7-452e-8ade-cc330265d738/storage_v2/_src_/database/agency.BRxhqw/schema/public.abK9xQ.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations/DarkoumApplication.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/runConfigurations/DarkoumApplication.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/.angular/cache/19.0.6/darkoum-frontend/.tsbuildinfo" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/.angular/cache/19.0.6/darkoum-frontend/.tsbuildinfo" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/.angular/cache/19.0.6/darkoum-frontend/vite/deps/_metadata.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/.angular/cache/19.0.6/darkoum-frontend/vite/deps/_metadata.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/.angular/cache/19.0.6/darkoum-frontend/vite/deps_ssr/_metadata.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/.angular/cache/19.0.6/darkoum-frontend/vite/deps_ssr/_metadata.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.angular/cache/19.0.6/darkoum-frontend/vite/deps_temp_3e909191/@angular_common.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.angular/cache/19.0.6/darkoum-frontend/vite/deps_temp_3e909191/@angular_common.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.angular/cache/19.0.6/darkoum-frontend/vite/deps_temp_3e909191/@angular_common_http.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.angular/cache/19.0.6/darkoum-frontend/vite/deps_temp_3e909191/@angular_common_http.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.angular/cache/19.0.6/darkoum-frontend/vite/deps_temp_3e909191/@angular_core.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.angular/cache/19.0.6/darkoum-frontend/vite/deps_temp_3e909191/@angular_core.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.angular/cache/19.0.6/darkoum-frontend/vite/deps_temp_3e909191/@angular_forms.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.angular/cache/19.0.6/darkoum-frontend/vite/deps_temp_3e909191/@angular_forms.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.angular/cache/19.0.6/darkoum-frontend/vite/deps_temp_3e909191/@angular_platform-browser.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.angular/cache/19.0.6/darkoum-frontend/vite/deps_temp_3e909191/@angular_platform-browser.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.angular/cache/19.0.6/darkoum-frontend/vite/deps_temp_3e909191/@angular_router.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.angular/cache/19.0.6/darkoum-frontend/vite/deps_temp_3e909191/@angular_router.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.angular/cache/19.0.6/darkoum-frontend/vite/deps_temp_3e909191/@ng-icons_heroicons_outline.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.angular/cache/19.0.6/darkoum-frontend/vite/deps_temp_3e909191/@ng-icons_heroicons_outline.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.angular/cache/19.0.6/darkoum-frontend/vite/deps_temp_3e909191/chunk-65ZZGIQZ.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.angular/cache/19.0.6/darkoum-frontend/vite/deps_temp_3e909191/chunk-65ZZGIQZ.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.angular/cache/19.0.6/darkoum-frontend/vite/deps_temp_3e909191/chunk-6YORUHYZ.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.angular/cache/19.0.6/darkoum-frontend/vite/deps_temp_3e909191/chunk-6YORUHYZ.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.angular/cache/19.0.6/darkoum-frontend/vite/deps_temp_3e909191/chunk-M4JKZZEO.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.angular/cache/19.0.6/darkoum-frontend/vite/deps_temp_3e909191/chunk-M4JKZZEO.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.angular/cache/19.0.6/darkoum-frontend/vite/deps_temp_3e909191/chunk-P6KP6LEN.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.angular/cache/19.0.6/darkoum-frontend/vite/deps_temp_3e909191/chunk-P6KP6LEN.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.angular/cache/19.0.6/darkoum-frontend/vite/deps_temp_3e909191/chunk-WDMUDEB6.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.angular/cache/19.0.6/darkoum-frontend/vite/deps_temp_3e909191/chunk-WDMUDEB6.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.angular/cache/19.0.6/darkoum-frontend/vite/deps_temp_3e909191/chunk-ZSY7TSMJ.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.angular/cache/19.0.6/darkoum-frontend/vite/deps_temp_3e909191/chunk-ZSY7TSMJ.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.angular/cache/19.0.6/darkoum-frontend/vite/deps_temp_3e909191/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.angular/cache/19.0.6/darkoum-frontend/vite/deps_temp_3e909191/rxjs.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.angular/cache/19.0.6/darkoum-frontend/vite/deps_temp_3e909191/rxjs.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.angular/cache/19.0.6/darkoum-frontend/vite/deps_temp_731f448d/@angular_common.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.angular/cache/19.0.6/darkoum-frontend/vite/deps_temp_731f448d/@angular_common.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.angular/cache/19.0.6/darkoum-frontend/vite/deps_temp_731f448d/@angular_common_http.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.angular/cache/19.0.6/darkoum-frontend/vite/deps_temp_731f448d/@angular_common_http.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.angular/cache/19.0.6/darkoum-frontend/vite/deps_temp_731f448d/@angular_core.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.angular/cache/19.0.6/darkoum-frontend/vite/deps_temp_731f448d/@angular_core.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.angular/cache/19.0.6/darkoum-frontend/vite/deps_temp_731f448d/@angular_forms.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.angular/cache/19.0.6/darkoum-frontend/vite/deps_temp_731f448d/@angular_forms.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.angular/cache/19.0.6/darkoum-frontend/vite/deps_temp_731f448d/@angular_platform-browser.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.angular/cache/19.0.6/darkoum-frontend/vite/deps_temp_731f448d/@angular_platform-browser.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.angular/cache/19.0.6/darkoum-frontend/vite/deps_temp_731f448d/@angular_router.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.angular/cache/19.0.6/darkoum-frontend/vite/deps_temp_731f448d/@angular_router.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.angular/cache/19.0.6/darkoum-frontend/vite/deps_temp_731f448d/chunk-5TID76VL.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.angular/cache/19.0.6/darkoum-frontend/vite/deps_temp_731f448d/chunk-5TID76VL.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.angular/cache/19.0.6/darkoum-frontend/vite/deps_temp_731f448d/chunk-7EDW3FV7.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.angular/cache/19.0.6/darkoum-frontend/vite/deps_temp_731f448d/chunk-7EDW3FV7.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.angular/cache/19.0.6/darkoum-frontend/vite/deps_temp_731f448d/chunk-HK5MR6SF.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.angular/cache/19.0.6/darkoum-frontend/vite/deps_temp_731f448d/chunk-HK5MR6SF.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.angular/cache/19.0.6/darkoum-frontend/vite/deps_temp_731f448d/chunk-M4Z47PIG.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.angular/cache/19.0.6/darkoum-frontend/vite/deps_temp_731f448d/chunk-M4Z47PIG.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.angular/cache/19.0.6/darkoum-frontend/vite/deps_temp_731f448d/chunk-OB3TT5QY.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.angular/cache/19.0.6/darkoum-frontend/vite/deps_temp_731f448d/chunk-OB3TT5QY.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.angular/cache/19.0.6/darkoum-frontend/vite/deps_temp_731f448d/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.angular/cache/19.0.6/darkoum-frontend/vite/deps_temp_731f448d/rxjs.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.angular/cache/19.0.6/darkoum-frontend/vite/deps_temp_731f448d/rxjs.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/public/favicon.ico" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/app/component/provider/provider.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/component/provider/provider.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/component/provider/provider.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/component/provider/provider.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/models/provider.dto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/models/provider.dto.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/darkoum/darkoum/dtos/request/ProviderDtoRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/darkoum/darkoum/dtos/request/ProviderDtoRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/darkoum/darkoum/dtos/response/ProviderDtoResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/darkoum/darkoum/dtos/response/ProviderDtoResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/darkoum/darkoum/service/implementations/ProviderService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/darkoum/darkoum/service/implementations/ProviderService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/component/shared/footer/footer.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/component/shared/footer/footer.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spring-petclinic" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/darkoum/darkoum/dtos/request/ArticleDtoRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/darkoum/darkoum/dtos/request/ArticleDtoRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/darkoum/darkoum/repository/ArticleRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/darkoum/darkoum/repository/ArticleRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/darkoum/darkoum/dtos/request/ArticleDtoRequest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/darkoum/darkoum/dtos/request/ArticleDtoRequest.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -72,6 +123,7 @@
     &quot;Application.DarkoumApplication.executor&quot;: &quot;Run&quot;,
     &quot;Maven.darkoum-voyage [spring-boot:run].executor&quot;: &quot;Run&quot;,
     &quot;Maven.darkoum-voyage [spring-boot:start].executor&quot;: &quot;Run&quot;,
+    &quot;Node.js.HTML-JavaScript.html.js.executor&quot;: &quot;Run&quot;,
     &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
     &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
     &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
@@ -93,11 +145,12 @@
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;npm.test.executor&quot;: &quot;Run&quot;,
     &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
     &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;project.propVCSSupport.DirectoryMappings&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
     &quot;ts.external.directory.path&quot;: &quot;/Users/macbook/Documents/Project/darkoum-voyage/frontend/node_modules/typescript/lib&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
@@ -111,6 +164,9 @@
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$" />
     </key>
+  </component>
+  <component name="SeleniumInternalSettingsState">
+    <option name="lastUrl" value="http://localhost:4200/client" />
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
