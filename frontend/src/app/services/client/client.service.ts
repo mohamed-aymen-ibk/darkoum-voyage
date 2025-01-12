@@ -27,11 +27,7 @@ export class ClientService {
     return this.http.get<any>(this.apiUrl, { headers, params });
   }
 
-  getAllClients(): Observable<any> {
-    const token = localStorage.getItem('authToken');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.get<any>(this.apiUrl, { headers });
-  }
+
   getAllClientNames(): Observable<string[]> {
     const token = localStorage.getItem('authToken');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
@@ -43,12 +39,6 @@ export class ClientService {
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     console.log('Adding client:', client);
     return this.http.post<ClientDtoResponse>(this.apiUrl, client, { headers });
-  }
-
-  getClientById(id: number): Observable<ClientDtoResponse> {
-    const token = localStorage.getItem('authToken');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.get<ClientDtoResponse>(`${this.apiUrl}/${id}`,{ headers });
   }
 
   updateClient(
@@ -64,5 +54,10 @@ export class ClientService {
     const token = localStorage.getItem('authToken');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return this.http.delete<void>(`${this.apiUrl}/${id}`, { headers });
+  }
+  getAllCodeClients(): Observable<string[]> {
+    const token = localStorage.getItem('authToken');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.get<string[]>(`${this.apiUrl}/codeClients`,{ headers });
   }
 }

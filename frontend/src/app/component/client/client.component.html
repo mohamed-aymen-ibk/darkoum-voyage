@@ -31,6 +31,11 @@
             <th class="border-x px-6 py-2">Phone</th>
             <th class="border-x px-6 py-2">Email</th>
             <th class="border-x px-6 py-2">Address</th>
+            <th class="border-x px-6 py-2">Code</th>
+            <th class="border-x px-6 py-2">Designation</th>
+            <th class="border-x px-6 py-2">ICE</th>
+            <th class="border-x px-6 py-2">RC</th>
+            <th class="border-x px-6 py-2">RIB</th>
             <th class="border-x px-6 py-2">Operations</th>
         </tr>
         </thead>
@@ -41,6 +46,11 @@
             <td class="border-x px-6 py-2">{{ client.phoneNumber }}</td>
             <td class="border-x px-6 py-2">{{ client.email }}</td>
             <td class="border-x px-6 py-2">{{ client.address }}</td>
+            <td class="border-x px-6 py-2">{{ client.codeClient }}</td>
+            <td class="border-x px-6 py-2">{{ client.designation }}</td>
+            <td class="border-x px-6 py-2">{{ client.ice }}</td>
+            <td class="border-x px-6 py-2">{{ client.rc }}</td>
+            <td class="border-x px-6 py-2">{{ client.rib }}</td>
             <td class="border-x px-6 py-2">
                 <button
                         class="bg-gray-100  text-yellow-500 py-1 px-3 rounded border border-1 border-yellow-500 hover:bg-yellow-400 hover:text-white transition duration-300"
@@ -160,6 +170,51 @@
                         required
                 />
             </div>
+            <div class="mb-4">
+                <input
+                        type="text"
+                        [(ngModel)]="newClient.codeClient"
+                        name="codeClient"
+                        placeholder="Code Client"
+                        class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+                />
+            </div>
+            <div class="mb-4">
+                <input
+                        type="text"
+                        [(ngModel)]="newClient.designation"
+                        name="designation"
+                        placeholder="Designation"
+                        class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+                />
+            </div>
+            <div class="mb-4">
+                <input
+                        type="text"
+                        [(ngModel)]="newClient.ice"
+                        name="ice"
+                        placeholder="ICE"
+                        class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+                />
+            </div>
+            <div class="mb-4">
+                <input
+                        type="text"
+                        [(ngModel)]="newClient.rc"
+                        name="rc"
+                        placeholder="RC"
+                        class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+                />
+            </div>
+            <div class="mb-4">
+                <input
+                        type="text"
+                        [(ngModel)]="newClient.rib"
+                        name="rib"
+                        placeholder="RIB"
+                        class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+                />
+            </div>
             <div *ngIf="addErrorMessage" class="text-red-500 mb-4">
                 {{ addErrorMessage }}
             </div>
@@ -234,6 +289,56 @@
                         placeholder="Address"
                         class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
                         required
+                />
+            </div>
+            <div class="mb-4">
+                <input
+                        type="text"
+                        [(ngModel)]="editClient.codeClient"
+                        name="codeClient"
+                        placeholder="Code Client"
+                        class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+
+                />
+            </div>
+            <div class="mb-4">
+                <input
+                        type="text"
+                        [(ngModel)]="editClient.designation"
+                        name="designation"
+                        placeholder="Designation"
+                        class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+
+                />
+            </div>
+            <div class="mb-4">
+                <input
+                        type="text"
+                        [(ngModel)]="editClient.ice"
+                        name="ice"
+                        placeholder="ICE"
+                        class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+
+                />
+            </div>
+            <div class="mb-4">
+                <input
+                        type="text"
+                        [(ngModel)]="editClient.rc"
+                        name="rc"
+                        placeholder="RC"
+                        class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+
+                />
+            </div>
+            <div class="mb-4">
+                <input
+                        type="text"
+                        [(ngModel)]="editClient.rib"
+                        name="rib"
+                        placeholder="RIB"
+                        class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+
                 />
             </div>
             <div *ngIf="updateErrorMessage" class="text-red-500 mb-4">

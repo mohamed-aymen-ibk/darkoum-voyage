@@ -17,9 +17,9 @@ export class ClientComponent implements OnInit {
     showAddModal = false;
     showUpdateModal = false;
     showDeleteModal = false;
-    newClient: ClientDtoRequest = { name: '', cin: '', email: '', phoneNumber: '', address: '', userId: 0 };
-    editClient: ClientDtoResponse = { id:0, cin: '', name: '', email: '', phoneNumber: '', address: ''};
-    clientToDelete:  ClientDtoResponse = { id:0, name: '', cin: '', email: '', phoneNumber: '', address: ''};
+    newClient: ClientDtoRequest = { name: '', cin: '', email: '', phoneNumber: '', address: '', userId: 0, codeClient: '', designation: '', ice: '', rc: '', rib:'' };
+    editClient: ClientDtoResponse = { id:0, cin: '', name: '', email: '', phoneNumber: '', address: '', codeClient: '', designation: '', ice: '', rc: '', rib:'' };
+    clientToDelete:  ClientDtoResponse = { id:0, name: '', cin: '', email: '', phoneNumber: '', address: '', codeClient: '', designation: '', ice: '', rc: '', rib:'' };
     addErrorMessage: string | null = null;
     updateErrorMessage: string | null = null;
     generalErrorMessage: string | null = null;
@@ -29,11 +29,13 @@ export class ClientComponent implements OnInit {
     totalPages = 0;
     totalElements = 0;
     pages: ({ value: number | '...', display: string })[] = [];
+    codeClients: string[] = [];
 
     constructor(private clientService: ClientService) {}
 
     ngOnInit(): void {
         this.loadClients();
+        this.loadAllCodeClients();
     }
 
     loadClients(): void {
@@ -50,9 +52,17 @@ export class ClientComponent implements OnInit {
         );
     }
 
+    loadAllCodeClients(): void{
+        this.clientService.getAllClientNames().subscribe(
+            (data: any) => {
+                this.codeClients = data;
+            }
+        )
+    }
+
 
     openAddModal(): void {
-        this.newClient = { name: '', email: '', phoneNumber: '', address: '', cin: '', userId: this.getUserId() };
+        this.newClient = { name: '', email: '', phoneNumber: '', address: '', cin: '', userId: this.getUserId(), codeClient: '', designation: '', ice: '', rc: '', rib:'' };
         this.showAddModal = true;
         this.addErrorMessage = null; // Reset error message
     }
@@ -62,7 +72,17 @@ export class ClientComponent implements OnInit {
     }
 
     onAddClient(): void {
-        this.newClient.userId = this.getUserId(); // Ensure userId is set
+        const userId = this.getUserId();
+        if (userId === 0) {
+            this.addErrorMessage = 'User ID not found, please login again.';
+            return;
+        }
+        this.newClient.userId = userId; // Ensure userId is set
+        if (this.codeClients.includes(this.newClient.codeClient!)) {
+            this.addErrorMessage = 'Code client already exists. Please use a unique code.';
+            return;
+        }
+
 
         this.clientService.addClient(this.newClient).subscribe(
             () => {
@@ -93,7 +113,12 @@ export class ClientComponent implements OnInit {
                 phoneNumber: this.editClient.phoneNumber,
                 address: this.editClient.address,
                 cin: this.editClient.cin,
-                userId: this.getUserId()
+                userId: this.getUserId(),
+                codeClient: this.editClient.codeClient,
+                designation: this.editClient.designation,
+                ice: this.editClient.ice,
+                rc: this.editClient.rc,
+                rib: this.editClient.rib
             };
 
             this.clientService.updateClient(this.editClient.id, clientToUpdate).subscribe(
@@ -116,7 +141,7 @@ export class ClientComponent implements OnInit {
 
     closeDeleteModal(): void {
         this.showDeleteModal = false;
-        this.clientToDelete = { id:0, name: '', email: '', phoneNumber: '', address: '', cin:'' };
+        this.clientToDelete = { id:0, name: '', email: '', phoneNumber: '', address: '', cin:'', codeClient: '', designation: '', ice: '', rc: '', rib:'' };
     }
 
     onDeleteClient(): void {
@@ -180,8 +205,10 @@ export class ClientComponent implements OnInit {
     private handleAddError(error: any): string {
         if (error.status === 400) {
             return 'Bad request. Please check the input values.';
+        } else if (error.status === 500) {
+            return 'Failed to add client: Server error. Please try again later.';
         }
-        return 'An error occurred while adding the client. Please try again later.';
+        return 'Failed to add client: An unexpected error occurred.';
     }
 
     private handleUpdateError(error: any): string {
@@ -195,11 +222,16 @@ export class ClientComponent implements OnInit {
         return 'An error occurred while updating the client. Please try again later.';
     }
     private getUserId(): number {
-        const userDetailsString = localStorage.getItem('userDetails');
+        const userDetailsString = localStorage.getItem('user');
         if (userDetailsString) {
             try {
                 const userDetails = JSON.parse(userDetailsString);
-                return userDetails.id; // Adjust to the actual property name containing the user ID
+                if (userDetails && typeof userDetails.id === 'number') {
+                    return userDetails.id;
+                } else if (userDetails && typeof userDetails.id === 'string') {
+                    return parseInt(userDetails.id, 10); // Try parsing if it is a string
+                }
+                console.error("User ID not found or invalid in userDetails", userDetails);
             } catch (error) {
                 console.error("Error parsing user details from localStorage", error);
             }

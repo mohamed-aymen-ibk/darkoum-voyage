@@ -29,6 +29,21 @@ public class Client {
     @Size(min = 2, max = 70, message = "Name must be between 2 and 70 characters")
     private String name;
 
+    @Column(name = "code_client")
+    private String codeClient;
+
+    @Column(name = "designation")
+    private String designation;
+
+    @Column(name = "ice")
+    private String ice;
+
+    @Column(name = "rc")
+    private String rc;
+
+    @Column(name = "rib")
+    private String rib;
+
     @Column(name = "cin", unique = true)
     private String cin;
 
@@ -52,7 +67,7 @@ public class Client {
 
     // Relations
     @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "user_id")
     private User user;
 
     @OneToMany(mappedBy = "client", cascade = CascadeType.ALL, fetch = FetchType.LAZY)

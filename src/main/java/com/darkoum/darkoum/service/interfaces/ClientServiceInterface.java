@@ -12,14 +12,16 @@ public interface ClientServiceInterface {
     ClientDtoResponse getClientById(Long id);
 
     Page<ClientDtoResponse> getAllClients(int page, int size);
-
     Page<ClientDtoResponse> searchClientsByName(String name, int page, int size);
-
-    List<ClientDtoResponse> getClientsByUser(Long userId);
 
     ClientDtoResponse updateClient(Long id, ClientDtoRequest clientDtoRequest);
 
     void deleteClient(Long id);
 
+    List<ClientDtoResponse> getClientsByUser(Long userId);
+
     List<String> getAllClientNames();
+
+    List<String> getAllCodeClients();
+
 }

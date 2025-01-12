@@ -34,12 +34,18 @@ public class ClientService implements ClientServiceInterface {
         User user = userRepository.findUserById(clientDtoRequest.getUserId())
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
+
         Client client = new Client();
         client.setName(clientDtoRequest.getName());
         client.setEmail(clientDtoRequest.getEmail());
         client.setPhoneNumber(clientDtoRequest.getPhoneNumber());
         client.setAddress(clientDtoRequest.getAddress());
         client.setCin(clientDtoRequest.getCin());
+        client.setCodeClient(clientDtoRequest.getCodeClient());
+        client.setDesignation(clientDtoRequest.getDesignation());
+        client.setIce(clientDtoRequest.getIce());
+        client.setRc(clientDtoRequest.getRc());
+        client.setRib(clientDtoRequest.getRib());
         client.setUser(user);
         Client savedClient = clientRepository.save(client);
         return mapToDto(savedClient);
@@ -54,9 +60,10 @@ public class ClientService implements ClientServiceInterface {
     @Override
     public Page<ClientDtoResponse> getAllClients(int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
-        return  clientRepository.findAll(pageable)
+        return clientRepository.findAllClients(pageable)
                 .map(this::mapToDto);
     }
+
 
     @Override
     public Page<ClientDtoResponse> searchClientsByName(String name, int page, int size) {
@@ -82,6 +89,11 @@ public class ClientService implements ClientServiceInterface {
         client.setPhoneNumber(clientDtoRequest.getPhoneNumber());
         client.setAddress(clientDtoRequest.getAddress());
         client.setCin(clientDtoRequest.getCin());
+        client.setCodeClient(clientDtoRequest.getCodeClient());
+        client.setDesignation(clientDtoRequest.getDesignation());
+        client.setIce(clientDtoRequest.getIce());
+        client.setRc(clientDtoRequest.getRc());
+        client.setRib(clientDtoRequest.getRib());
 
         Client updatedClient =   clientRepository.save(client);
         return mapToDto(updatedClient);
@@ -101,6 +113,11 @@ public class ClientService implements ClientServiceInterface {
         dto.setPhoneNumber(client.getPhoneNumber());
         dto.setAddress(client.getAddress());
         dto.setCin(client.getCin());
+        dto.setCodeClient(client.getCodeClient());
+        dto.setDesignation(client.getDesignation());
+        dto.setIce(client.getIce());
+        dto.setRc(client.getRc());
+        dto.setRib(client.getRib());
         if (client.getUser() != null)
         {
             dto.setUserName(client.getUser().getName());
@@ -110,5 +127,9 @@ public class ClientService implements ClientServiceInterface {
     @Override
     public List<String> getAllClientNames() {
         return clientRepository.findAllClientNames();
+    }
+    @Override
+    public List<String> getAllCodeClients() {
+        return clientRepository.findAllCodeClients();
     }
 }

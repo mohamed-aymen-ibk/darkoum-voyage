@@ -23,5 +23,16 @@ public class ClientDtoRequest {
 
     private String cin;
 
+    private String codeClient;
+
+    private String designation;
+
+    private String ice;
+
+    private String rc;
+
+    private String rib;
+
+
     private Long userId;
 }

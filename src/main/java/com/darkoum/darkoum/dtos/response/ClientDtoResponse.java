@@ -13,5 +13,10 @@ public class ClientDtoResponse {
     private String phoneNumber;
     private String address;
     private String cin;
+    private String codeClient;
+    private String designation;
+    private String ice;
+    private String rc;
+    private String rib;
     private String userName;
 }
