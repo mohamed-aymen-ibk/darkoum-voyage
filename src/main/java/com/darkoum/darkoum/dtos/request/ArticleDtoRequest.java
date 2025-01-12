@@ -10,10 +10,8 @@ import lombok.Setter;
 @Data
 @NoArgsConstructor
 public class ArticleDtoRequest {
-    private String name;
-    private String description;
-    private double price;
-    private Integer stock;
+    private String codeArticle;
+    private String designation;
     private String providerName;
     private Long userId;
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ArticleService } from '../../services/article/article.service';
-import {DecimalPipe, NgClass, NgForOf, NgIf} from '@angular/common';
+import {NgClass, NgForOf, NgIf} from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NavbarComponent } from "../shared/navbar/navbar.component";
 import { FooterComponent } from "../shared/footer/footer.component";
@@ -10,7 +10,7 @@ import { ProviderService } from "../../services/provider/provider.service";
 @Component({
     selector: 'app-article',
     templateUrl: './article.component.html',
-    imports: [NgIf, FormsModule, NgForOf, FooterComponent, NavbarComponent, NgClass, DecimalPipe],
+    imports: [NgIf, FormsModule, NgForOf, FooterComponent, NavbarComponent, NgClass],
     styleUrls: ['./article.component.css'],
 })
 export class ArticleComponent implements OnInit {
@@ -18,8 +18,8 @@ export class ArticleComponent implements OnInit {
     showAddModal = false;
     showUpdateModal = false;
     showDeleteModal = false;
-    newArticle: ArticleDtoRequest = { name: '', description: '', price: 0, stock: 0, providerName: '', userId: 1 };
-    editArticle: ArticleDtoResponse = { id: 0, name: '', description: '', price: 0, stock: 0, providerName: '' };
+    newArticle: ArticleDtoRequest = {  codeArticle:'', designation: '', providerName: '', userId: 1 };
+    editArticle: ArticleDtoResponse = { id: 0, codeArticle:'', designation: '', providerName: ''};
     articleToDelete: any = null;
     addErrorMessage: string | null = null;
     updateErrorMessage: string | null = null;
@@ -66,7 +66,7 @@ export class ArticleComponent implements OnInit {
     }
 
     openAddModal(): void {
-        this.newArticle = { name: '', description: '', price: 0, stock: 0, providerName: '', userId: 1 };
+        this.newArticle = {  codeArticle:'', designation: '', providerName: '', userId: 1 };
         this.showAddModal = true;
         this.addErrorMessage = null;
     }
@@ -99,14 +99,11 @@ export class ArticleComponent implements OnInit {
 
     onUpdateArticle(): void {
         const articleToUpdate: ArticleDtoRequest = {
-            name: this.editArticle.name,
-            description: this.editArticle.description,
-            price: this.editArticle.price,
-            stock: this.editArticle.stock,
+            codeArticle: this.editArticle.codeArticle,
+            designation: this.editArticle.designation,
             providerName: this.editArticle.providerName,
             userId: 1
         };
-
         this.articleService.updateArticle(this.editArticle.id, articleToUpdate).subscribe(
             () => {
                 this.loadArticles();

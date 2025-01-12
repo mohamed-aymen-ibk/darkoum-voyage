@@ -11,11 +11,11 @@ export class ArticleService {
 
     constructor(private http: HttpClient) { }
 
-    getArticles(name?: string, page?: number, size?: number): Observable<any> {
+    getArticles(designation?: string, page?: number, size?: number): Observable<any> {
         const token = localStorage.getItem('authToken');
         let params = new HttpParams();
-        if (name) {
-            params = params.set('name', name)
+        if (designation) {
+            params = params.set('designation', designation)
         }
         if (page !== undefined) {
             params = params.set('page', page.toString())

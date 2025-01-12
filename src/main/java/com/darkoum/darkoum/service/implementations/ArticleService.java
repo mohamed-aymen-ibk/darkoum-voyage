@@ -58,16 +58,8 @@ public class ArticleService implements ArticleServiceInterface {
 
     private static Article getArticle(ArticleDtoRequest articleDtoRequest, Provider provider, User user) {
         Article article = new Article();
-        article.setName(articleDtoRequest.getName());
-        article.setDescription(articleDtoRequest.getDescription());
-        article.setPrice(articleDtoRequest.getPrice());
-
-        // Handle the null stock here:
-        if (articleDtoRequest.getStock() == null) {
-            article.setStock(0);
-        } else {
-            article.setStock(articleDtoRequest.getStock());
-        }
+        article.setCodeArticle(articleDtoRequest.getCodeArticle());
+        article.setDesignation(articleDtoRequest.getDesignation());
         article.setProvider(provider);
         article.setUser(user); // Set the user here
         return article;
@@ -87,9 +79,9 @@ public class ArticleService implements ArticleServiceInterface {
                 .map(this::mapToDto);
     }
     @Override
-    public Page<ArticleDtoResponse> searchArticlesByName(String name, int page, int size) {
+    public Page<ArticleDtoResponse> searchArticlesByDesignation(String designation, int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
-        return articleRepository.findByNameContainingIgnoreCase(name, pageable)
+        return articleRepository.findByDesignationContainingIgnoreCase(designation, pageable)
                 .map(this::mapToDto);
     }
 
@@ -102,16 +94,8 @@ public class ArticleService implements ArticleServiceInterface {
         Article article = articleRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Article not found"));
 
-        article.setName(articleDtoRequest.getName());
-        article.setDescription(articleDtoRequest.getDescription());
-        article.setPrice(articleDtoRequest.getPrice());
-
-        if (articleDtoRequest.getStock() == null) {
-            article.setStock(0);
-        } else {
-            article.setStock(articleDtoRequest.getStock());
-        }
-
+        article.setCodeArticle(articleDtoRequest.getCodeArticle());
+        article.setDesignation(articleDtoRequest.getDesignation());
         article.setProvider(provider);
 
         try {
@@ -149,10 +133,8 @@ public class ArticleService implements ArticleServiceInterface {
     private ArticleDtoResponse mapToDto(Article article) {
         ArticleDtoResponse dto = new ArticleDtoResponse();
         dto.setId(article.getId());
-        dto.setName(article.getName());
-        dto.setDescription(article.getDescription());
-        dto.setPrice(article.getPrice());
-        dto.setStock(article.getStock());
+        dto.setCodeArticle(article.getCodeArticle());
+        dto.setDesignation(article.getDesignation());
         if(article.getProvider() != null)
         {
             dto.setProviderName(article.getProvider().getName());

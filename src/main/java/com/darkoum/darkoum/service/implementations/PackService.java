@@ -37,7 +37,7 @@ public class PackService implements PackServiceInterface {
         pack.setPrice(packDtoRequest.getPrice());
 
         if (packDtoRequest.getArticleNames() != null && !packDtoRequest.getArticleNames().isEmpty()) {
-            List<Article> articles = articleRepository.findByNameIn(packDtoRequest.getArticleNames());
+            List<Article> articles = articleRepository.findByCodeArticleIn(packDtoRequest.getArticleNames());
             pack.setArticles(articles);
         }
         Pack savedPack = packRepository.save(pack);
@@ -74,7 +74,7 @@ public class PackService implements PackServiceInterface {
         pack.setDescription(packDtoRequest.getDescription());
         pack.setPrice(packDtoRequest.getPrice());
         if (packDtoRequest.getArticleNames() != null && !packDtoRequest.getArticleNames().isEmpty()) {
-            List<Article> articles = articleRepository.findByNameIn(packDtoRequest.getArticleNames());
+            List<Article> articles = articleRepository.findByCodeArticleIn(packDtoRequest.getArticleNames());
             pack.setArticles(articles);
         }
 
@@ -100,7 +100,7 @@ public class PackService implements PackServiceInterface {
         dto.setDescription(pack.getDescription());
         dto.setPrice(pack.getPrice());
         if (pack.getArticles() != null) {
-            dto.setArticleNames(pack.getArticles().stream().map(Article::getName).collect(Collectors.toList()));
+            dto.setArticleNames(pack.getArticles().stream().map(Article::getCodeArticle).collect(Collectors.toList()));
         }
         return dto;
     }
@@ -108,8 +108,8 @@ public class PackService implements PackServiceInterface {
     public List<String> getAllPackNames() {
         return packRepository.findAllPackNames();
     }
-
+    @Override
     public List<String> getAllArticleNames() {
-        return articleRepository.findAllArticleNames();
+        return articleRepository.findAllArticleCodes();
     }
 }

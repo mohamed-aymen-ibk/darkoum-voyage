@@ -29,12 +29,12 @@ public class ArticleController {
     public ResponseEntity<Page<ArticleDtoResponse>> getAllArticles(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size,
-            @RequestParam(required = false) String name
+            @RequestParam(required = false) String designation
     ){
-        if(name == null || name.isEmpty()){
+        if(designation == null || designation.isEmpty()){
             return ResponseEntity.ok(articleService.getAllArticles(page, size));
         }
-        return ResponseEntity.ok(articleService.searchArticlesByName(name, page, size));
+        return ResponseEntity.ok(articleService.searchArticlesByDesignation(designation, page, size));
     }
 
     @PutMapping("/{id}")

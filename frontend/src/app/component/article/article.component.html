@@ -27,20 +27,16 @@
     <table class="min-w-full whitespace-nowrap text-left text-xs">
         <thead class="border-b-2 border-t uppercase tracking-wider">
         <tr>
-            <th class="border-x px-6 py-2">Name</th>
-            <th class="border-x px-6 py-2">Description</th>
-            <th class="border-x px-6 py-2">Price</th>
-            <th class="border-x px-6 py-2">Stock</th>
+            <th class="border-x px-6 py-2">Code</th>
+            <th class="border-x px-6 py-2">Designation</th>
             <th class="border-x px-6 py-2">Provider</th>
             <th class="border-x px-6 py-2">Operations</th>
         </tr>
         </thead>
         <tbody>
         <tr *ngFor="let article of articles" class="border-b hover:bg-neutral-200">
-            <th class="border-x px-6 py-2">{{ article.name }}</th>
-            <td class="border-x px-6 py-2">{{ article.description }}</td>
-            <td class="border-x px-6 py-2">{{ article.price | number: '1.2-2' }} MAD</td>
-            <td class="border-x px-6 py-2">{{ article.stock }}</td>
+            <th class="border-x px-6 py-2">{{ article.codeArticle }}</th>
+            <td class="border-x px-6 py-2">{{ article.designation }}</td>
             <td class="border-x px-6 py-2">{{ article.providerName }}</td>
             <td class="border-x px-6 py-2">
                 <button
@@ -113,52 +109,26 @@
         <h2 class="text-lg font-semibold mb-4">Add Article</h2>
         <form (ngSubmit)="onAddArticle()">
             <div class="mb-4">
-                <label class="block text-gray-700 text-sm font-bold mb-2" for="article-name-add">Name</label>
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="article-code-add">Code</label>
                 <input
-                        id="article-name-add"
+                        id="article-code-add"
                         type="text"
-                        [(ngModel)]="newArticle.name"
-                        name="name"
-                        placeholder="Article Name"
+                        [(ngModel)]="newArticle.codeArticle"
+                        name="codeArticle"
+                        placeholder="Article Code"
                         class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
                         required
                 />
             </div>
 
             <div class="mb-4">
-                <label class="block text-gray-700 text-sm font-bold mb-2" for="article-description-add">Description</label>
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="article-designation-add">Designation</label>
                 <input
-                        id="article-description-add"
+                        id="article-designation-add"
                         type="text"
-                        [(ngModel)]="newArticle.description"
-                        name="description"
-                        placeholder="Description"
-                        class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
-                        required
-                />
-            </div>
-
-            <div class="mb-4">
-                <label class="block text-gray-700 text-sm font-bold mb-2" for="article-price-add">Price</label>
-                <input
-                        id="article-price-add"
-                        type="number"
-                        [(ngModel)]="newArticle.price"
-                        name="price"
-                        placeholder="Price"
-                        class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
-                        required
-                />
-            </div>
-
-            <div class="mb-4">
-                <label class="block text-gray-700 text-sm font-bold mb-2" for="article-stock-add">Stock</label>
-                <input
-                        id="article-stock-add"
-                        type="number"
-                        [(ngModel)]="newArticle.stock"
-                        name="stock"
-                        placeholder="Stock"
+                        [(ngModel)]="newArticle.designation"
+                        name="designation"
+                        placeholder="Designation"
                         class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
                         required
                 />
@@ -207,56 +177,31 @@
         <h2 class="text-lg font-semibold mb-4">Update Article</h2>
         <form (ngSubmit)="onUpdateArticle()">
             <div class="mb-4">
-                <label class="block text-gray-700 text-sm font-bold mb-2" for="article-name-update">Name</label>
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="article-code-update">Code</label>
                 <input
-                        id="article-name-update"
+                        id="article-code-update"
                         type="text"
-                        [(ngModel)]="editArticle.name"
-                        name="name"
-                        placeholder="Article Name"
+                        [(ngModel)]="editArticle.codeArticle"
+                        name="codeArticle"
+                        placeholder="Article Code"
                         class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
                         required
                 />
             </div>
 
             <div class="mb-4">
-                <label class="block text-gray-700 text-sm font-bold mb-2" for="article-description-update">Description</label>
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="article-designation-update">Designation</label>
                 <input
-                        id="article-description-update"
+                        id="article-designation-update"
                         type="text"
-                        [(ngModel)]="editArticle.description"
-                        name="description"
-                        placeholder="Description"
+                        [(ngModel)]="editArticle.designation"
+                        name="designation"
+                        placeholder="Designation"
                         class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
                         required
                 />
             </div>
 
-            <div class="mb-4">
-                <label class="block text-gray-700 text-sm font-bold mb-2" for="article-price-update">Price</label>
-                <input
-                        id="article-price-update"
-                        type="number"
-                        [(ngModel)]="editArticle.price"
-                        name="price"
-                        placeholder="Price"
-                        class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
-                        required
-                />
-            </div>
-
-            <div class="mb-4">
-                <label class="block text-gray-700 text-sm font-bold mb-2" for="article-stock-update">Stock</label>
-                <input
-                        id="article-stock-update"
-                        type="number"
-                        [(ngModel)]="editArticle.stock"
-                        name="stock"
-                        placeholder="Stock"
-                        class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
-                        required
-                />
-            </div>
 
             <div class="mb-4">
                 <label class="block text-gray-700 text-sm font-bold mb-2" for="article-providerName-update">Provider</label>

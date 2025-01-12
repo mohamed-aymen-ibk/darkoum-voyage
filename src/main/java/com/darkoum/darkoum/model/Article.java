@@ -2,8 +2,6 @@ package com.darkoum.darkoum.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Positive;
-import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -24,17 +22,14 @@ public class Article {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
-    @NotBlank(message = "Name is required")
-    @Size(min = 4, max = 70, message = "Name must be between 4 and 70 characters")
-    private String name;
+    @Column(name = "code_article", nullable = false, unique = true)
+    @NotBlank(message = "Article code is required")
+    private String codeArticle;
 
-    @Column
-    private String description;
 
     @Column(nullable = false)
-    @Positive(message = "Price must be positive")
-    private Double price;
+    @NotBlank(message = "Designation is required")
+    private String designation;
 
     @Column(name = "created_at", updatable = false)
     @CreationTimestamp
@@ -44,9 +39,6 @@ public class Article {
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
-    @Column(nullable = false)
-    @Positive(message = "Stock must be positive")
-    private Integer stock;
 
     // Relations
     @ManyToOne
