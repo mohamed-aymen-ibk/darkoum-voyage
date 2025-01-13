@@ -3,6 +3,7 @@ export interface VenteDtoRequest {
     packId: number;
     saleNumber: string;
     quantity: number;
+    price?: number;
 
 }
 
@@ -16,5 +17,6 @@ export interface VenteDtoResponse {
     articleNames?: string[];
     providerNames?: string[];
     description?: string;
+    price?: number;
 
 }

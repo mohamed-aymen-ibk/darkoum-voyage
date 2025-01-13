@@ -50,14 +50,13 @@ public class VenteService implements VenteServiceInterface {
             throw new RuntimeException("Quantity of sale is greater than pack's quantity");
         }
         pack.setQuantity(pack.getQuantity() - venteDtoRequest.getQuantity());
-
         packRepository.save(pack);
 
         vente.setClient(client);
         vente.setPack(pack);
         vente.setSaleNumber(venteDtoRequest.getSaleNumber());
         vente.setQuantity(venteDtoRequest.getQuantity());
-
+        vente.setPrice(venteDtoRequest.getPrice());
         try {
             Vente savedVente = venteRepository.save(vente);
             return mapToDto(savedVente);
@@ -87,7 +86,6 @@ public class VenteService implements VenteServiceInterface {
     public VenteDtoResponse updateVente(Long id, VenteDtoRequest venteDtoRequest) {
         Vente vente = venteRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Vente not found"));
-
         try {
             Vente updatedVente = venteRepository.save(vente);
             return mapToDto(updatedVente);
@@ -117,6 +115,7 @@ public class VenteService implements VenteServiceInterface {
         }
         dto.setQuantity(vente.getQuantity());
         dto.setSaleNumber(vente.getSaleNumber());
+        dto.setPrice(vente.getPrice());
         dto.setCreatedAt(vente.getCreatedAt());
         return dto;
     }

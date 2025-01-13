@@ -30,6 +30,11 @@ public class Vente {
     @Positive(message = "Quantity must be positive")
     private Integer quantity;
 
+    @Column(nullable = false)
+    @Positive(message = "Price must be positive")
+    private Float price;
+
+
     @Column(name = "created_at")
     @CreationTimestamp
     private LocalDateTime createdAt;
