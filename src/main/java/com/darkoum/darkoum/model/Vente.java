@@ -1,6 +1,8 @@
 package com.darkoum.darkoum.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Positive;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -20,9 +22,13 @@ public class Vente {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "payment_status")
-    @Enumerated(EnumType.STRING)
-    private PaymentStatus paymentStatus;
+    @Column(nullable = false, unique = true)
+    @NotBlank(message = "Sale number is required")
+    private String saleNumber;
+
+    @Column(nullable = false)
+    @Positive(message = "Quantity must be positive")
+    private Integer quantity;
 
     @Column(name = "created_at")
     @CreationTimestamp
@@ -31,9 +37,6 @@ public class Vente {
     @Column(name = "updated_at")
     @UpdateTimestamp
     private LocalDateTime updatedAt;
-
-    @Column(name = "description")
-    private String description;
 
     // Relations
     @ManyToOne

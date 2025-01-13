@@ -1,7 +1,8 @@
 package com.darkoum.darkoum.dtos.request;
 
-import com.darkoum.darkoum.model.PaymentStatus;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,9 +16,10 @@ public class VenteDtoRequest {
     @NotNull(message = "Pack ID is required")
     private Long packId;
 
+    @NotBlank(message = "Sale number is required")
+    private String saleNumber;
 
-    private String description;
-
-    @NotNull(message = "Payment status is required")
-    private PaymentStatus paymentStatus;
+    @NotNull(message = "Quantity is required")
+    @Positive(message = "Quantity must be positive")
+    private Integer quantity;
 }

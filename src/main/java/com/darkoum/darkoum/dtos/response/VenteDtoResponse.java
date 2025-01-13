@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -12,9 +13,10 @@ public class VenteDtoResponse {
 
     private Long id;
     private String clientName;
-    private String packName;
-    private PaymentStatus paymentStatus;
+    private String packNumber;
+    private Integer quantity;
     private LocalDateTime createdAt;
-    private String description;
-
+    private String saleNumber;
+    private List<String> articleNames;
+    private List<String> providerNames;
 }

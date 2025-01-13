@@ -2,9 +2,7 @@ package com.darkoum.darkoum.service.implementations;
 
 import com.darkoum.darkoum.dtos.request.VenteDtoRequest;
 import com.darkoum.darkoum.dtos.response.VenteDtoResponse;
-import com.darkoum.darkoum.model.Client;
-import com.darkoum.darkoum.model.Pack;
-import com.darkoum.darkoum.model.Vente;
+import com.darkoum.darkoum.model.*;
 import com.darkoum.darkoum.repository.ClientRepository;
 import com.darkoum.darkoum.repository.PackRepository;
 import com.darkoum.darkoum.repository.VenteRepository;
@@ -17,7 +15,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -48,11 +46,17 @@ public class VenteService implements VenteServiceInterface {
                 .orElseThrow(() -> new RuntimeException("Client not found"));
         Pack pack = packRepository.findById(venteDtoRequest.getPackId())
                 .orElseThrow(() -> new RuntimeException("Pack not found"));
+        if (venteDtoRequest.getQuantity() > pack.getQuantity()){
+            throw new RuntimeException("Quantity of sale is greater than pack's quantity");
+        }
+        pack.setQuantity(pack.getQuantity() - venteDtoRequest.getQuantity());
+
+        packRepository.save(pack);
 
         vente.setClient(client);
         vente.setPack(pack);
-        vente.setPaymentStatus(venteDtoRequest.getPaymentStatus());
-        vente.setDescription(venteDtoRequest.getDescription());
+        vente.setSaleNumber(venteDtoRequest.getSaleNumber());
+        vente.setQuantity(venteDtoRequest.getQuantity());
 
         try {
             Vente savedVente = venteRepository.save(vente);
@@ -84,8 +88,6 @@ public class VenteService implements VenteServiceInterface {
         Vente vente = venteRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Vente not found"));
 
-        vente.setPaymentStatus(venteDtoRequest.getPaymentStatus());
-        vente.setDescription(venteDtoRequest.getDescription());
         try {
             Vente updatedVente = venteRepository.save(vente);
             return mapToDto(updatedVente);
@@ -109,11 +111,13 @@ public class VenteService implements VenteServiceInterface {
             dto.setClientName(vente.getClient().getName());
         }
         if (vente.getPack() != null) {
-            dto.setPackName(vente.getPack().getPackNumber());
+            dto.setPackNumber(vente.getPack().getPackNumber());
+            dto.setProviderNames(vente.getPack().getProviders().stream().map(Provider::getName).collect(Collectors.toList()));
+            dto.setArticleNames(vente.getPack().getArticles().stream().map(Article::getCodeArticle).collect(Collectors.toList()));
         }
-        dto.setPaymentStatus(vente.getPaymentStatus());
+        dto.setQuantity(vente.getQuantity());
+        dto.setSaleNumber(vente.getSaleNumber());
         dto.setCreatedAt(vente.getCreatedAt());
-        dto.setDescription(vente.getDescription());
         return dto;
     }
 }

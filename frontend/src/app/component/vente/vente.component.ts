@@ -6,9 +6,7 @@ import { NavbarComponent } from '../shared/navbar/navbar.component';
 import { FooterComponent } from '../shared/footer/footer.component';
 import { ClientService } from '../../services/client/client.service';
 import { PackService } from '../../services/pack/pack.service';
-import { PaymentStatus } from '../../models/Enums/PaymentStatus';
-import { ClientDtoResponse } from '../../models/client.dtos';
-import { PackDtoResponse } from '../../models/pack.dtos';
+import {VenteDtoRequest, VenteDtoResponse} from "../../models/vente.dtos";
 
 @Component({
     selector: 'app-vente',
@@ -17,19 +15,19 @@ import { PackDtoResponse } from '../../models/pack.dtos';
     styleUrls: ['./vente.component.css'],
 })
 export class VenteComponent implements OnInit {
-    ventes: any[] = [];
+    ventes: VenteDtoResponse[] = [];
     showAddModal = false;
     showUpdateModal = false;
     showDeleteModal = false;
-    newVente: any = { clientId: null, packId: null, paymentStatus: null, description: '' };
-    editVente: any = {};
+    newVente: VenteDtoRequest = { clientId: 0, packId: 0,  saleNumber: '', quantity:0};
+    editVente: VenteDtoResponse = { id: 0, clientName: '', packNumber: '', quantity: 0 ,  createdAt: new Date(),  saleNumber: '' , articleNames: [], providerNames:[]};
     venteToDelete: any = null;
     addErrorMessage: string | null = null;
     updateErrorMessage: string | null = null;
     generalErrorMessage: string | null = null;
     clients: {id: number, name: string }[] = [];
-    packs: {id: number, name: string }[] = [];
-    paymentStatuses = Object.values(PaymentStatus);
+    packs: {id: number, packNumber: string }[] = [];
+    paymentStatuses: string[] = [];
     currentPage = 0;
     pageSize = 10;
     totalPages = 0;
@@ -61,7 +59,7 @@ export class VenteComponent implements OnInit {
     loadPackNames(): void {
         this.packService.getAllPackNames().subscribe(
             (data: string[]) => {
-                this.packs = data.map((name, index) => ({id: index + 1, name}));
+                this.packs = data.map((packNumber, index) => ({id: index + 1, packNumber}));
             },
             (error) => {
                 this.generalErrorMessage = 'Error loading packs. Please try again later.';
@@ -84,7 +82,7 @@ export class VenteComponent implements OnInit {
     }
 
     openAddModal(): void {
-        this.newVente = { clientId: null, packId: null, paymentStatus: null, description: '' };
+        this.newVente = { clientId: 0, packId: 0,  saleNumber: '', quantity:0};
         this.showAddModal = true;
         this.addErrorMessage = null;
     }
@@ -94,13 +92,7 @@ export class VenteComponent implements OnInit {
     }
 
     onAddVente(): void {
-        const venteData = {
-            clientId: this.newVente.clientId,
-            packId: this.newVente.packId,
-            paymentStatus: this.newVente.paymentStatus,
-            description: this.newVente.description
-        };
-        this.venteService.addVente(venteData).subscribe(
+        this.venteService.addVente(this.newVente).subscribe(
             () => {
                 this.loadVentes();
                 this.closeAddModal();
@@ -111,11 +103,12 @@ export class VenteComponent implements OnInit {
         );
     }
 
-    openUpdateModal(vente: any): void {
-        this.editVente = { ...vente, clientId: vente.clientId, packId: vente.packId };
+    openUpdateModal(vente: VenteDtoResponse): void {
+        this.editVente = { ...vente, clientName: vente.clientName, packNumber: vente.packNumber };
         this.showUpdateModal = true;
         this.updateErrorMessage = null;
     }
+
 
     closeUpdateModal(): void {
         this.showUpdateModal = false;
@@ -123,10 +116,9 @@ export class VenteComponent implements OnInit {
 
     onUpdateVente(): void {
         const updateData = {
-            paymentStatus: this.editVente.paymentStatus,
-            description: this.editVente.description
+
         };
-        this.venteService.updateVente(this.editVente.id, updateData).subscribe(
+        this.venteService.updateVente(this.editVente.id!, updateData).subscribe(
             () => {
                 this.loadVentes();
                 this.closeUpdateModal();
@@ -137,18 +129,19 @@ export class VenteComponent implements OnInit {
         );
     }
 
-    openDeleteModal(vente: any): void {
+    openDeleteModal(vente: VenteDtoResponse): void {
         this.venteToDelete = vente;
         this.showDeleteModal = true;
     }
 
     closeDeleteModal(): void {
         this.showDeleteModal = false;
+        this.venteToDelete = null;
     }
 
     onDeleteVente(): void {
         if (this.venteToDelete) {
-            this.venteService.deleteVente(this.venteToDelete.id).subscribe(
+            this.venteService.deleteVente(this.venteToDelete.id!).subscribe(
                 () => {
                     this.loadVentes();
                     this.closeDeleteModal();

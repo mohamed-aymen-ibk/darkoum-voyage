@@ -4,8 +4,6 @@ import com.darkoum.darkoum.dtos.request.VenteDtoRequest;
 import com.darkoum.darkoum.dtos.response.VenteDtoResponse;
 import org.springframework.data.domain.Page;
 
-import java.util.List;
-
 public interface VenteServiceInterface {
     VenteDtoResponse createVente(VenteDtoRequest venteDtoRequest);
 
