@@ -3,6 +3,7 @@ package com.darkoum.darkoum.dtos.response;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter
@@ -15,5 +16,5 @@ public class PackDtoResponse {
     private Integer quantity;
     private List<String> articleNames;
     private List<String> providerNames;
-
+    private LocalDateTime createdAt;
 }

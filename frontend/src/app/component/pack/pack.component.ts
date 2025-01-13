@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
 import { PackService } from '../../services/pack/pack.service';
-import {NgForOf, NgIf, DecimalPipe, NgClass} from '@angular/common';
+import {NgForOf, NgIf, DecimalPipe, NgClass, DatePipe} from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NavbarComponent } from "../shared/navbar/navbar.component";
 import { FooterComponent } from "../shared/footer/footer.component";
@@ -9,7 +9,7 @@ import {PackDtoRequest, PackDtoResponse} from "../../models/pack.dtos";
 @Component({
     selector: 'app-pack',
     templateUrl: './pack.component.html',
-    imports: [NgIf, FormsModule, NgForOf, FooterComponent, NavbarComponent, DecimalPipe, NgClass],
+    imports: [NgIf, FormsModule, NgForOf, FooterComponent, NavbarComponent, DecimalPipe, NgClass, DatePipe],
     styleUrls: ['./pack.component.css'],
 })
 export class PackComponent implements OnInit, OnDestroy {

@@ -75,7 +75,6 @@ public class PackService implements PackServiceInterface {
     }
 
 
-
     @Override
     @Transactional
     public PackDtoResponse updatePack(Long id, PackDtoRequest packDtoRequest) {
@@ -126,6 +125,7 @@ public class PackService implements PackServiceInterface {
         {
             dto.setProviderNames(pack.getProviders().stream().map(Provider::getName).collect(Collectors.toList()));
         }
+        dto.setCreatedAt(pack.getCreatedAt());
         return dto;
     }
     @Override

@@ -13,4 +13,5 @@ export interface PackDtoResponse {
     quantity: number;
     articleNames?: string[];
     providerNames?: string[];
+    createdAt?: Date;
 }
