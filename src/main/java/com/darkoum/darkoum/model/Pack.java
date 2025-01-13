@@ -23,16 +23,17 @@ public class Pack {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
-    @NotBlank(message = "Pack name is required")
-    private String name;
-
-    @Column
-    private String description;
+    @Column(nullable = false, unique = true)
+    @NotBlank(message = "Pack number is required")
+    private String packNumber;
 
     @Column(nullable = false)
     @Positive(message = "Price must be positive")
     private Float price;
+
+    @Column(nullable = false)
+    @Positive(message = "Quantity must be positive")
+    private Integer quantity;
 
     @Column(name = "created_at")
     @CreationTimestamp
@@ -50,6 +51,15 @@ public class Pack {
     @ManyToOne
     @JoinColumn(name = "client_id")
     private Client client;
+
+    @ManyToMany
+    @JoinTable(
+            name = "pack_providers",
+            joinColumns = @JoinColumn(name = "pack_id"),
+            inverseJoinColumns = @JoinColumn(name = "provider_id")
+    )
+    private List<Provider> providers;
+
 
     @ManyToMany
     @JoinTable(

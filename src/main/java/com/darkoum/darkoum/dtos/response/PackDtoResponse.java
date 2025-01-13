@@ -10,8 +10,10 @@ import java.util.List;
 public class PackDtoResponse {
 
     private Long id;
-    private String name;
-    private String description;
+    private String packNumber;
     private Float price;
+    private Integer quantity;
     private List<String> articleNames;
+    private List<String> providerNames;
+
 }

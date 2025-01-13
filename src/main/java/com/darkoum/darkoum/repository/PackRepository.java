@@ -9,7 +9,9 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface PackRepository extends JpaRepository<Pack, Long> {
-    Page<Pack> findByNameContainingIgnoreCase(String name, Pageable pageable);
-    @Query("SELECT p.name FROM Pack p")
+
+    @Query("SELECT p.packNumber FROM Pack p")
     List<String> findAllPackNames();
+
+    Page<Pack> findByPackNumberContainingIgnoreCase(String packNumber, Pageable pageable);
 }

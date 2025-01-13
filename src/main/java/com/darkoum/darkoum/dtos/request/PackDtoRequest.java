@@ -12,14 +12,18 @@ import java.util.List;
 @Setter
 public class PackDtoRequest {
 
-    @NotBlank(message = "Name is required")
-    private String name;
-
-    private String description;
+    @NotBlank(message = "Pack number is required")
+    private String packNumber;
 
     @NotNull(message = "Price is required")
     @Positive(message = "Price must be positive")
     private Float price;
 
+    @NotNull(message = "Quantity is required")
+    @Positive(message = "Quantity must be positive")
+    private Integer quantity;
+
     private List<String> articleNames;
+
+    private List<String> providerNames;
 }

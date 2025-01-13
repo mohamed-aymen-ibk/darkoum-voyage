@@ -109,7 +109,7 @@ public class VenteService implements VenteServiceInterface {
             dto.setClientName(vente.getClient().getName());
         }
         if (vente.getPack() != null) {
-            dto.setPackName(vente.getPack().getName());
+            dto.setPackName(vente.getPack().getPackNumber());
         }
         dto.setPaymentStatus(vente.getPaymentStatus());
         dto.setCreatedAt(vente.getCreatedAt());

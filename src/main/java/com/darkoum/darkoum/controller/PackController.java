@@ -32,12 +32,12 @@ public class PackController {
     public ResponseEntity<Page<PackDtoResponse>> getAllPacks(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size,
-            @RequestParam(required = false) String name
+            @RequestParam(required = false) String packNumber
     ){
-        if(name == null || name.isEmpty()){
+        if(packNumber == null || packNumber.isEmpty()){
             return ResponseEntity.ok(packService.getAllPacks(page, size));
         }
-        return ResponseEntity.ok(packService.searchPacksByName(name, page, size));
+        return ResponseEntity.ok(packService.searchPacksByPackNumber(packNumber, page, size));
     }
     @GetMapping("/names")
     public ResponseEntity<List<String>> getAllPackNames(){

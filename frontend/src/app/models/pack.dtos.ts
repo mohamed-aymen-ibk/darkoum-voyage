@@ -1,9 +1,16 @@
 export interface PackDtoRequest {
-    name: string;
-    userId: number;
+    packNumber: string;
+    price: number;
+    quantity: number;
+    articleNames?: string[];
+    providerNames?: string[];
 }
 
 export interface PackDtoResponse {
     id: number;
-    name: string;
+    packNumber: string;
+    price: number;
+    quantity: number;
+    articleNames?: string[];
+    providerNames?: string[];
 }

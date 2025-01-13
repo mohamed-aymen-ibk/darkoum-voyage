@@ -26,28 +26,42 @@
     <table class="min-w-full whitespace-nowrap text-left text-xs">
         <thead class="border-b-2 border-t uppercase tracking-wider">
         <tr>
-            <th class="border-x px-6 py-2">Name</th>
-            <th class="border-x px-6 py-2">Description</th>
+            <th class="border-x px-6 py-2">Pack Number</th>
             <th class="border-x px-6 py-2">Price</th>
+            <th class="border-x px-6 py-2">Quantity</th>
             <th class="border-x px-6 py-2">Articles</th>
+            <th class="border-x px-6 py-2">Providers</th>
             <th class="border-x px-6 py-2">Operations</th>
         </tr>
         </thead>
         <tbody>
         <tr *ngFor="let pack of packs" class="border-b hover:bg-neutral-200">
-            <th class="border-x px-6 py-2">{{ pack.name }}</th>
-            <td class="border-x px-6 py-2">{{ pack.description }}</td>
-            <td class="border-x px-6 py-2">{{ pack.price | number: '1.2-2' }} MAD</td>
+            <th class="border-x px-6 py-2">{{ pack.packNumber }}</th>
+            <td class="border-x px-6 py-2">{{ pack.price | number : '1.2-2' }} MAD</td>
+            <td class="border-x px-6 py-2">{{ pack.quantity }}</td>
             <td class="border-x px-6 py-2 relative">
                 <span
                         (click)="togglePackExpansion(pack.id, $event)"
                         class="cursor-pointer text-blue-500 hover:underline articles-trigger-{{pack.id}}"
                 >
-                        {{ pack.articleNames[0] || 'No Articles' }}
-                    </span>
+                   {{ pack.articleNames ? (pack.articleNames.length > 0 ? pack.articleNames[0] : 'No Articles') : 'No Articles'}}
+                </span>
                 <div *ngIf="expandedPacks[pack.id]" class="absolute left-0 mt-2 w-48 bg-white border border-gray-300 rounded-md shadow-lg z-10 articles-dropdown-{{pack.id}}" style="max-height: 200px; overflow-y: auto;">
                     <div *ngFor="let articleName of pack.articleNames" class="p-2 hover:bg-gray-100">
                         {{articleName}}
+                    </div>
+                </div>
+            </td>
+            <td class="border-x px-6 py-2 relative">
+                  <span
+                          (click)="toggleProviderExpansion(pack.id, $event)"
+                          class="cursor-pointer text-blue-500 hover:underline providers-trigger-{{pack.id}}"
+                  >
+                         {{ pack.providerNames ? (pack.providerNames.length > 0 ? pack.providerNames[0] : 'No Providers') : 'No Providers'}}
+                    </span>
+                <div *ngIf="expandedProviders[pack.id]" class="absolute left-0 mt-2 w-48 bg-white border border-gray-300 rounded-md shadow-lg z-10 providers-dropdown-{{pack.id}}" style="max-height: 200px; overflow-y: auto;">
+                    <div *ngFor="let providerName of pack.providerNames" class="p-2 hover:bg-gray-100">
+                        {{providerName}}
                     </div>
                 </div>
             </td>
@@ -121,31 +135,37 @@
         <h2 class="text-lg font-semibold mb-4">Add Pack</h2>
         <form (ngSubmit)="onAddPack()">
             <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="pack-number-add">Pack Number</label>
                 <input
+                        id="pack-number-add"
                         type="text"
-                        [(ngModel)]="newPack.name"
-                        name="name"
-                        placeholder="Name"
+                        [(ngModel)]="newPack.packNumber"
+                        name="packNumber"
+                        placeholder="Pack Number"
                         class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
                         required
                 />
             </div>
             <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="pack-price-add">Price</label>
                 <input
-                        type="text"
-                        [(ngModel)]="newPack.description"
-                        name="description"
-                        placeholder="Description"
-                        class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
-                        required
-                />
-            </div>
-            <div class="mb-4">
-                <input
+                        id="pack-price-add"
                         type="number"
                         [(ngModel)]="newPack.price"
                         name="price"
                         placeholder="Price"
+                        class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+                        required
+                />
+            </div>
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="pack-quantity-add">Quantity</label>
+                <input
+                        id="pack-quantity-add"
+                        type="number"
+                        [(ngModel)]="newPack.quantity"
+                        name="quantity"
+                        placeholder="Quantity"
                         class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
                         required
                 />
@@ -171,6 +191,29 @@
                     </div>
                 </div>
             </div>
+            <div class="mb-4 relative">
+                <button type="button"
+                        (click)="toggleProviderDropdownAdd()"
+                        class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 text-left providers-trigger-add"
+                >
+                    Select Providers
+                </button>
+                <div *ngIf="showProviderDropdownAdd" class="absolute left-0 mt-2 w-full bg-white border border-gray-300 rounded-md shadow-lg z-10 providers-dropdown-add"
+                     style="max-height: 150px; overflow-y: auto;"
+                >
+                    <div *ngFor="let provider of allProviderNames" class="flex items-center p-2">
+                        <input
+                                type="checkbox"
+                                [value]="provider"
+                                (change)="updateSelectedProviders(provider, $event, newPack)"
+                                class="mr-2"
+                        />
+                        <label>{{ provider }}</label>
+                    </div>
+                </div>
+            </div>
+
+
             <div *ngIf="addErrorMessage" class="text-red-500 mb-4">
                 {{ addErrorMessage }}
             </div>
@@ -199,31 +242,37 @@
         <h2 class="text-lg font-semibold mb-4">Update Pack</h2>
         <form (ngSubmit)="onUpdatePack()">
             <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="pack-number-update">Pack Number</label>
                 <input
+                        id="pack-number-update"
                         type="text"
-                        [(ngModel)]="editPack.name"
-                        name="name"
-                        placeholder="Name"
+                        [(ngModel)]="editPack.packNumber"
+                        name="packNumber"
+                        placeholder="Pack Number"
                         class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
                         required
                 />
             </div>
             <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="pack-price-update">Price</label>
                 <input
-                        type="text"
-                        [(ngModel)]="editPack.description"
-                        name="description"
-                        placeholder="Description"
-                        class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
-                        required
-                />
-            </div>
-            <div class="mb-4">
-                <input
+                        id="pack-price-update"
                         type="number"
                         [(ngModel)]="editPack.price"
                         name="price"
                         placeholder="Price"
+                        class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+                        required
+                />
+            </div>
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="pack-quantity-update">Quantity</label>
+                <input
+                        id="pack-quantity-update"
+                        type="number"
+                        [(ngModel)]="editPack.quantity"
+                        name="quantity"
+                        placeholder="Quantity"
                         class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
                         required
                 />
@@ -242,7 +291,7 @@
                         <input
                                 type="checkbox"
                                 [value]="article"
-                                [checked]="editPack.articleNames.includes(article)"
+                                [checked]="editPack.articleNames?.includes(article)"
                                 (change)="updateSelectedArticles(article, $event, editPack)"
                                 class="mr-2"
                         />
@@ -250,20 +299,44 @@
                     </div>
                 </div>
             </div>
+            <div class="mb-4 relative">
+                <button type="button"
+                        (click)="toggleProviderDropdownUpdate()"
+                        class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 text-left providers-trigger-update"
+                >
+                    Select Providers
+                </button>
+                <div *ngIf="showProviderDropdownUpdate" class="absolute left-0 mt-2 w-full bg-white border border-gray-300 rounded-md shadow-lg z-10 providers-dropdown-update"
+                     style="max-height: 150px; overflow-y: auto;"
+                >
+                    <div *ngFor="let provider of allProviderNames" class="flex items-center p-2">
+                        <input
+                                type="checkbox"
+                                [value]="provider"
+                                [checked]="editPack.providerNames?.includes(provider)"
+                                (change)="updateSelectedProviders(provider, $event, editPack)"
+                                class="mr-2"
+                        />
+                        <label>{{ provider }}</label>
+                    </div>
+                </div>
+            </div>
+
+
             <div *ngIf="updateErrorMessage" class="text-red-500 mb-4">
                 {{ updateErrorMessage }}
             </div>
             <div class="flex justify-end space-x-4">
                 <button
                         type="button"
-                        class="px-4 py-2 bg-gray-300 rounded-xl hover:bg-gray-200 transition duration-300"
+                        class="px-4 py-2 bg-gray-300 rounded-xl hover:bg-gray-200 transition duration-200"
                         (click)="closeUpdateModal()"
                 >
                     Cancel
                 </button>
                 <button
                         type="submit"
-                        class="px-4 py-2 bg-green-500 text-white rounded-xl hover:bg-green-400 transition duration-300"
+                        class="px-4 py-2 bg-green-500 text-white rounded-xl hover:bg-green-400 transition duration-200"
                 >
                     Update
                 </button>

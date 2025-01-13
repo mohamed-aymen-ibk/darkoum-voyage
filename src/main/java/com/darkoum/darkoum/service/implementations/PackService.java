@@ -4,8 +4,10 @@ import com.darkoum.darkoum.dtos.request.PackDtoRequest;
 import com.darkoum.darkoum.dtos.response.PackDtoResponse;
 import com.darkoum.darkoum.model.Article;
 import com.darkoum.darkoum.model.Pack;
+import com.darkoum.darkoum.model.Provider;
 import com.darkoum.darkoum.repository.ArticleRepository;
 import com.darkoum.darkoum.repository.PackRepository;
+import com.darkoum.darkoum.repository.ProviderRepository;
 import com.darkoum.darkoum.service.interfaces.PackServiceInterface;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
@@ -15,6 +17,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -28,17 +31,24 @@ public class PackService implements PackServiceInterface {
 
     @Autowired
     private ArticleRepository articleRepository;
+    @Autowired
+    private ProviderRepository providerRepository;
 
     @Override
+    @Transactional
     public PackDtoResponse createPack(PackDtoRequest packDtoRequest) {
         Pack pack = new Pack();
-        pack.setName(packDtoRequest.getName());
-        pack.setDescription(packDtoRequest.getDescription());
+        pack.setPackNumber(packDtoRequest.getPackNumber());
         pack.setPrice(packDtoRequest.getPrice());
-
+        pack.setQuantity(packDtoRequest.getQuantity());
         if (packDtoRequest.getArticleNames() != null && !packDtoRequest.getArticleNames().isEmpty()) {
             List<Article> articles = articleRepository.findByCodeArticleIn(packDtoRequest.getArticleNames());
             pack.setArticles(articles);
+        }
+        if(packDtoRequest.getProviderNames() != null && !packDtoRequest.getProviderNames().isEmpty())
+        {
+            List<Provider> providers =  providerRepository.findProvidersByNameIn(packDtoRequest.getProviderNames());
+            pack.setProviders(providers);
         }
         Pack savedPack = packRepository.save(pack);
         return mapToDto(savedPack);
@@ -58,24 +68,31 @@ public class PackService implements PackServiceInterface {
                 .map(this::mapToDto);
     }
     @Override
-    public Page<PackDtoResponse> searchPacksByName(String name, int page, int size) {
+    public Page<PackDtoResponse> searchPacksByPackNumber(String packNumber, int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
-        return packRepository.findByNameContainingIgnoreCase(name, pageable)
+        return packRepository.findByPackNumberContainingIgnoreCase(packNumber, pageable)
                 .map(this::mapToDto);
     }
 
 
+
     @Override
+    @Transactional
     public PackDtoResponse updatePack(Long id, PackDtoRequest packDtoRequest) {
         Pack pack = packRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Pack not found"));
 
-        pack.setName(packDtoRequest.getName());
-        pack.setDescription(packDtoRequest.getDescription());
+        pack.setPackNumber(packDtoRequest.getPackNumber());
         pack.setPrice(packDtoRequest.getPrice());
+        pack.setQuantity(packDtoRequest.getQuantity());
         if (packDtoRequest.getArticleNames() != null && !packDtoRequest.getArticleNames().isEmpty()) {
             List<Article> articles = articleRepository.findByCodeArticleIn(packDtoRequest.getArticleNames());
             pack.setArticles(articles);
+        }
+        if(packDtoRequest.getProviderNames() != null && !packDtoRequest.getProviderNames().isEmpty())
+        {
+            List<Provider> providers =  providerRepository.findProvidersByNameIn(packDtoRequest.getProviderNames());
+            pack.setProviders(providers);
         }
 
         Pack updatedPack = packRepository.save(pack);
@@ -84,6 +101,7 @@ public class PackService implements PackServiceInterface {
     }
 
     @Override
+    @Transactional
     public void deletePack(Long id) {
         logger.info("Deleting pack with id: {}", id);
         Pack pack = packRepository.findById(id)
@@ -96,11 +114,17 @@ public class PackService implements PackServiceInterface {
     private PackDtoResponse mapToDto(Pack pack) {
         PackDtoResponse dto = new PackDtoResponse();
         dto.setId(pack.getId());
-        dto.setName(pack.getName());
-        dto.setDescription(pack.getDescription());
+        dto.setPackNumber(pack.getPackNumber());
         dto.setPrice(pack.getPrice());
+        dto.setQuantity(pack.getQuantity());
         if (pack.getArticles() != null) {
-            dto.setArticleNames(pack.getArticles().stream().map(Article::getCodeArticle).collect(Collectors.toList()));
+            dto.setArticleNames(pack.getArticles().stream()
+                    .map(Article::getCodeArticle)
+                    .collect(Collectors.toList()));
+        }
+        if (pack.getProviders() != null)
+        {
+            dto.setProviderNames(pack.getProviders().stream().map(Provider::getName).collect(Collectors.toList()));
         }
         return dto;
     }
@@ -108,6 +132,7 @@ public class PackService implements PackServiceInterface {
     public List<String> getAllPackNames() {
         return packRepository.findAllPackNames();
     }
+
     @Override
     public List<String> getAllArticleNames() {
         return articleRepository.findAllArticleCodes();

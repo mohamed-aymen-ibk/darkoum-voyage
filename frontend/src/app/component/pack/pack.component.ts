@@ -4,7 +4,7 @@ import {NgForOf, NgIf, DecimalPipe, NgClass} from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NavbarComponent } from "../shared/navbar/navbar.component";
 import { FooterComponent } from "../shared/footer/footer.component";
-import {PackDtoResponse} from "../../models/pack.dtos";
+import {PackDtoRequest, PackDtoResponse} from "../../models/pack.dtos";
 
 @Component({
     selector: 'app-pack',
@@ -13,20 +13,24 @@ import {PackDtoResponse} from "../../models/pack.dtos";
     styleUrls: ['./pack.component.css'],
 })
 export class PackComponent implements OnInit, OnDestroy {
-    packs: any[] = [];
+    packs: PackDtoResponse[] = [];
     showAddModal = false;
     showUpdateModal = false;
     showDeleteModal = false;
-    newPack = { name: '', description: '', price: 0, articleNames: [] as string[] };
-    editPack: any = { articleNames: [] as string[] };
-    packToDelete: any = null;
+    newPack: PackDtoRequest = { packNumber: '', price: 0, quantity:0 , articleNames: [], providerNames:[] };
+    editPack: PackDtoResponse = {id:0, packNumber: '', price: 0, quantity:0, articleNames: [], providerNames:[]  };
+    packToDelete: PackDtoResponse | null = null;
     addErrorMessage: string | null = null;
     updateErrorMessage: string | null = null;
     generalErrorMessage: string | null = null;
     allArticleNames: string[] = [];
+    allProviderNames: string[] = [];
     showArticleDropdownAdd: boolean = false;
+    showProviderDropdownAdd: boolean = false;
     showArticleDropdownUpdate: boolean = false;
+    showProviderDropdownUpdate: boolean = false;
     expandedPacks: { [packId: number]: boolean } = {};
+    expandedProviders: { [packId: number]: boolean } = {};
     private isDropdownOpenTable: boolean = false;
     private isDropdownOpenAdd: boolean = false;
     private isDropdownOpenUpdate: boolean = false;
@@ -43,6 +47,17 @@ export class PackComponent implements OnInit, OnDestroy {
     ngOnInit(): void {
         this.loadPacks();
         this.loadArticleNames();
+        this.loadProviderNames();
+    }
+    loadProviderNames(): void {
+        this.packService.getAllProviderNames().subscribe(
+            (data) => {
+                this.allProviderNames = data;
+            },
+            (error) => {
+                this.generalErrorMessage = 'Error loading provider names.';
+            }
+        );
     }
     loadArticleNames(): void {
         this.packService.getArticleNames().subscribe(
@@ -69,22 +84,28 @@ export class PackComponent implements OnInit, OnDestroy {
     }
 
     openAddModal(): void {
-        this.newPack = { name: '', description: '', price: 0, articleNames: [] };
+        this.newPack = { packNumber: '', price: 0, quantity:0, articleNames: [] as string[], providerNames:[] as string[] };
         this.showAddModal = true;
         this.addErrorMessage = null; // Reset error message
         this.showArticleDropdownAdd = false;
+        this.showProviderDropdownAdd = false;
     }
 
     closeAddModal(): void {
         this.showAddModal = false;
         this.showArticleDropdownAdd = false;
+        this.showProviderDropdownAdd = false;
         this.isDropdownOpenAdd = false;
     }
     toggleArticleDropdownAdd() {
         this.showArticleDropdownAdd = !this.showArticleDropdownAdd;
         this.isDropdownOpenAdd = this.showArticleDropdownAdd;
-
     }
+    toggleProviderDropdownAdd() {
+        this.showProviderDropdownAdd = !this.showProviderDropdownAdd;
+        this.isDropdownOpenAdd = this.showProviderDropdownAdd;
+    }
+
     onAddPack(): void {
         this.packService.addPack(this.newPack).subscribe(
             () => {
@@ -96,35 +117,56 @@ export class PackComponent implements OnInit, OnDestroy {
             }
         );
     }
-    updateSelectedArticles(articleName: string, event: any, pack: any): void {
+    updateSelectedArticles(articleName: string, event: any, pack: PackDtoRequest | PackDtoResponse): void {
         const isChecked = (event.target as HTMLInputElement).checked;
         if (isChecked) {
-            pack.articleNames.push(articleName);
+            if(pack.articleNames)
+                pack.articleNames.push(articleName);
+            else
+                pack.articleNames = [articleName];
         } else {
-            pack.articleNames = pack.articleNames.filter((name: string) => name !== articleName);
+            if(pack.articleNames)
+                pack.articleNames = pack.articleNames.filter((name: string) => name !== articleName);
         }
     }
-    openUpdateModal(pack: any): void {
+    updateSelectedProviders(providerName: string, event: any, pack: PackDtoRequest | PackDtoResponse): void {
+        const isChecked = (event.target as HTMLInputElement).checked;
+        if (isChecked) {
+            if(pack.providerNames)
+                pack.providerNames.push(providerName);
+            else
+                pack.providerNames = [providerName];
+        } else {
+            if(pack.providerNames)
+                pack.providerNames = pack.providerNames.filter((name: string) => name !== providerName);
+        }
+    }
+
+    openUpdateModal(pack: PackDtoResponse): void {
         this.editPack = { ...pack };
         this.showUpdateModal = true;
         this.updateErrorMessage = null;
         this.showArticleDropdownUpdate = false;
+        this.showProviderDropdownUpdate = false;
     }
 
     closeUpdateModal(): void {
         this.showUpdateModal = false;
         this.showArticleDropdownUpdate = false;
+        this.showProviderDropdownUpdate = false;
         this.isDropdownOpenUpdate = false;
     }
-
     toggleArticleDropdownUpdate() {
         this.showArticleDropdownUpdate = !this.showArticleDropdownUpdate;
         this.isDropdownOpenUpdate = this.showArticleDropdownUpdate;
-
+    }
+    toggleProviderDropdownUpdate() {
+        this.showProviderDropdownUpdate = !this.showProviderDropdownUpdate;
+        this.isDropdownOpenUpdate = this.showProviderDropdownUpdate;
     }
 
     onUpdatePack(): void {
-        this.packService.updatePack(this.editPack.id, this.editPack).subscribe(
+        this.packService.updatePack(this.editPack.id!, this.editPack).subscribe(
             () => {
                 this.loadPacks();
                 this.closeUpdateModal();
@@ -135,7 +177,7 @@ export class PackComponent implements OnInit, OnDestroy {
         );
     }
 
-    openDeleteModal(pack: any): void {
+    openDeleteModal(pack: PackDtoResponse): void {
         if(pack) {
             this.packToDelete = pack;
             this.showDeleteModal = true;
@@ -216,6 +258,11 @@ export class PackComponent implements OnInit, OnDestroy {
         this.isDropdownOpenTable = this.expandedPacks[packId];
         event.stopPropagation()
     }
+    toggleProviderExpansion(packId: number, event: MouseEvent): void {
+        this.expandedProviders[packId] = !this.expandedProviders[packId];
+        this.isDropdownOpenTable = this.expandedProviders[packId];
+        event.stopPropagation()
+    }
     @HostListener('document:click', ['$event'])
     onDocumentClick(event: MouseEvent): void {
         if(this.isDropdownOpenTable){
@@ -235,17 +282,34 @@ export class PackComponent implements OnInit, OnDestroy {
                     }
                 }
             });
+            Object.keys(this.expandedProviders).forEach((packId) => {
+                const targetProviderElement = document.querySelector(`.providers-dropdown-${packId}`);
+                const triggerProviderElement = document.querySelector(`.providers-trigger-${packId}`);
+                if(targetProviderElement){
+                    if(targetProviderElement.contains(event.target as Node))
+                        clickedInside = true;
+                }
+                if(triggerProviderElement){
+                    if(triggerProviderElement.contains(event.target as Node)){
+                        clickedOnTrigger = true;
+                    }
+                }
+            });
 
             if (!clickedInside && !clickedOnTrigger) {
                 this.expandedPacks = {};
+                this.expandedProviders = {};
                 this.isDropdownOpenTable = false;
             }
         }
         if(this.isDropdownOpenAdd){
             const targetElement = document.querySelector(`.articles-dropdown-add`);
             const triggerElement = document.querySelector(`.articles-trigger-add`);
-            if(targetElement && !targetElement.contains(event.target as Node) && !triggerElement?.contains(event.target as Node)){
-                this.showArticleDropdownAdd = false
+            const targetProviderElement = document.querySelector(`.providers-dropdown-add`);
+
+            if(targetElement && !targetElement.contains(event.target as Node) && !triggerElement?.contains(event.target as Node) && !targetProviderElement?.contains(event.target as Node)){
+                this.showArticleDropdownAdd = false;
+                this.showProviderDropdownAdd = false;
                 this.isDropdownOpenAdd = false;
 
             }
@@ -253,8 +317,10 @@ export class PackComponent implements OnInit, OnDestroy {
         if(this.isDropdownOpenUpdate){
             const targetElement = document.querySelector(`.articles-dropdown-update`);
             const triggerElement = document.querySelector(`.articles-trigger-update`);
-            if(targetElement && !targetElement.contains(event.target as Node) && !triggerElement?.contains(event.target as Node)){
-                this.showArticleDropdownUpdate = false
+            const targetProviderElement = document.querySelector(`.providers-dropdown-update`);
+            if(targetElement && !targetElement.contains(event.target as Node) && !triggerElement?.contains(event.target as Node) && !targetProviderElement?.contains(event.target as Node)){
+                this.showArticleDropdownUpdate = false;
+                this.showProviderDropdownUpdate = false;
                 this.isDropdownOpenUpdate = false;
             }
         }
