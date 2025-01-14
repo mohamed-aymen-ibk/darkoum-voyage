@@ -20,7 +20,7 @@ export class VenteComponent implements OnInit, OnDestroy {
     showAddModal = false;
     showUpdateModal = false;
     showDeleteModal = false;
-    newVente: VenteDtoRequest = { clientId: 0, packId: 0,  saleNumber: '', quantity:0, price:0};
+    newVente: VenteDtoRequest = { clientId: 0, packId: 0,  saleNumber: '', quantity:0, price: 0};
     editVente: VenteDtoResponse = { id: 0, clientName: '', packNumber: '', quantity: 0 ,  createdAt: new Date(),  saleNumber: '' , articleNames: [], providerNames:[]};
     venteToDelete: any = null;
     addErrorMessage: string | null = null;
@@ -34,11 +34,10 @@ export class VenteComponent implements OnInit, OnDestroy {
     totalElements = 0;
     pages: ({ value: number | '...', display: string })[] = [];
     salePrice: number | null = null;
-    selectedPacks: PackDtoResponse[] = [];
+    selectedPacks:  PackDtoResponse[] = [];
     expandedPacks: { [venteId: number]: boolean } = {};
     private isDropdownOpenTable: boolean = false;
-    showPackDropdownAdd: boolean = false;
-
+    showPackDropdownAdd = false;
     constructor(
         private venteService: VenteService,
         private clientService: ClientService,
@@ -88,48 +87,38 @@ export class VenteComponent implements OnInit, OnDestroy {
         this.showAddModal = true;
         this.addErrorMessage = null;
         this.salePrice = null;
-        this.selectedPacks = []
+        this.selectedPacks= []
         this.showPackDropdownAdd = false;
     }
+
     closeAddModal(): void {
         this.showAddModal = false;
         this.salePrice = null;
-        this.selectedPacks = []
-        this.showPackDropdownAdd = false;
-
+        this.selectedPacks= [];
+        this.showPackDropdownAdd=false;
     }
     onClientSelected(){
         this.newVente.packId = 0;
         this.salePrice = null;
-        this.selectedPacks = [];
+        this.selectedPacks = []
     }
-    updatePrice() {
-        if (this.newVente.quantity > 0 && this.selectedPacks.length > 0) {
-            this.salePrice =  this.selectedPacks.reduce((sum,pack) => sum + pack.price,0) * this.newVente.quantity;
-            this.newVente = {...this.newVente, price: this.salePrice };
-        } else{
-            this.newVente = {...this.newVente, price: 0 };
 
-        }
-        this.salePrice =  this.salePrice?? 0
-    }
 
     onAddVente(): void {
-        this.newVente.price = this.salePrice ?? 0;
-        if(this.selectedPacks.length <=0){
+        if(this.selectedPacks.length <=0)
             this.addErrorMessage = 'Must select at least one Pack.';
-            return;
+        else {
+            this.newVente.packId = this.selectedPacks[0].id;
+            this.venteService.addVente(this.newVente).subscribe(
+                () => {
+                    this.loadVentes();
+                    this.closeAddModal();
+                },
+                (error) => {
+                    this.addErrorMessage = this.handleAddError(error);
+                }
+            );
         }
-        this.newVente.packId = this.selectedPacks[0].id!
-        this.venteService.addVente(this.newVente).subscribe(
-            () => {
-                this.loadVentes();
-                this.closeAddModal();
-            },
-            (error) => {
-                this.addErrorMessage = this.handleAddError(error);
-            }
-        );
     }
 
     updateSelectedPacks(pack: PackDtoResponse, event: any): void {
@@ -137,9 +126,9 @@ export class VenteComponent implements OnInit, OnDestroy {
         if(isChecked)
             this.selectedPacks = [pack];
         else
-            this.selectedPacks= [];
-        this.updatePrice()
+            this.selectedPacks = [];
     }
+
     openUpdateModal(vente: VenteDtoResponse): void {
         this.editVente = { ...vente };
         this.showUpdateModal = true;
@@ -149,6 +138,7 @@ export class VenteComponent implements OnInit, OnDestroy {
     closeUpdateModal(): void {
         this.showUpdateModal = false;
     }
+
     onUpdateVente(): void {
         const updateData = {
 
@@ -167,6 +157,7 @@ export class VenteComponent implements OnInit, OnDestroy {
         this.venteToDelete = vente;
         this.showDeleteModal = true;
     }
+
     closeDeleteModal(): void {
         this.showDeleteModal = false;
         this.venteToDelete = null;
@@ -185,6 +176,7 @@ export class VenteComponent implements OnInit, OnDestroy {
             );
         }
     }
+
     goToPage(page: number | string): void {
         if (page === '...') {
             return;
@@ -200,75 +192,79 @@ export class VenteComponent implements OnInit, OnDestroy {
             }
         } else {
             if (this.currentPage < 5) {
-                for (let i = 0; i < 7 && i < this.totalPages ; i++) {
-                    this.pages.push({value: i, display: String(i+1) });
+                for (let i = 0; i < 7 && i < this.totalPages; i++) {
+                    this.pages.push({value: i, display: String(i+1)  });
                 }
                 this.pages.push({value: '...', display: '...' });
                 this.pages.push({value: this.totalPages - 1, display: String(this.totalPages) });
             }
             else if (this.currentPage >= this.totalPages - 5){
-                this.pages.push({value: 0, display: String(1) });
+                this.pages.push({value: 0, display: String(1)  });
                 this.pages.push({value: '...', display: '...' });
                 for (let i = this.totalPages - 7; i < this.totalPages; i++) {
-                    this.pages.push({value: i, display: String(i + 1) });
+                    this.pages.push({value: i, display: String(i + 1)});
                 }
             }
             else{
-                this.pages.push({value: 0, display: String(1)});
+                this.pages.push({ value: 0, display: String(1) });
                 this.pages.push({value: '...', display: '...' });
-                for (let i = this.currentPage - 2; i <= this.currentPage + 2; i++) {
-                    this.pages.push({value: i, display: String(i+1)  });
+                for (let i = this.currentPage -2; i <= this.currentPage + 2; i++) {
+                    this.pages.push({value: i, display: String(i + 1) });
                 }
-                this.pages.push({ value: '...', display: '...' });
-                this.pages.push({value: this.totalPages-1, display: String(this.totalPages) })
+                this.pages.push({value: '...', display: '...' });
+                this.pages.push({ value: this.totalPages - 1, display: String(this.totalPages) })
             }
         }
     }
-
     togglePackExpansion(venteId: number, event: MouseEvent): void {
         this.expandedPacks[venteId] = !this.expandedPacks[venteId];
-        this.isDropdownOpenTable = this.expandedPacks[venteId];
+        this.isDropdownOpenTable= this.expandedPacks[venteId]
         event.stopPropagation()
     }
 
     @HostListener('document:click', ['$event'])
     onDocumentClick(event: MouseEvent): void {
-        if (this.isDropdownOpenTable){
-            let clickedInside = false;
-            let clickedOnTrigger= false
+        if(this.isDropdownOpenTable){
+            let clickedInside= false
+            let clickedOnTrigger=false
             Object.keys(this.expandedPacks).forEach((venteId) => {
                 const targetElement = document.querySelector(`.articles-dropdown-${venteId}`);
                 const triggerElement = document.querySelector(`.articles-trigger-${venteId}`);
-                if(targetElement){
-                    if(targetElement.contains(event.target as Node))
-                        clickedInside = true;
+
+                if (targetElement){
+                    if (targetElement.contains(event.target as Node))
+                        clickedInside = true
                 }
-                if(triggerElement){
+                if (triggerElement) {
                     if (triggerElement.contains(event.target as Node))
                         clickedOnTrigger = true
                 }
             });
-            if (!clickedInside && !clickedOnTrigger) {
+            if(!clickedInside && !clickedOnTrigger){
                 this.expandedPacks = {};
                 this.isDropdownOpenTable= false;
             }
         }
     }
+
     ngOnDestroy(): void {
 
     }
+
+
 // Error handling methods
     private handleAddError(error: any): string {
-        return error.error?.message ||    'Error adding sale. Please try again later.';
+        return error.error?.message ||   'Error adding sale. Please try again later.';
     }
-
+    private handlestockError(error: any): string {
+        return error.error?.message ||   'Error adding sale. Not enough stock.';
+    }
     private handleUpdateError(error: any): string {
         return error.error?.message ||   'Error updating sale. Please try again later.';
     }
-
-    togglePackDropdownAdd() {
-        this.showPackDropdownAdd = !this.showPackDropdownAdd;
+    togglePackDropdownAdd(){
+        this.showPackDropdownAdd= !this.showPackDropdownAdd
         this.isDropdownOpenTable = this.showPackDropdownAdd;
-    }
 
+    }
 }
