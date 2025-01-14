@@ -17,9 +17,9 @@ export class ProviderComponent implements OnInit {
     showAddModal = false;
     showUpdateModal = false;
     showDeleteModal = false;
-    newProvider: ProviderDtoRequest = { name: '', email: '', phone: '' , address: '', serviceType: ''};
-    editProvider: ProviderDtoResponse = { id: 0, name: '', email: '', phone: '', address: '', serviceType: '', createdAt: new Date() };
-    providerToDelete: ProviderDtoResponse = { id: 0, name: '', email: '', phone: '', address: '', serviceType: '', createdAt: new Date() };
+    newProvider: ProviderDtoRequest = { name: '', email: '', phone: '' , address: '', serviceType: '', codeProvider: '', designation: '', ice: '', rc: '', rib: '' };
+    editProvider: ProviderDtoResponse = { id: 0, name: '', email: '', phone: '', address: '', serviceType: '', createdAt: new Date(), codeProvider: '', designation: '', ice: '', rc: '', rib: '' };
+    providerToDelete: ProviderDtoResponse = { id: 0, name: '', email: '', phone: '', address: '', serviceType: '', createdAt: new Date(),  codeProvider: '', designation: '', ice: '', rc: '', rib:'' };
     addErrorMessage: string | null = null;
     updateErrorMessage: string | null = null;
     generalErrorMessage: string | null = null;
@@ -52,7 +52,7 @@ export class ProviderComponent implements OnInit {
     }
 
     openAddModal(): void {
-        this.newProvider = { name: '', email: '', phone: '', address: '', serviceType: '' };
+        this.newProvider = { name: '', email: '', phone: '', address: '', serviceType: '', codeProvider: '', designation: '', ice: '', rc: '', rib: '' };
         this.showAddModal = true;
         this.addErrorMessage = null; // Reset error message
     }
@@ -105,7 +105,7 @@ export class ProviderComponent implements OnInit {
 
     closeDeleteModal(): void {
         this.showDeleteModal = false;
-        this.providerToDelete = { id: 0, name: '', email: '', phone: '', address: '', serviceType: '', createdAt: new Date() };
+        this.providerToDelete = { id: 0, name: '', email: '', phone: '', address: '', serviceType: '', createdAt: new Date(), codeProvider: '', designation: '', ice: '', rc: '', rib:'' };
     }
 
     onDeleteProvider(): void {
@@ -163,7 +163,6 @@ export class ProviderComponent implements OnInit {
         }
     }
 
-
     // Error handling methods
     private handleAddError(error: any): string {
         if (error.status === 400) {
@@ -184,7 +183,6 @@ export class ProviderComponent implements OnInit {
         }
         return 'Failed to update provider: An unexpected error occurred.';
     }
-
     private handleGeneralError(error: any): string {
         if (error.status === 404) {
             return 'Failed to delete provider: Provider not found.';

@@ -51,6 +51,11 @@ public class ProviderService implements ProviderServiceInterface {
         provider.setPhoneNumber(providerDtoRequest.getPhone());
         provider.setAddress(providerDtoRequest.getAddress());
         provider.setServiceType(providerDtoRequest.getServiceType());
+        provider.setCodeProvider(providerDtoRequest.getCodeProvider());
+        provider.setDesignation(providerDtoRequest.getDesignation());
+        provider.setIce(providerDtoRequest.getIce());
+        provider.setRc(providerDtoRequest.getRc());
+        provider.setRib(providerDtoRequest.getRib());
         provider.setUser(loggedInUser); // Associate provider with the logged-in user
 
         Provider savedProvider = providerRepository.save(provider);
@@ -95,6 +100,12 @@ public class ProviderService implements ProviderServiceInterface {
         provider.setPhoneNumber(providerDtoRequest.getPhone());
         provider.setAddress(providerDtoRequest.getAddress());
         provider.setServiceType(providerDtoRequest.getServiceType());
+        provider.setCodeProvider(providerDtoRequest.getCodeProvider());
+        provider.setDesignation(providerDtoRequest.getDesignation());
+        provider.setIce(providerDtoRequest.getIce());
+        provider.setRc(providerDtoRequest.getRc());
+        provider.setRib(providerDtoRequest.getRib());
+
 
         Provider updatedProvider = providerRepository.save(provider);
         return mapToDto(updatedProvider);
@@ -115,6 +126,11 @@ public class ProviderService implements ProviderServiceInterface {
         dto.setPhone(provider.getPhoneNumber());
         dto.setAddress(provider.getAddress());
         dto.setServiceType(provider.getServiceType());
+        dto.setCodeProvider(provider.getCodeProvider());
+        dto.setDesignation(provider.getDesignation());
+        dto.setIce(provider.getIce());
+        dto.setRc(provider.getRc());
+        dto.setRib(provider.getRib());
         dto.setCreatedAt(provider.getCreatedAt());
         return dto;
     }

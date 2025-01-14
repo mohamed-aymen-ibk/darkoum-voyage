@@ -40,6 +40,21 @@ public class Provider {
     @Column(name = "service_type")
     private String serviceType;
 
+    @Column(name = "code_provider")
+    private String codeProvider;
+
+    @Column(name = "designation")
+    private String designation;
+
+    @Column(name = "ice")
+    private String ice;
+
+    @Column(name = "rc")
+    private String rc;
+
+    @Column(name = "rib")
+    private String rib;
+
     @Column(name = "created_at")
     @CreationTimestamp
     private LocalDateTime createdAt;
