@@ -4,11 +4,9 @@ import com.darkoum.darkoum.dtos.request.ArticleDtoRequest;
 import com.darkoum.darkoum.dtos.response.ArticleDtoResponse;
 import com.darkoum.darkoum.model.Article;
 import com.darkoum.darkoum.model.Pack;
-import com.darkoum.darkoum.model.Provider;
 import com.darkoum.darkoum.model.User;
 import com.darkoum.darkoum.repository.ArticleRepository;
 import com.darkoum.darkoum.repository.PackRepository;
-import com.darkoum.darkoum.repository.ProviderRepository;
 import com.darkoum.darkoum.repository.UserRepository;
 import com.darkoum.darkoum.service.interfaces.ArticleServiceInterface;
 import lombok.AllArgsConstructor;
@@ -28,9 +26,6 @@ public class ArticleService implements ArticleServiceInterface {
     private ArticleRepository articleRepository;
 
     @Autowired
-    private ProviderRepository providerRepository;
-
-    @Autowired
     private UserRepository userRepository;
 
     @Autowired
@@ -40,13 +35,12 @@ public class ArticleService implements ArticleServiceInterface {
     @Override
     @Transactional
     public ArticleDtoResponse createArticle(ArticleDtoRequest articleDtoRequest) {
-        Provider provider = providerRepository.findProviderByName(articleDtoRequest.getProviderName())
-                .orElseThrow(() -> new RuntimeException("Provider not found or multiple providers with the same name were found"));
+
 
         User user = userRepository.findById(articleDtoRequest.getUserId())
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
-        Article article = getArticle(articleDtoRequest, provider, user);
+        Article article = getArticle(articleDtoRequest, user);
 
         try {
             Article savedArticle = articleRepository.save(article);
@@ -56,15 +50,13 @@ public class ArticleService implements ArticleServiceInterface {
         }
     }
 
-    private static Article getArticle(ArticleDtoRequest articleDtoRequest, Provider provider, User user) {
+    private static Article getArticle(ArticleDtoRequest articleDtoRequest, User user) {
         Article article = new Article();
         article.setCodeArticle(articleDtoRequest.getCodeArticle());
         article.setDesignation(articleDtoRequest.getDesignation());
-        article.setProvider(provider);
         article.setUser(user); // Set the user here
         return article;
     }
-
     @Override
     public ArticleDtoResponse getArticleById(Long id) {
         Article article = articleRepository.findById(id)
@@ -81,22 +73,19 @@ public class ArticleService implements ArticleServiceInterface {
     @Override
     public Page<ArticleDtoResponse> searchArticlesByDesignation(String designation, int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
-        return articleRepository.findByDesignationContainingIgnoreCase(designation, pageable)
+        return articleRepository.findByDesignationContainingIgnoreCase(designation,pageable)
                 .map(this::mapToDto);
     }
 
     @Override
     @Transactional
     public ArticleDtoResponse updateArticle(Long id, ArticleDtoRequest articleDtoRequest) {
-        Provider provider = providerRepository.findProviderByName(articleDtoRequest.getProviderName())
-                .orElseThrow(() -> new RuntimeException("Provider not found or multiple providers with the same name were found"));
 
         Article article = articleRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Article not found"));
 
         article.setCodeArticle(articleDtoRequest.getCodeArticle());
         article.setDesignation(articleDtoRequest.getDesignation());
-        article.setProvider(provider);
 
         try {
             Article updatedArticle = articleRepository.save(article);
@@ -135,10 +124,6 @@ public class ArticleService implements ArticleServiceInterface {
         dto.setId(article.getId());
         dto.setCodeArticle(article.getCodeArticle());
         dto.setDesignation(article.getDesignation());
-        if(article.getProvider() != null)
-        {
-            dto.setProviderName(article.getProvider().getName());
-        }
         return dto;
     }
 }

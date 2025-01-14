@@ -5,7 +5,6 @@ import { FormsModule } from '@angular/forms';
 import { NavbarComponent } from "../shared/navbar/navbar.component";
 import { FooterComponent } from "../shared/footer/footer.component";
 import { ArticleDtoRequest, ArticleDtoResponse } from "../../models/article.dtos";
-import { ProviderService } from "../../services/provider/provider.service";
 
 @Component({
     selector: 'app-article',
@@ -18,13 +17,12 @@ export class ArticleComponent implements OnInit {
     showAddModal = false;
     showUpdateModal = false;
     showDeleteModal = false;
-    newArticle: ArticleDtoRequest = {  codeArticle:'', designation: '', providerName: '', userId: 1 };
-    editArticle: ArticleDtoResponse = { id: 0, codeArticle:'', designation: '', providerName: ''};
-    articleToDelete: any = null;
+    newArticle: ArticleDtoRequest = {  codeArticle: '', designation: '' ,  userId: 1};
+    editArticle: ArticleDtoResponse = { id: 0, codeArticle:'', designation: '' };
+    articleToDelete: ArticleDtoResponse | null = null;
     addErrorMessage: string | null = null;
     updateErrorMessage: string | null = null;
     generalErrorMessage: string | null = null;
-    providerNames: string[] = [];
     searchName: string = '';
     currentPage = 0;
     pageSize = 10;
@@ -32,11 +30,10 @@ export class ArticleComponent implements OnInit {
     totalElements = 0;
     pages: (number | '...')[] = [];
 
-    constructor(private articleService: ArticleService, private providerService: ProviderService) { }
+    constructor(private articleService: ArticleService) { }
 
     ngOnInit(): void {
         this.loadArticles();
-        this.loadProviders();
     }
 
     loadArticles(): void {
@@ -47,28 +44,16 @@ export class ArticleComponent implements OnInit {
                 this.totalElements = data.totalElements;
                 this.generatePageNumbers();
             },
-            (error: any) => {
+            (error) => {
                 this.generalErrorMessage = 'Error loading articles. Please try again later.';
             }
         );
     }
 
-
-    loadProviders(): void {
-        this.providerService.getProviderNames().subscribe(
-            (data) => {
-                this.providerNames = data;
-            },
-            (error: any) => {
-                this.generalErrorMessage = 'Error loading providers. Please try again later.';
-            }
-        );
-    }
-
     openAddModal(): void {
-        this.newArticle = {  codeArticle:'', designation: '', providerName: '', userId: 1 };
+        this.newArticle = {  codeArticle: '', designation: '',  userId: 1};
         this.showAddModal = true;
-        this.addErrorMessage = null;
+        this.addErrorMessage = null; // Reset error message
     }
 
     closeAddModal(): void {
@@ -81,7 +66,7 @@ export class ArticleComponent implements OnInit {
                 this.loadArticles();
                 this.closeAddModal();
             },
-            (error: any) => {
+            (error) => {
                 this.addErrorMessage = this.handleAddError(error);
             }
         );
@@ -92,56 +77,57 @@ export class ArticleComponent implements OnInit {
         this.showUpdateModal = true;
         this.updateErrorMessage = null;
     }
-
     closeUpdateModal(): void {
         this.showUpdateModal = false;
     }
-
     onUpdateArticle(): void {
-        const articleToUpdate: ArticleDtoRequest = {
-            codeArticle: this.editArticle.codeArticle,
-            designation: this.editArticle.designation,
-            providerName: this.editArticle.providerName,
-            userId: 1
-        };
-        this.articleService.updateArticle(this.editArticle.id, articleToUpdate).subscribe(
-            () => {
-                this.loadArticles();
-                this.closeUpdateModal();
-            },
-            (error: any) => {
-                this.updateErrorMessage = this.handleUpdateError(error);
-            }
-        );
+        if (this.editArticle && this.editArticle.id) {
+            const articleToUpdate: ArticleDtoRequest = {
+                codeArticle: this.editArticle.codeArticle,
+                designation: this.editArticle.designation,
+                userId: 1
+            };
+            this.articleService.updateArticle(this.editArticle.id, articleToUpdate).subscribe(
+                () => {
+                    this.loadArticles();
+                    this.closeUpdateModal();
+                },
+                (error) => {
+                    this.updateErrorMessage = this.handleUpdateError(error);
+                }
+            );
+        }
     }
 
-    openDeleteModal(articleId: number): void {
-        this.articleToDelete = articleId;
+
+    openDeleteModal(article: ArticleDtoResponse): void {
+        this.articleToDelete = article;
         this.showDeleteModal = true;
+        this.generalErrorMessage = null;
     }
 
     closeDeleteModal(): void {
         this.showDeleteModal = false;
+        this.articleToDelete = null;
     }
-
     onDeleteArticle(): void {
-        this.articleService.deleteArticle(this.articleToDelete).subscribe(
-            () => {
-                this.loadArticles();
-                this.closeDeleteModal();
-            },
-            (error: any) => {
-                this.generalErrorMessage = 'Error deleting article. Please try again later.';
-            }
-        );
+        if (this.articleToDelete && this.articleToDelete.id) {
+            this.articleService.deleteArticle(this.articleToDelete.id).subscribe(
+                () => {
+                    this.loadArticles();
+                    this.closeDeleteModal();
+                },
+                (error) => {
+                    this.generalErrorMessage = this.handleGeneralError(error);
+                }
+            );
+        }
     }
-
     onSearch(value: string) {
         this.searchName = value;
         this.currentPage = 0;
         this.loadArticles();
     }
-
     goToPage(page: number):void{
         this.currentPage = page;
         this.loadArticles()
@@ -155,7 +141,7 @@ export class ArticleComponent implements OnInit {
         } else {
             if (this.currentPage < 5) {
                 for (let i = 0; i < 7 && i < this.totalPages ; i++) {
-                    this.pages.push(i)
+                    this.pages.push(i);
                 }
                 this.pages.push('...');
                 this.pages.push(this.totalPages - 1)
@@ -169,7 +155,7 @@ export class ArticleComponent implements OnInit {
             }
             else{
                 this.pages.push(0)
-                this.pages.push('...')
+                this.pages.push('...');
                 for (let i = this.currentPage -2; i <= this.currentPage + 2; i++) {
                     this.pages.push(i);
                 }
@@ -178,12 +164,32 @@ export class ArticleComponent implements OnInit {
             }
         }
     }
-
     private handleAddError(error: any): string {
-        return error.error?.message || 'Failed to add article. Please try again later.';
+        if (error.status === 400) {
+            return 'Failed to add article: Invalid input data.';
+        } else if (error.status === 500) {
+            return 'Failed to add article: Server error. Please try again later.';
+        }
+        return 'Failed to add article: An unexpected error occurred.';
     }
 
     private handleUpdateError(error: any): string {
-        return error.error?.message || 'Failed to update article. Please try again later.';
+        if (error.status === 404) {
+            return 'Failed to update article: Article not found.';
+        } else if (error.status === 400) {
+            return 'Failed to update article: Invalid input data.';
+        } else if (error.status === 500) {
+            return 'Failed to update article: Server error. Please try again later.';
+        }
+        return 'Failed to update article: An unexpected error occurred.';
+    }
+
+    private handleGeneralError(error: any): string {
+        if (error.status === 404) {
+            return 'Failed to delete article: Article not found.';
+        } else if (error.status === 500) {
+            return 'Failed to delete article: Server error. Please try again later.';
+        }
+        return 'Failed to delete article: An unexpected error occurred.';
     }
 }

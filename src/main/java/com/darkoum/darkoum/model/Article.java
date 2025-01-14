@@ -49,10 +49,6 @@ public class Article {
     @JoinColumn(name = "client_id")
     private Client client;
 
-    @ManyToOne
-    @JoinColumn(name = "provider_id", nullable = false)
-    private Provider provider;
-
     @ManyToMany(mappedBy = "articles")
     private List<Pack> packs;
 }

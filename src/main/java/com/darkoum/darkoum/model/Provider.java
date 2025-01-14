@@ -68,6 +68,4 @@ public class Provider {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @OneToMany(mappedBy = "provider", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Article> articles;
 }

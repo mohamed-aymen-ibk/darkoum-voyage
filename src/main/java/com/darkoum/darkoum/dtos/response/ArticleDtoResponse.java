@@ -9,5 +9,4 @@ public class ArticleDtoResponse {
     private Long id;
     private String codeArticle;
     private String designation;
-    private String providerName;
 }

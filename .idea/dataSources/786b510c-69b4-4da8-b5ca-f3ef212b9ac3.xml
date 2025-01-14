@@ -3,7 +3,7 @@
   <database-model serializer="dbm" dbms="POSTGRES" family-id="POSTGRES" format-version="4.53">
     <root id="1">
       <DateStyle>mdy</DateStyle>
-      <IntrospectionStateNumber>3910</IntrospectionStateNumber>
+      <IntrospectionStateNumber>3970</IntrospectionStateNumber>
       <ServerVersion>17.0</ServerVersion>
       <StartupTime>1736755483</StartupTime>
       <TimeZones>true ACDT
@@ -800,7 +800,7 @@ false Zulu
 13459||10|C|G
 13459||-9223372036854775808|U|G
 13459||10|U|G</Grants>
-      <IntrospectionStateNumber>3910</IntrospectionStateNumber>
+      <IntrospectionStateNumber>3970</IntrospectionStateNumber>
       <ObjectId>82831</ObjectId>
       <OwnerName>postgres</OwnerName>
     </database>
@@ -4231,8 +4231,8 @@ false Zulu
     <schema id="266" parent="2" name="public">
       <Comment>standard public schema</Comment>
       <Current>1</Current>
-      <IntrospectionStateNumber>3910</IntrospectionStateNumber>
-      <LastIntrospectionLocalTimestamp>2025-01-13.14:19:16</LastIntrospectionLocalTimestamp>
+      <IntrospectionStateNumber>3970</IntrospectionStateNumber>
+      <LastIntrospectionLocalTimestamp>2025-01-14.13:32:03</LastIntrospectionLocalTimestamp>
       <ObjectId>2200</ObjectId>
       <StateNumber>532</StateNumber>
       <OwnerName>pg_database_owner</OwnerName>
@@ -4298,8 +4298,8 @@ false Zulu
       <OwnerName>postgres</OwnerName>
     </table>
     <table id="275" parent="266" name="pack_articles">
-      <ObjectId>82850</ObjectId>
-      <StateNumber>3878</StateNumber>
+      <ObjectId>82976</ObjectId>
+      <StateNumber>3964</StateNumber>
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>postgres</OwnerName>
     </table>
@@ -4317,7 +4317,7 @@ false Zulu
     </table>
     <table id="278" parent="266" name="providers">
       <ObjectId>82864</ObjectId>
-      <StateNumber>3875</StateNumber>
+      <StateNumber>3926</StateNumber>
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>postgres</OwnerName>
     </table>
@@ -4374,42 +4374,28 @@ false Zulu
       <StoredType>bigint|0s</StoredType>
       <TypeId>20</TypeId>
     </column>
-    <column id="287" parent="273" name="provider_id">
-      <NotNull>1</NotNull>
-      <Position>7</Position>
-      <StateNumber>3852</StateNumber>
-      <StoredType>bigint|0s</StoredType>
-      <TypeId>20</TypeId>
-    </column>
-    <column id="288" parent="273" name="user_id">
+    <column id="287" parent="273" name="user_id">
       <NotNull>1</NotNull>
       <Position>8</Position>
       <StateNumber>3852</StateNumber>
       <StoredType>bigint|0s</StoredType>
       <TypeId>20</TypeId>
     </column>
-    <foreign-key id="289" parent="273" name="fk8h63g088fpyxncvtwc27f9wsx">
+    <foreign-key id="288" parent="273" name="fk8h63g088fpyxncvtwc27f9wsx">
       <ColNames>client_id</ColNames>
       <ObjectId>82903</ObjectId>
       <StateNumber>3874</StateNumber>
       <RefKeyColPositions>1</RefKeyColPositions>
       <RefTableId>82842</RefTableId>
     </foreign-key>
-    <foreign-key id="290" parent="273" name="fk1mjxwjtvhxyullo5trtasefhw">
-      <ColNames>provider_id</ColNames>
-      <ObjectId>82908</ObjectId>
-      <StateNumber>3875</StateNumber>
-      <RefKeyColPositions>1</RefKeyColPositions>
-      <RefTableId>82864</RefTableId>
-    </foreign-key>
-    <foreign-key id="291" parent="273" name="fklc3sm3utetrj1sx4v9ahwopnr">
+    <foreign-key id="289" parent="273" name="fklc3sm3utetrj1sx4v9ahwopnr">
       <ColNames>user_id</ColNames>
       <ObjectId>82913</ObjectId>
       <StateNumber>3876</StateNumber>
       <RefKeyColPositions>1</RefKeyColPositions>
       <RefTableId>82873</RefTableId>
     </foreign-key>
-    <index id="292" parent="273" name="articles_pkey">
+    <index id="290" parent="273" name="articles_pkey">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>82839</ObjectId>
@@ -4418,7 +4404,7 @@ false Zulu
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <index id="293" parent="273" name="uk_15v2fiyubtbiq12axp3x67lpc">
+    <index id="291" parent="273" name="uk_15v2fiyubtbiq12axp3x67lpc">
       <ColNames>code_article</ColNames>
       <ObjectId>82889</ObjectId>
       <StateNumber>3861</StateNumber>
@@ -4428,19 +4414,19 @@ false Zulu
       <CollationIds>100</CollationIds>
       <CollationParentNames>pg_catalog</CollationParentNames>
     </index>
-    <key id="294" parent="273" name="articles_pkey">
+    <key id="292" parent="273" name="articles_pkey">
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>82840</ObjectId>
       <Primary>1</Primary>
       <StateNumber>3852</StateNumber>
       <UnderlyingIndexId>82839</UnderlyingIndexId>
     </key>
-    <key id="295" parent="273" name="uk_15v2fiyubtbiq12axp3x67lpc">
+    <key id="293" parent="273" name="uk_15v2fiyubtbiq12axp3x67lpc">
       <ObjectId>82890</ObjectId>
       <StateNumber>3861</StateNumber>
       <UnderlyingIndexId>82889</UnderlyingIndexId>
     </key>
-    <column id="296" parent="274" name="id">
+    <column id="294" parent="274" name="id">
       <DefaultExpression>nextval(&apos;clients_id_seq&apos;::regclass)</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>1</Position>
@@ -4449,94 +4435,94 @@ false Zulu
       <SequenceId>82841</SequenceId>
       <TypeId>20</TypeId>
     </column>
-    <column id="297" parent="274" name="address">
+    <column id="295" parent="274" name="address">
       <Position>2</Position>
       <StateNumber>3853</StateNumber>
       <StoredType>varchar(255)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <column id="298" parent="274" name="cin">
+    <column id="296" parent="274" name="cin">
       <Position>3</Position>
       <StateNumber>3853</StateNumber>
       <StoredType>varchar(255)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <column id="299" parent="274" name="code_client">
+    <column id="297" parent="274" name="code_client">
       <Position>4</Position>
       <StateNumber>3853</StateNumber>
       <StoredType>varchar(255)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <column id="300" parent="274" name="created_at">
+    <column id="298" parent="274" name="created_at">
       <Position>5</Position>
       <StateNumber>3853</StateNumber>
       <StoredType>timestamp(6)|0s</StoredType>
       <TypeId>1114</TypeId>
     </column>
-    <column id="301" parent="274" name="designation">
+    <column id="299" parent="274" name="designation">
       <Position>6</Position>
       <StateNumber>3853</StateNumber>
       <StoredType>varchar(255)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <column id="302" parent="274" name="email">
+    <column id="300" parent="274" name="email">
       <NotNull>1</NotNull>
       <Position>7</Position>
       <StateNumber>3853</StateNumber>
       <StoredType>varchar(255)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <column id="303" parent="274" name="ice">
+    <column id="301" parent="274" name="ice">
       <Position>8</Position>
       <StateNumber>3853</StateNumber>
       <StoredType>varchar(255)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <column id="304" parent="274" name="name">
+    <column id="302" parent="274" name="name">
       <NotNull>1</NotNull>
       <Position>9</Position>
       <StateNumber>3853</StateNumber>
       <StoredType>varchar(255)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <column id="305" parent="274" name="phone_number">
+    <column id="303" parent="274" name="phone_number">
       <Position>10</Position>
       <StateNumber>3853</StateNumber>
       <StoredType>varchar(255)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <column id="306" parent="274" name="rc">
+    <column id="304" parent="274" name="rc">
       <Position>11</Position>
       <StateNumber>3853</StateNumber>
       <StoredType>varchar(255)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <column id="307" parent="274" name="rib">
+    <column id="305" parent="274" name="rib">
       <Position>12</Position>
       <StateNumber>3853</StateNumber>
       <StoredType>varchar(255)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <column id="308" parent="274" name="updated_at">
+    <column id="306" parent="274" name="updated_at">
       <Position>13</Position>
       <StateNumber>3853</StateNumber>
       <StoredType>timestamp(6)|0s</StoredType>
       <TypeId>1114</TypeId>
     </column>
-    <column id="309" parent="274" name="user_id">
+    <column id="307" parent="274" name="user_id">
       <Position>14</Position>
       <StateNumber>3853</StateNumber>
       <StoredType>bigint|0s</StoredType>
       <TypeId>20</TypeId>
     </column>
-    <foreign-key id="310" parent="274" name="fktiuqdledq2lybrds2k3rfqrv4">
+    <foreign-key id="308" parent="274" name="fktiuqdledq2lybrds2k3rfqrv4">
       <ColNames>user_id</ColNames>
       <ObjectId>82918</ObjectId>
       <StateNumber>3877</StateNumber>
       <RefKeyColPositions>1</RefKeyColPositions>
       <RefTableId>82873</RefTableId>
     </foreign-key>
-    <index id="311" parent="274" name="clients_pkey">
+    <index id="309" parent="274" name="clients_pkey">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>82848</ObjectId>
@@ -4545,7 +4531,7 @@ false Zulu
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <index id="312" parent="274" name="uk_rrfhnn5uxp1jih3yqsm4lub6k">
+    <index id="310" parent="274" name="uk_rrfhnn5uxp1jih3yqsm4lub6k">
       <ColNames>cin</ColNames>
       <ObjectId>82891</ObjectId>
       <StateNumber>3863</StateNumber>
@@ -4555,7 +4541,7 @@ false Zulu
       <CollationIds>100</CollationIds>
       <CollationParentNames>pg_catalog</CollationParentNames>
     </index>
-    <index id="313" parent="274" name="uk_srv16ica2c1csub334bxjjb59">
+    <index id="311" parent="274" name="uk_srv16ica2c1csub334bxjjb59">
       <ColNames>email</ColNames>
       <ObjectId>82893</ObjectId>
       <StateNumber>3865</StateNumber>
@@ -4565,80 +4551,80 @@ false Zulu
       <CollationIds>100</CollationIds>
       <CollationParentNames>pg_catalog</CollationParentNames>
     </index>
-    <key id="314" parent="274" name="clients_pkey">
+    <key id="312" parent="274" name="clients_pkey">
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>82849</ObjectId>
       <Primary>1</Primary>
       <StateNumber>3853</StateNumber>
       <UnderlyingIndexId>82848</UnderlyingIndexId>
     </key>
-    <key id="315" parent="274" name="uk_rrfhnn5uxp1jih3yqsm4lub6k">
+    <key id="313" parent="274" name="uk_rrfhnn5uxp1jih3yqsm4lub6k">
       <ObjectId>82892</ObjectId>
       <StateNumber>3863</StateNumber>
       <UnderlyingIndexId>82891</UnderlyingIndexId>
     </key>
-    <key id="316" parent="274" name="uk_srv16ica2c1csub334bxjjb59">
+    <key id="314" parent="274" name="uk_srv16ica2c1csub334bxjjb59">
       <ObjectId>82894</ObjectId>
       <StateNumber>3865</StateNumber>
       <UnderlyingIndexId>82893</UnderlyingIndexId>
     </key>
-    <column id="317" parent="275" name="pack_id">
+    <column id="315" parent="275" name="pack_id">
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <StateNumber>3854</StateNumber>
+      <StateNumber>3963</StateNumber>
       <StoredType>bigint|0s</StoredType>
       <TypeId>20</TypeId>
     </column>
-    <column id="318" parent="275" name="article_id">
+    <column id="316" parent="275" name="article_id">
       <NotNull>1</NotNull>
       <Position>2</Position>
-      <StateNumber>3854</StateNumber>
+      <StateNumber>3963</StateNumber>
       <StoredType>bigint|0s</StoredType>
       <TypeId>20</TypeId>
     </column>
-    <foreign-key id="319" parent="275" name="fkn3tjud37ylcsy4sc0at38ams5">
+    <foreign-key id="317" parent="275" name="fkn3tjud37ylcsy4sc0at38ams5">
       <ColNames>pack_id</ColNames>
-      <ObjectId>82928</ObjectId>
-      <StateNumber>3879</StateNumber>
+      <ObjectId>82984</ObjectId>
+      <StateNumber>3965</StateNumber>
       <RefKeyColPositions>1</RefKeyColPositions>
       <RefTableId>82857</RefTableId>
     </foreign-key>
-    <foreign-key id="320" parent="275" name="fkopdb2uw1uja6tsvbdmy24xtv0">
+    <foreign-key id="318" parent="275" name="fkopdb2uw1uja6tsvbdmy24xtv0">
       <ColNames>article_id</ColNames>
-      <ObjectId>82923</ObjectId>
-      <StateNumber>3878</StateNumber>
+      <ObjectId>82979</ObjectId>
+      <StateNumber>3964</StateNumber>
       <RefKeyColPositions>1</RefKeyColPositions>
       <RefTableId>82833</RefTableId>
     </foreign-key>
-    <column id="321" parent="276" name="pack_id">
+    <column id="319" parent="276" name="pack_id">
       <NotNull>1</NotNull>
       <Position>1</Position>
       <StateNumber>3855</StateNumber>
       <StoredType>bigint|0s</StoredType>
       <TypeId>20</TypeId>
     </column>
-    <column id="322" parent="276" name="provider_id">
+    <column id="320" parent="276" name="provider_id">
       <NotNull>1</NotNull>
       <Position>2</Position>
       <StateNumber>3855</StateNumber>
       <StoredType>bigint|0s</StoredType>
       <TypeId>20</TypeId>
     </column>
-    <foreign-key id="323" parent="276" name="fkq7icnbvmu08xwkcuijiddd5n">
+    <foreign-key id="321" parent="276" name="fkq7icnbvmu08xwkcuijiddd5n">
       <ColNames>pack_id</ColNames>
       <ObjectId>82938</ObjectId>
       <StateNumber>3881</StateNumber>
       <RefKeyColPositions>1</RefKeyColPositions>
       <RefTableId>82857</RefTableId>
     </foreign-key>
-    <foreign-key id="324" parent="276" name="fk3n6lfhk8q16738gkq00cud8qg">
+    <foreign-key id="322" parent="276" name="fk3n6lfhk8q16738gkq00cud8qg">
       <ColNames>provider_id</ColNames>
       <ObjectId>82933</ObjectId>
       <StateNumber>3880</StateNumber>
       <RefKeyColPositions>1</RefKeyColPositions>
       <RefTableId>82864</RefTableId>
     </foreign-key>
-    <column id="325" parent="277" name="id">
+    <column id="323" parent="277" name="id">
       <DefaultExpression>nextval(&apos;packs_id_seq&apos;::regclass)</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>1</Position>
@@ -4647,66 +4633,66 @@ false Zulu
       <SequenceId>82856</SequenceId>
       <TypeId>20</TypeId>
     </column>
-    <column id="326" parent="277" name="created_at">
+    <column id="324" parent="277" name="created_at">
       <Position>2</Position>
       <StateNumber>3856</StateNumber>
       <StoredType>timestamp(6)|0s</StoredType>
       <TypeId>1114</TypeId>
     </column>
-    <column id="327" parent="277" name="pack_number">
+    <column id="325" parent="277" name="pack_number">
       <NotNull>1</NotNull>
       <Position>3</Position>
       <StateNumber>3856</StateNumber>
       <StoredType>varchar(255)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <column id="328" parent="277" name="price">
+    <column id="326" parent="277" name="price">
       <NotNull>1</NotNull>
       <Position>4</Position>
       <StateNumber>3856</StateNumber>
       <StoredType>real|0s</StoredType>
       <TypeId>700</TypeId>
     </column>
-    <column id="329" parent="277" name="quantity">
+    <column id="327" parent="277" name="quantity">
       <NotNull>1</NotNull>
       <Position>5</Position>
       <StateNumber>3856</StateNumber>
       <StoredType>integer|0s</StoredType>
       <TypeId>23</TypeId>
     </column>
-    <column id="330" parent="277" name="updated_at">
+    <column id="328" parent="277" name="updated_at">
       <Position>6</Position>
       <StateNumber>3856</StateNumber>
       <StoredType>timestamp(6)|0s</StoredType>
       <TypeId>1114</TypeId>
     </column>
-    <column id="331" parent="277" name="client_id">
+    <column id="329" parent="277" name="client_id">
       <Position>7</Position>
       <StateNumber>3856</StateNumber>
       <StoredType>bigint|0s</StoredType>
       <TypeId>20</TypeId>
     </column>
-    <column id="332" parent="277" name="user_id">
+    <column id="330" parent="277" name="user_id">
       <Position>8</Position>
       <StateNumber>3856</StateNumber>
       <StoredType>bigint|0s</StoredType>
       <TypeId>20</TypeId>
     </column>
-    <foreign-key id="333" parent="277" name="fkmmuhb2n6axrprajfpemjttory">
+    <foreign-key id="331" parent="277" name="fkmmuhb2n6axrprajfpemjttory">
       <ColNames>client_id</ColNames>
       <ObjectId>82943</ObjectId>
       <StateNumber>3882</StateNumber>
       <RefKeyColPositions>1</RefKeyColPositions>
       <RefTableId>82842</RefTableId>
     </foreign-key>
-    <foreign-key id="334" parent="277" name="fkf6euq333p02t89hym5bt8a22x">
+    <foreign-key id="332" parent="277" name="fkf6euq333p02t89hym5bt8a22x">
       <ColNames>user_id</ColNames>
       <ObjectId>82948</ObjectId>
       <StateNumber>3883</StateNumber>
       <RefKeyColPositions>1</RefKeyColPositions>
       <RefTableId>82873</RefTableId>
     </foreign-key>
-    <index id="335" parent="277" name="packs_pkey">
+    <index id="333" parent="277" name="packs_pkey">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>82861</ObjectId>
@@ -4715,7 +4701,7 @@ false Zulu
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <index id="336" parent="277" name="uk_mh3ax5ir07t4nddymsrwei5so">
+    <index id="334" parent="277" name="uk_mh3ax5ir07t4nddymsrwei5so">
       <ColNames>pack_number</ColNames>
       <ObjectId>82895</ObjectId>
       <StateNumber>3867</StateNumber>
@@ -4725,19 +4711,19 @@ false Zulu
       <CollationIds>100</CollationIds>
       <CollationParentNames>pg_catalog</CollationParentNames>
     </index>
-    <key id="337" parent="277" name="packs_pkey">
+    <key id="335" parent="277" name="packs_pkey">
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>82862</ObjectId>
       <Primary>1</Primary>
       <StateNumber>3856</StateNumber>
       <UnderlyingIndexId>82861</UnderlyingIndexId>
     </key>
-    <key id="338" parent="277" name="uk_mh3ax5ir07t4nddymsrwei5so">
+    <key id="336" parent="277" name="uk_mh3ax5ir07t4nddymsrwei5so">
       <ObjectId>82896</ObjectId>
       <StateNumber>3867</StateNumber>
       <UnderlyingIndexId>82895</UnderlyingIndexId>
     </key>
-    <column id="339" parent="278" name="id">
+    <column id="337" parent="278" name="id">
       <DefaultExpression>nextval(&apos;providers_id_seq&apos;::regclass)</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>1</Position>
@@ -4746,65 +4732,95 @@ false Zulu
       <SequenceId>82863</SequenceId>
       <TypeId>20</TypeId>
     </column>
-    <column id="340" parent="278" name="address">
+    <column id="338" parent="278" name="address">
       <Position>2</Position>
       <StateNumber>3857</StateNumber>
       <StoredType>varchar(255)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <column id="341" parent="278" name="created_at">
+    <column id="339" parent="278" name="created_at">
       <Position>3</Position>
       <StateNumber>3857</StateNumber>
       <StoredType>timestamp(6)|0s</StoredType>
       <TypeId>1114</TypeId>
     </column>
-    <column id="342" parent="278" name="email">
+    <column id="340" parent="278" name="email">
       <NotNull>1</NotNull>
       <Position>4</Position>
       <StateNumber>3857</StateNumber>
       <StoredType>varchar(255)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <column id="343" parent="278" name="name">
+    <column id="341" parent="278" name="name">
       <NotNull>1</NotNull>
       <Position>5</Position>
       <StateNumber>3857</StateNumber>
       <StoredType>varchar(255)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <column id="344" parent="278" name="phone_number">
+    <column id="342" parent="278" name="phone_number">
       <Position>6</Position>
       <StateNumber>3857</StateNumber>
       <StoredType>varchar(255)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <column id="345" parent="278" name="service_type">
+    <column id="343" parent="278" name="service_type">
       <Position>7</Position>
       <StateNumber>3857</StateNumber>
       <StoredType>varchar(255)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <column id="346" parent="278" name="updated_at">
+    <column id="344" parent="278" name="updated_at">
       <Position>8</Position>
       <StateNumber>3857</StateNumber>
       <StoredType>timestamp(6)|0s</StoredType>
       <TypeId>1114</TypeId>
     </column>
-    <column id="347" parent="278" name="user_id">
+    <column id="345" parent="278" name="user_id">
       <NotNull>1</NotNull>
       <Position>9</Position>
       <StateNumber>3857</StateNumber>
       <StoredType>bigint|0s</StoredType>
       <TypeId>20</TypeId>
     </column>
-    <foreign-key id="348" parent="278" name="fklymp42tvombik3t66um6ocsba">
+    <column id="346" parent="278" name="code_provider">
+      <Position>10</Position>
+      <StateNumber>3922</StateNumber>
+      <StoredType>varchar(255)|0s</StoredType>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="347" parent="278" name="designation">
+      <Position>11</Position>
+      <StateNumber>3923</StateNumber>
+      <StoredType>varchar(255)|0s</StoredType>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="348" parent="278" name="ice">
+      <Position>12</Position>
+      <StateNumber>3924</StateNumber>
+      <StoredType>varchar(255)|0s</StoredType>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="349" parent="278" name="rc">
+      <Position>13</Position>
+      <StateNumber>3925</StateNumber>
+      <StoredType>varchar(255)|0s</StoredType>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="350" parent="278" name="rib">
+      <Position>14</Position>
+      <StateNumber>3926</StateNumber>
+      <StoredType>varchar(255)|0s</StoredType>
+      <TypeId>1043</TypeId>
+    </column>
+    <foreign-key id="351" parent="278" name="fklymp42tvombik3t66um6ocsba">
       <ColNames>user_id</ColNames>
       <ObjectId>82953</ObjectId>
       <StateNumber>3884</StateNumber>
       <RefKeyColPositions>1</RefKeyColPositions>
       <RefTableId>82873</RefTableId>
     </foreign-key>
-    <index id="349" parent="278" name="providers_pkey">
+    <index id="352" parent="278" name="providers_pkey">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>82870</ObjectId>
@@ -4813,7 +4829,7 @@ false Zulu
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <index id="350" parent="278" name="uk_7ant8u8y5lel5bd0d6hdexmde">
+    <index id="353" parent="278" name="uk_7ant8u8y5lel5bd0d6hdexmde">
       <ColNames>email</ColNames>
       <ObjectId>82897</ObjectId>
       <StateNumber>3869</StateNumber>
@@ -4823,25 +4839,25 @@ false Zulu
       <CollationIds>100</CollationIds>
       <CollationParentNames>pg_catalog</CollationParentNames>
     </index>
-    <key id="351" parent="278" name="providers_pkey">
+    <key id="354" parent="278" name="providers_pkey">
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>82871</ObjectId>
       <Primary>1</Primary>
       <StateNumber>3857</StateNumber>
       <UnderlyingIndexId>82870</UnderlyingIndexId>
     </key>
-    <key id="352" parent="278" name="uk_7ant8u8y5lel5bd0d6hdexmde">
+    <key id="355" parent="278" name="uk_7ant8u8y5lel5bd0d6hdexmde">
       <ObjectId>82898</ObjectId>
       <StateNumber>3869</StateNumber>
       <UnderlyingIndexId>82897</UnderlyingIndexId>
     </key>
-    <check id="353" parent="279" name="users_role_check">
+    <check id="356" parent="279" name="users_role_check">
       <ColNames>role</ColNames>
       <ObjectId>82877</ObjectId>
       <Predicate>(role)::text = ANY ((ARRAY[&apos;ADMIN&apos;::character varying, &apos;AGENCY&apos;::character varying])::text[])</Predicate>
       <StateNumber>3858</StateNumber>
     </check>
-    <column id="354" parent="279" name="id">
+    <column id="357" parent="279" name="id">
       <DefaultExpression>nextval(&apos;users_id_seq&apos;::regclass)</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>1</Position>
@@ -4850,59 +4866,59 @@ false Zulu
       <SequenceId>82872</SequenceId>
       <TypeId>20</TypeId>
     </column>
-    <column id="355" parent="279" name="created_at">
+    <column id="358" parent="279" name="created_at">
       <Position>2</Position>
       <StateNumber>3858</StateNumber>
       <StoredType>timestamp(6)|0s</StoredType>
       <TypeId>1114</TypeId>
     </column>
-    <column id="356" parent="279" name="email">
+    <column id="359" parent="279" name="email">
       <NotNull>1</NotNull>
       <Position>3</Position>
       <StateNumber>3858</StateNumber>
       <StoredType>varchar(255)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <column id="357" parent="279" name="is_active">
+    <column id="360" parent="279" name="is_active">
       <Position>4</Position>
       <StateNumber>3858</StateNumber>
       <StoredType>boolean|0s</StoredType>
       <TypeId>16</TypeId>
     </column>
-    <column id="358" parent="279" name="name">
+    <column id="361" parent="279" name="name">
       <NotNull>1</NotNull>
       <Position>5</Position>
       <StateNumber>3858</StateNumber>
       <StoredType>varchar(255)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <column id="359" parent="279" name="password">
+    <column id="362" parent="279" name="password">
       <NotNull>1</NotNull>
       <Position>6</Position>
       <StateNumber>3858</StateNumber>
       <StoredType>varchar(255)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <column id="360" parent="279" name="phone_number">
+    <column id="363" parent="279" name="phone_number">
       <Position>7</Position>
       <StateNumber>3858</StateNumber>
       <StoredType>varchar(255)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <column id="361" parent="279" name="role">
+    <column id="364" parent="279" name="role">
       <NotNull>1</NotNull>
       <Position>8</Position>
       <StateNumber>3858</StateNumber>
       <StoredType>varchar(255)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <column id="362" parent="279" name="updated_at">
+    <column id="365" parent="279" name="updated_at">
       <Position>9</Position>
       <StateNumber>3858</StateNumber>
       <StoredType>timestamp(6)|0s</StoredType>
       <TypeId>1114</TypeId>
     </column>
-    <index id="363" parent="279" name="users_pkey">
+    <index id="366" parent="279" name="users_pkey">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>82880</ObjectId>
@@ -4911,7 +4927,7 @@ false Zulu
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <index id="364" parent="279" name="uk_6dotkott2kjsp8vw4d0m25fb7">
+    <index id="367" parent="279" name="uk_6dotkott2kjsp8vw4d0m25fb7">
       <ColNames>email</ColNames>
       <ObjectId>82899</ObjectId>
       <StateNumber>3871</StateNumber>
@@ -4921,19 +4937,19 @@ false Zulu
       <CollationIds>100</CollationIds>
       <CollationParentNames>pg_catalog</CollationParentNames>
     </index>
-    <key id="365" parent="279" name="users_pkey">
+    <key id="368" parent="279" name="users_pkey">
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>82881</ObjectId>
       <Primary>1</Primary>
       <StateNumber>3858</StateNumber>
       <UnderlyingIndexId>82880</UnderlyingIndexId>
     </key>
-    <key id="366" parent="279" name="uk_6dotkott2kjsp8vw4d0m25fb7">
+    <key id="369" parent="279" name="uk_6dotkott2kjsp8vw4d0m25fb7">
       <ObjectId>82900</ObjectId>
       <StateNumber>3871</StateNumber>
       <UnderlyingIndexId>82899</UnderlyingIndexId>
     </key>
-    <column id="367" parent="280" name="id">
+    <column id="370" parent="280" name="id">
       <DefaultExpression>nextval(&apos;ventes_id_seq&apos;::regclass)</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>1</Position>
@@ -4942,79 +4958,79 @@ false Zulu
       <SequenceId>82882</SequenceId>
       <TypeId>20</TypeId>
     </column>
-    <column id="368" parent="280" name="created_at">
+    <column id="371" parent="280" name="created_at">
       <Position>2</Position>
       <StateNumber>3859</StateNumber>
       <StoredType>timestamp(6)|0s</StoredType>
       <TypeId>1114</TypeId>
     </column>
-    <column id="369" parent="280" name="price">
+    <column id="372" parent="280" name="price">
       <NotNull>1</NotNull>
       <Position>3</Position>
       <StateNumber>3859</StateNumber>
       <StoredType>real|0s</StoredType>
       <TypeId>700</TypeId>
     </column>
-    <column id="370" parent="280" name="quantity">
+    <column id="373" parent="280" name="quantity">
       <NotNull>1</NotNull>
       <Position>4</Position>
       <StateNumber>3859</StateNumber>
       <StoredType>integer|0s</StoredType>
       <TypeId>23</TypeId>
     </column>
-    <column id="371" parent="280" name="sale_number">
+    <column id="374" parent="280" name="sale_number">
       <NotNull>1</NotNull>
       <Position>5</Position>
       <StateNumber>3859</StateNumber>
       <StoredType>varchar(255)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <column id="372" parent="280" name="updated_at">
+    <column id="375" parent="280" name="updated_at">
       <Position>6</Position>
       <StateNumber>3859</StateNumber>
       <StoredType>timestamp(6)|0s</StoredType>
       <TypeId>1114</TypeId>
     </column>
-    <column id="373" parent="280" name="client_id">
+    <column id="376" parent="280" name="client_id">
       <Position>7</Position>
       <StateNumber>3859</StateNumber>
       <StoredType>bigint|0s</StoredType>
       <TypeId>20</TypeId>
     </column>
-    <column id="374" parent="280" name="pack_id">
+    <column id="377" parent="280" name="pack_id">
       <Position>8</Position>
       <StateNumber>3859</StateNumber>
       <StoredType>bigint|0s</StoredType>
       <TypeId>20</TypeId>
     </column>
-    <column id="375" parent="280" name="user_id">
+    <column id="378" parent="280" name="user_id">
       <Position>9</Position>
       <StateNumber>3859</StateNumber>
       <StoredType>bigint|0s</StoredType>
       <TypeId>20</TypeId>
     </column>
-    <foreign-key id="376" parent="280" name="fkbvx23i6p7wmclguf5x4wbls6e">
+    <foreign-key id="379" parent="280" name="fkbvx23i6p7wmclguf5x4wbls6e">
       <ColNames>client_id</ColNames>
       <ObjectId>82958</ObjectId>
       <StateNumber>3885</StateNumber>
       <RefKeyColPositions>1</RefKeyColPositions>
       <RefTableId>82842</RefTableId>
     </foreign-key>
-    <foreign-key id="377" parent="280" name="fk538sowsdkkt6vpt21wyb8mrnw">
+    <foreign-key id="380" parent="280" name="fk538sowsdkkt6vpt21wyb8mrnw">
       <ColNames>pack_id</ColNames>
       <ObjectId>82963</ObjectId>
       <StateNumber>3886</StateNumber>
       <RefKeyColPositions>1</RefKeyColPositions>
       <RefTableId>82857</RefTableId>
     </foreign-key>
-    <foreign-key id="378" parent="280" name="fkh6r3u2llujub40iga443lcgob">
+    <foreign-key id="381" parent="280" name="fkh6r3u2llujub40iga443lcgob">
       <ColNames>user_id</ColNames>
       <ObjectId>82968</ObjectId>
       <StateNumber>3887</StateNumber>
       <RefKeyColPositions>1</RefKeyColPositions>
       <RefTableId>82873</RefTableId>
     </foreign-key>
-    <index id="379" parent="280" name="ventes_pkey">
+    <index id="382" parent="280" name="ventes_pkey">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>82887</ObjectId>
@@ -5023,7 +5039,7 @@ false Zulu
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <index id="380" parent="280" name="uk_g5ixv6rufg9mj91oqk6rm8h6d">
+    <index id="383" parent="280" name="uk_g5ixv6rufg9mj91oqk6rm8h6d">
       <ColNames>sale_number</ColNames>
       <ObjectId>82901</ObjectId>
       <StateNumber>3873</StateNumber>
@@ -5033,14 +5049,14 @@ false Zulu
       <CollationIds>100</CollationIds>
       <CollationParentNames>pg_catalog</CollationParentNames>
     </index>
-    <key id="381" parent="280" name="ventes_pkey">
+    <key id="384" parent="280" name="ventes_pkey">
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>82888</ObjectId>
       <Primary>1</Primary>
       <StateNumber>3859</StateNumber>
       <UnderlyingIndexId>82887</UnderlyingIndexId>
     </key>
-    <key id="382" parent="280" name="uk_g5ixv6rufg9mj91oqk6rm8h6d">
+    <key id="385" parent="280" name="uk_g5ixv6rufg9mj91oqk6rm8h6d">
       <ObjectId>82902</ObjectId>
       <StateNumber>3873</StateNumber>
       <UnderlyingIndexId>82901</UnderlyingIndexId>

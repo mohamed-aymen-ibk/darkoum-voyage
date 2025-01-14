@@ -12,6 +12,5 @@ import lombok.Setter;
 public class ArticleDtoRequest {
     private String codeArticle;
     private String designation;
-    private String providerName;
     private Long userId;
 }
