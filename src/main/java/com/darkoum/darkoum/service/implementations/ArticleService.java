@@ -104,18 +104,14 @@ public class ArticleService implements ArticleServiceInterface {
         // Get all packs that reference this article
         List<Pack> packs = packRepository.findAll();
         for (Pack pack : packs) {
-            // Get the articles in this pack
             List<Article> articles = pack.getArticles();
 
             if (articles != null && articles.contains(article)) {
-                // if this article is part of the list, remove it
                 articles.remove(article);
 
-                // Persist the updated pack
                 packRepository.save(pack);
             }
         }
-        // Then delete the article
         articleRepository.delete(article);
     }
 

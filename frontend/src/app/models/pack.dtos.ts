@@ -3,6 +3,7 @@ export interface PackDtoRequest {
     price: number;
     quantity: number;
     articleNames?: string[];
+    clientNames?: string[];
     providerNames?: string[];
 }
 
@@ -12,6 +13,7 @@ export interface PackDtoResponse {
     price: number;
     quantity: number;
     articleNames?: string[];
+    clientNames?: string[];
     providerNames?: string[];
     createdAt?: Date;
 }

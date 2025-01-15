@@ -26,15 +26,17 @@ export class PackService {
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return this.http.get<any>(this.apiUrl, { params, headers });
   }
+
   getAllPacks(): Observable<any> {
     const token = localStorage.getItem('authToken');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return this.http.get<any>(this.apiUrl, { headers });
   }
+
   getAllPackNames(): Observable<string[]> {
     const token = localStorage.getItem('authToken');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.get<string[]>(`${this.apiUrl}/names`,{ headers });
+    return this.http.get<string[]>(`${this.apiUrl}/names`, { headers });
   }
 
   addPack(pack: PackDtoRequest): Observable<PackDtoResponse> {
@@ -54,11 +56,19 @@ export class PackService {
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return this.http.delete<void>(`${this.apiUrl}/${id}`, { headers });
   }
+
   getArticleNames(): Observable<string[]> {
     const token = localStorage.getItem('authToken');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return this.http.get<string[]>(`${this.apiUrl}/articles/names`, { headers });
   }
+
+  getClientNames(): Observable<string[]> {
+    const token = localStorage.getItem('authToken');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.get<string[]>(`${this.apiUrl}/clients/names`, { headers });
+  }
+
   getAllProviderNames(): Observable<string[]> {
     const token = localStorage.getItem('authToken');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);

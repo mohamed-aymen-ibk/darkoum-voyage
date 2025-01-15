@@ -20,7 +20,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -118,12 +117,11 @@ public class PackService implements PackServiceInterface {
         dto.setQuantity(pack.getQuantity());
         if (pack.getArticles() != null) {
             dto.setArticleNames(pack.getArticles().stream()
-                    .map(Article::getCodeArticle)
-                    .collect(Collectors.toList()));
+                    .map(Article::getCodeArticle).toList());
         }
         if (pack.getProviders() != null)
         {
-            dto.setProviderNames(pack.getProviders().stream().map(Provider::getName).collect(Collectors.toList()));
+            dto.setProviderNames(pack.getProviders().stream().map(Provider::getName).toList());
         }
         dto.setCreatedAt(pack.getCreatedAt());
         return dto;

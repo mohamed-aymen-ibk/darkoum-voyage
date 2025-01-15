@@ -256,15 +256,11 @@ export class VenteComponent implements OnInit, OnDestroy {
     private handleAddError(error: any): string {
         return error.error?.message ||   'Error adding sale. Please try again later.';
     }
-    private handlestockError(error: any): string {
-        return error.error?.message ||   'Error adding sale. Not enough stock.';
-    }
     private handleUpdateError(error: any): string {
         return error.error?.message ||   'Error updating sale. Please try again later.';
     }
     togglePackDropdownAdd(){
         this.showPackDropdownAdd= !this.showPackDropdownAdd
         this.isDropdownOpenTable = this.showPackDropdownAdd;
-
     }
 }
