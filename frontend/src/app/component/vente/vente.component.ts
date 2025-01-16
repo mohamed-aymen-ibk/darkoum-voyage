@@ -50,7 +50,7 @@ export class VenteComponent implements OnInit, OnDestroy {
         this.loadPackNames();
     }
     loadClientNames(): void {
-        this.clientService.getAllClientNames().subscribe(
+        this.clientService.getClientNames().subscribe(
             (data: string[]) => {
                 this.clients = data.map((name, index) => ({id: index + 1, name}));
             },

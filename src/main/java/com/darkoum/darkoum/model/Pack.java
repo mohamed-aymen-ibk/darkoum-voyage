@@ -48,9 +48,13 @@ public class Pack {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @ManyToOne
-    @JoinColumn(name = "client_id")
-    private Client client;
+    @ManyToMany
+    @JoinTable(
+            name = "pack_clients",
+            joinColumns = @JoinColumn(name = "pack_id"),
+            inverseJoinColumns = @JoinColumn(name = "client_id")
+    )
+    private List<Client> clients;
 
     @ManyToMany
     @JoinTable(
@@ -59,7 +63,6 @@ public class Pack {
             inverseJoinColumns = @JoinColumn(name = "provider_id")
     )
     private List<Provider> providers;
-
 
     @ManyToMany
     @JoinTable(

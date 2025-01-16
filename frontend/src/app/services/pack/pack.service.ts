@@ -66,7 +66,7 @@ export class PackService {
   getClientNames(): Observable<string[]> {
     const token = localStorage.getItem('authToken');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.get<string[]>(`${this.apiUrl}/clients/names`, { headers });
+    return this.http.get<string[]>(`http://localhost:8080/api/clients/names`, { headers });
   }
 
   getAllProviderNames(): Observable<string[]> {

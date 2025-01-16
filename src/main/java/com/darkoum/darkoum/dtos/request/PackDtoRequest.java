@@ -26,4 +26,6 @@ public class PackDtoRequest {
     private List<String> articleNames;
 
     private List<String> providerNames;
+
+    private List<String> clientNames;
 }

@@ -70,7 +70,7 @@ public class Client {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "clients")
     private List<Pack> packs;
 
     @OneToMany(mappedBy = "client", cascade = CascadeType.ALL, fetch = FetchType.LAZY)

@@ -3,9 +3,11 @@ package com.darkoum.darkoum.service.implementations;
 import com.darkoum.darkoum.dtos.request.PackDtoRequest;
 import com.darkoum.darkoum.dtos.response.PackDtoResponse;
 import com.darkoum.darkoum.model.Article;
+import com.darkoum.darkoum.model.Client;
 import com.darkoum.darkoum.model.Pack;
 import com.darkoum.darkoum.model.Provider;
 import com.darkoum.darkoum.repository.ArticleRepository;
+import com.darkoum.darkoum.repository.ClientRepository;
 import com.darkoum.darkoum.repository.PackRepository;
 import com.darkoum.darkoum.repository.ProviderRepository;
 import com.darkoum.darkoum.service.interfaces.PackServiceInterface;
@@ -25,13 +27,18 @@ import java.util.List;
 @AllArgsConstructor
 public class PackService implements PackServiceInterface {
     private static final Logger logger = LoggerFactory.getLogger(PackService.class);
+
     @Autowired
     private PackRepository packRepository;
 
     @Autowired
     private ArticleRepository articleRepository;
+
     @Autowired
     private ProviderRepository providerRepository;
+
+    @Autowired
+    private ClientRepository clientRepository;
 
     @Override
     @Transactional
@@ -40,15 +47,25 @@ public class PackService implements PackServiceInterface {
         pack.setPackNumber(packDtoRequest.getPackNumber());
         pack.setPrice(packDtoRequest.getPrice());
         pack.setQuantity(packDtoRequest.getQuantity());
+
+        // Set Articles
         if (packDtoRequest.getArticleNames() != null && !packDtoRequest.getArticleNames().isEmpty()) {
             List<Article> articles = articleRepository.findByCodeArticleIn(packDtoRequest.getArticleNames());
             pack.setArticles(articles);
         }
-        if(packDtoRequest.getProviderNames() != null && !packDtoRequest.getProviderNames().isEmpty())
-        {
-            List<Provider> providers =  providerRepository.findProvidersByNameIn(packDtoRequest.getProviderNames());
+
+        // Set Providers
+        if (packDtoRequest.getProviderNames() != null && !packDtoRequest.getProviderNames().isEmpty()) {
+            List<Provider> providers = providerRepository.findProvidersByNameIn(packDtoRequest.getProviderNames());
             pack.setProviders(providers);
         }
+
+        // Set Clients
+        if (packDtoRequest.getClientNames() != null && !packDtoRequest.getClientNames().isEmpty()) {
+            List<Client> clients = clientRepository.findByNameIn(packDtoRequest.getClientNames());
+            pack.setClients(clients);
+        }
+
         Pack savedPack = packRepository.save(pack);
         return mapToDto(savedPack);
     }
@@ -57,22 +74,22 @@ public class PackService implements PackServiceInterface {
     public PackDtoResponse getPackById(Long id) {
         Pack pack = packRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Pack not found"));
-
         return mapToDto(pack);
     }
+
     @Override
     public Page<PackDtoResponse> getAllPacks(int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
         return packRepository.findAll(pageable)
                 .map(this::mapToDto);
     }
+
     @Override
     public Page<PackDtoResponse> searchPacksByPackNumber(String packNumber, int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
         return packRepository.findByPackNumberContainingIgnoreCase(packNumber, pageable)
                 .map(this::mapToDto);
     }
-
 
     @Override
     @Transactional
@@ -83,18 +100,26 @@ public class PackService implements PackServiceInterface {
         pack.setPackNumber(packDtoRequest.getPackNumber());
         pack.setPrice(packDtoRequest.getPrice());
         pack.setQuantity(packDtoRequest.getQuantity());
+
+        // Update Articles
         if (packDtoRequest.getArticleNames() != null && !packDtoRequest.getArticleNames().isEmpty()) {
             List<Article> articles = articleRepository.findByCodeArticleIn(packDtoRequest.getArticleNames());
             pack.setArticles(articles);
         }
-        if(packDtoRequest.getProviderNames() != null && !packDtoRequest.getProviderNames().isEmpty())
-        {
-            List<Provider> providers =  providerRepository.findProvidersByNameIn(packDtoRequest.getProviderNames());
+
+        // Update Providers
+        if (packDtoRequest.getProviderNames() != null && !packDtoRequest.getProviderNames().isEmpty()) {
+            List<Provider> providers = providerRepository.findProvidersByNameIn(packDtoRequest.getProviderNames());
             pack.setProviders(providers);
         }
 
-        Pack updatedPack = packRepository.save(pack);
+        // Update Clients
+        if (packDtoRequest.getClientNames() != null && !packDtoRequest.getClientNames().isEmpty()) {
+            List<Client> clients = clientRepository.findByNameIn(packDtoRequest.getClientNames());
+            pack.setClients(clients);
+        }
 
+        Pack updatedPack = packRepository.save(pack);
         return mapToDto(updatedPack);
     }
 
@@ -115,17 +140,26 @@ public class PackService implements PackServiceInterface {
         dto.setPackNumber(pack.getPackNumber());
         dto.setPrice(pack.getPrice());
         dto.setQuantity(pack.getQuantity());
+
         if (pack.getArticles() != null) {
             dto.setArticleNames(pack.getArticles().stream()
                     .map(Article::getCodeArticle).toList());
         }
-        if (pack.getProviders() != null)
-        {
-            dto.setProviderNames(pack.getProviders().stream().map(Provider::getName).toList());
+
+        if (pack.getProviders() != null) {
+            dto.setProviderNames(pack.getProviders().stream()
+                    .map(Provider::getName).toList());
         }
+
+        if (pack.getClients() != null) {
+            dto.setClientNames(pack.getClients().stream()
+                    .map(Client::getName).toList());
+        }
+
         dto.setCreatedAt(pack.getCreatedAt());
         return dto;
     }
+
     @Override
     public List<String> getAllPackNames() {
         return packRepository.findAllPackNames();
