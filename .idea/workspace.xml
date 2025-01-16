@@ -4,29 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="04e82da8-214b-4e32-b9a0-deed4f1652df" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.cache/.ApidogFastRequest/.toolWindow.db" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.cache/.ApidogFastRequest/.toolWindow.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/786b510c-69b4-4da8-b5ca-f3ef212b9ac3.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/786b510c-69b4-4da8-b5ca-f3ef212b9ac3.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/786b510c-69b4-4da8-b5ca-f3ef212b9ac3/storage_v2/_src_/database/agency.BRxhqw/schema/public.abK9xQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/786b510c-69b4-4da8-b5ca-f3ef212b9ac3/storage_v2/_src_/database/agency.BRxhqw/schema/public.abK9xQ.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/.angular/cache/19.0.6/darkoum-frontend/.tsbuildinfo" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/.angular/cache/19.0.6/darkoum-frontend/.tsbuildinfo" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/component/client/client.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/component/client/client.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/component/vente/vente.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/component/vente/vente.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/services/client/client.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/services/client/client.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/darkoum/darkoum/dtos/request/PackDtoRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/darkoum/darkoum/dtos/request/PackDtoRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/darkoum/darkoum/dtos/response/PackDtoResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/darkoum/darkoum/dtos/response/PackDtoResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/darkoum/darkoum/model/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/darkoum/darkoum/model/Client.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/darkoum/darkoum/model/Pack.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/darkoum/darkoum/model/Pack.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/darkoum/darkoum/repository/ClientRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/darkoum/darkoum/repository/ClientRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/darkoum/darkoum/service/implementations/PackService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/darkoum/darkoum/service/implementations/PackService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/darkoum/darkoum/dtos/request/PackDtoRequest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/darkoum/darkoum/dtos/request/PackDtoRequest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/darkoum/darkoum/dtos/response/PackDtoResponse.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/darkoum/darkoum/dtos/response/PackDtoResponse.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/darkoum/darkoum/model/Client.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/darkoum/darkoum/model/Client.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/darkoum/darkoum/model/Pack.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/darkoum/darkoum/model/Pack.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/darkoum/darkoum/repository/ClientRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/darkoum/darkoum/repository/ClientRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/darkoum/darkoum/service/implementations/ArticleService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/darkoum/darkoum/service/implementations/ArticleService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/darkoum/darkoum/service/implementations/PackService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/darkoum/darkoum/service/implementations/PackService.class" afterDir="false" />
-    </list>
+    <list default="true" id="04e82da8-214b-4e32-b9a0-deed4f1652df" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />

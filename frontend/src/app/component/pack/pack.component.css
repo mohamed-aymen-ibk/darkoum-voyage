@@ -1,0 +1,52 @@
+/* Dropdown styles */
+.absolute {
+    position: absolute;
+}
+
+.mt-2 {
+    margin-top: 0.5rem;
+}
+
+.w-48 {
+    width: 12rem;
+}
+
+.bg-white {
+    background-color: white;
+}
+
+.border {
+    border-width: 1px;
+}
+
+.border-gray-300 {
+    border-color: #d1d5db;
+}
+
+.rounded-md {
+    border-radius: 0.375rem;
+}
+
+.shadow-lg {
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+}
+
+.z-10 {
+    z-index: 10;
+}
+
+.max-h-200 {
+    max-height: 200px;
+}
+
+.overflow-y-auto {
+    overflow-y: auto;
+}
+
+.p-2 {
+    padding: 0.5rem;
+}
+
+.hover\:bg-gray-100:hover {
+    background-color: #f3f4f6;
+}

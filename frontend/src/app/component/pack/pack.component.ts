@@ -30,8 +30,8 @@ export class PackComponent implements OnInit, OnDestroy {
     showArticleDropdownUpdate: boolean = false;
     showClientDropdownAdd: boolean = false;
     showClientDropdownUpdate: boolean = false;
-    expandedPacks: { [packId: number]: boolean } = {};
-    expandedProviders: { [packId: number]: boolean } = {};
+    expandedPacks: { [packId: number]: boolean } = {}; // For articles dropdown
+    expandedClients: { [packId: number]: boolean } = {}; // For clients dropdown
     private isDropdownOpenTable: boolean = false;
     private isDropdownOpenAdd: boolean = false;
     private isDropdownOpenUpdate: boolean = false;
@@ -282,9 +282,17 @@ export class PackComponent implements OnInit, OnDestroy {
         }
     }
 
+    // Toggle articles dropdown
     togglePackExpansion(packId: number, event: MouseEvent): void {
         this.expandedPacks[packId] = !this.expandedPacks[packId];
         this.isDropdownOpenTable = this.expandedPacks[packId];
+        event.stopPropagation();
+    }
+
+    // Toggle clients dropdown
+    toggleClientDropdown(packId: number, event: MouseEvent): void {
+        this.expandedClients[packId] = !this.expandedClients[packId];
+        this.isDropdownOpenTable = this.expandedClients[packId];
         event.stopPropagation();
     }
 
@@ -292,38 +300,32 @@ export class PackComponent implements OnInit, OnDestroy {
     onDocumentClick(event: MouseEvent): void {
         if (this.isDropdownOpenTable) {
             let clickedInside = false;
-            let clickedOnTrigger = false;
             Object.keys(this.expandedPacks).forEach((packId) => {
                 const targetElement = document.querySelector(`.articles-dropdown-${packId}`);
                 const triggerElement = document.querySelector(`.articles-trigger-${packId}`);
 
-                if (targetElement) {
-                    if (targetElement.contains(event.target as Node))
-                        clickedInside = true;
+                if (targetElement && targetElement.contains(event.target as Node)) {
+                    clickedInside = true;
                 }
-                if (triggerElement) {
-                    if (triggerElement.contains(event.target as Node)) {
-                        clickedOnTrigger = true;
-                    }
+                if (triggerElement && triggerElement.contains(event.target as Node)) {
+                    clickedInside = true;
                 }
             });
-            Object.keys(this.expandedProviders).forEach((packId) => {
-                const targetProviderElement = document.querySelector(`.providers-dropdown-${packId}`);
-                const triggerProviderElement = document.querySelector(`.providers-trigger-${packId}`);
-                if (targetProviderElement) {
-                    if (targetProviderElement.contains(event.target as Node))
-                        clickedInside = true;
+            Object.keys(this.expandedClients).forEach((packId) => {
+                const targetElement = document.querySelector(`.clients-dropdown-${packId}`);
+                const triggerElement = document.querySelector(`.clients-trigger-${packId}`);
+
+                if (targetElement && targetElement.contains(event.target as Node)) {
+                    clickedInside = true;
                 }
-                if (triggerProviderElement) {
-                    if (triggerProviderElement.contains(event.target as Node)) {
-                        clickedOnTrigger = true;
-                    }
+                if (triggerElement && triggerElement.contains(event.target as Node)) {
+                    clickedInside = true;
                 }
             });
 
-            if (!clickedInside && !clickedOnTrigger) {
+            if (!clickedInside) {
                 this.expandedPacks = {};
-                this.expandedProviders = {};
+                this.expandedClients = {};
                 this.isDropdownOpenTable = false;
             }
         }

@@ -42,24 +42,36 @@
             <td class="border-x px-6 py-2">{{ pack.price | number : '1.2-2' }} MAD</td>
             <td class="border-x px-6 py-2">{{ pack.quantity }}</td>
             <td class="border-x px-6 py-2">{{ pack.providerNames }}</td>
-            <td class="border-x px-6 py-2">{{ pack.clientNames }}</td>
             <td class="border-x px-6 py-2 relative">
-                <span
-                        (click)="togglePackExpansion(pack.id, $event)"
-                        class="cursor-pointer text-blue-500 hover:underline articles-trigger-{{pack.id}}"
-                >
-                   {{ pack.articleNames ? (pack.articleNames.length > 0 ? pack.articleNames[0] : 'No Articles') : 'No Articles'}}
-                </span>
-                <div *ngIf="expandedPacks[pack.id]" class="absolute left-0 mt-2 w-48 bg-white border border-gray-300 rounded-md shadow-lg z-10 articles-dropdown-{{pack.id}}" style="max-height: 200px; overflow-y: auto;">
+        <span
+                (click)="toggleClientDropdown(pack.id, $event)"
+                class="cursor-pointer text-blue-500 hover:underline clients-trigger-{{ pack.id }}"
+        >
+          {{ pack.clientNames ? (pack.clientNames.length > 0 ? pack.clientNames[0] : 'No Clients') : 'No Clients' }}
+        </span>
+                <div *ngIf="expandedClients[pack.id]" class="absolute left-0 mt-2 w-48 bg-white border border-gray-300 rounded-md shadow-lg z-10 clients-dropdown-{{ pack.id }}" style="max-height: 200px; overflow-y: auto;">
+                    <div *ngFor="let clientName of pack.clientNames" class="p-2 hover:bg-gray-100">
+                        {{ clientName }}
+                    </div>
+                </div>
+            </td>
+            <td class="border-x px-6 py-2 relative">
+        <span
+                (click)="togglePackExpansion(pack.id, $event)"
+                class="cursor-pointer text-blue-500 hover:underline articles-trigger-{{ pack.id }}"
+        >
+          {{ pack.articleNames ? (pack.articleNames.length > 0 ? pack.articleNames[0] : 'No Articles') : 'No Articles' }}
+        </span>
+                <div *ngIf="expandedPacks[pack.id]" class="absolute left-0 mt-2 w-48 bg-white border border-gray-300 rounded-md shadow-lg z-10 articles-dropdown-{{ pack.id }}" style="max-height: 200px; overflow-y: auto;">
                     <div *ngFor="let articleName of pack.articleNames" class="p-2 hover:bg-gray-100">
-                        {{articleName}}
+                        {{ articleName }}
                     </div>
                 </div>
             </td>
             <td class="border-x px-6 py-2">{{ pack.createdAt | date : 'short' }}</td>
             <td class="border-x px-6 py-2">
                 <button
-                        class="bg-gray-100  text-yellow-500 py-1 px-3 rounded border border-1 border-yellow-500 hover:bg-yellow-400 hover:text-white transition duration-200"
+                        class="bg-gray-100 text-yellow-500 py-1 px-3 rounded border border-1 border-yellow-500 hover:bg-yellow-400 hover:text-white transition duration-200"
                         (click)="openUpdateModal(pack)"
                 >
                     Update
