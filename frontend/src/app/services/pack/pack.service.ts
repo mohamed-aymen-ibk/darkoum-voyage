@@ -9,7 +9,7 @@ import { PackDtoRequest, PackDtoResponse } from '../../models/pack.dtos';
 export class PackService {
   private apiUrl = 'http://localhost:8080/api/packs';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   getPacks(packNumber?: string, page?: number, size?: number): Observable<any> {
     let params = new HttpParams();
@@ -30,7 +30,13 @@ export class PackService {
   getAllPacks(): Observable<any> {
     const token = localStorage.getItem('authToken');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.get<any>(this.apiUrl, { headers });
+    return this.http.get<any>(`${this.apiUrl}`, { headers });
+  }
+
+  getAllPacksNoPage(): Observable<PackDtoResponse[]> {
+    const token = localStorage.getItem('authToken');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.get<PackDtoResponse[]>(`${this.apiUrl}/names`, { headers });
   }
 
   getAllPackNames(): Observable<string[]> {

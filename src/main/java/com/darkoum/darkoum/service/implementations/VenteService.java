@@ -15,6 +15,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashSet;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -33,30 +35,46 @@ public class VenteService implements VenteServiceInterface {
     @Override
     @Transactional
     public VenteDtoResponse createVente(VenteDtoRequest venteDtoRequest) {
+        Set<Client> clients = new HashSet<>();
+        Set<Pack> packs = new HashSet<>();
+        // Fetch clients by IDs if they exist
+        if (venteDtoRequest.getClientIds() != null && !venteDtoRequest.getClientIds().isEmpty()) {
+            clients = venteDtoRequest.getClientIds().stream()
+                    .map(clientId -> clientRepository.findById(clientId)
+                            .orElseThrow(() -> new RuntimeException("Client not found with ID: " + clientId)))
+                    .collect(Collectors.toSet());
+        }
+
+
+        if (venteDtoRequest.getPackIds() != null && !venteDtoRequest.getPackIds().isEmpty()) {
+            packs = venteDtoRequest.getPackIds().stream()
+                    .map(packId -> packRepository.findById(packId)
+                            .orElseThrow(() -> new RuntimeException("Pack not found with ID: " + packId)))
+                    .collect(Collectors.toSet());
+        }
+
+        // Validate pack quantities
+        for (Pack pack : packs) {
+            if (venteDtoRequest.getQuantity() > pack.getQuantity()) {
+                throw new RuntimeException("Quantity of sale is greater than pack's quantity for pack ID: " + pack.getId());
+            }
+        }
+
+        // Update pack quantities
+        for (Pack pack : packs) {
+            pack.setQuantity(pack.getQuantity() - venteDtoRequest.getQuantity());
+            packRepository.save(pack);
+        }
+
+        // Create the Vente entity
         Vente vente = new Vente();
-
-        if (venteDtoRequest.getClientId() == null) {
-            throw new RuntimeException("Client ID cannot be null");
-        }
-        if (venteDtoRequest.getPackId() == null) {
-            throw new RuntimeException("Pack ID cannot be null");
-        }
-
-        Client client = clientRepository.findById(venteDtoRequest.getClientId())
-                .orElseThrow(() -> new RuntimeException("Client not found"));
-        Pack pack = packRepository.findById(venteDtoRequest.getPackId())
-                .orElseThrow(() -> new RuntimeException("Pack not found"));
-        if (venteDtoRequest.getQuantity() > pack.getQuantity()){
-            throw new RuntimeException("Quantity of sale is greater than pack's quantity");
-        }
-        pack.setQuantity(pack.getQuantity() - venteDtoRequest.getQuantity());
-        packRepository.save(pack);
-
-        vente.setClient(client);
-        vente.setPack(pack);
         vente.setSaleNumber(venteDtoRequest.getSaleNumber());
         vente.setQuantity(venteDtoRequest.getQuantity());
         vente.setPrice(venteDtoRequest.getPrice());
+        vente.setPacks(packs);
+        vente.setClients(clients);
+
+        // Save the Vente
         try {
             Vente savedVente = venteRepository.save(vente);
             return mapToDto(savedVente);
@@ -64,7 +82,6 @@ public class VenteService implements VenteServiceInterface {
             throw new RuntimeException("Failed to create sale: " + e.getMessage());
         }
     }
-
 
     @Override
     public VenteDtoResponse getVenteById(Long id) {
@@ -80,12 +97,42 @@ public class VenteService implements VenteServiceInterface {
                 .map(this::mapToDto);
     }
 
-
     @Override
     @Transactional
     public VenteDtoResponse updateVente(Long id, VenteDtoRequest venteDtoRequest) {
         Vente vente = venteRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Vente not found"));
+
+        // Update fields if provided
+        if (venteDtoRequest.getClientIds() != null && !venteDtoRequest.getClientIds().isEmpty()) {
+            Set<Client> clients = venteDtoRequest.getClientIds().stream()
+                    .map(clientId -> clientRepository.findById(clientId)
+                            .orElseThrow(() -> new RuntimeException("Client not found with ID: " + clientId)))
+                    .collect(Collectors.toSet());
+            vente.setClients(clients);
+        }
+
+        if (venteDtoRequest.getPackIds() != null && !venteDtoRequest.getPackIds().isEmpty()) {
+            Set<Pack> packs = venteDtoRequest.getPackIds().stream()
+                    .map(packId -> packRepository.findById(packId)
+                            .orElseThrow(() -> new RuntimeException("Pack not found with ID: " + packId)))
+                    .collect(Collectors.toSet());
+            vente.setPacks(packs);
+        }
+
+        if (venteDtoRequest.getSaleNumber() != null) {
+            vente.setSaleNumber(venteDtoRequest.getSaleNumber());
+        }
+
+        if (venteDtoRequest.getQuantity() != null) {
+            vente.setQuantity(venteDtoRequest.getQuantity());
+        }
+
+        if (venteDtoRequest.getPrice() != null) {
+            vente.setPrice(venteDtoRequest.getPrice());
+        }
+
+        // Save the updated Vente
         try {
             Vente updatedVente = venteRepository.save(vente);
             return mapToDto(updatedVente);
@@ -105,18 +152,26 @@ public class VenteService implements VenteServiceInterface {
     private VenteDtoResponse mapToDto(Vente vente) {
         VenteDtoResponse dto = new VenteDtoResponse();
         dto.setId(vente.getId());
-        if (vente.getClient() != null) {
-            dto.setClientName(vente.getClient().getName());
-        }
-        if (vente.getPack() != null) {
-            dto.setPackNumber(vente.getPack().getPackNumber());
-            dto.setProviderNames(vente.getPack().getProviders().stream().map(Provider::getName).collect(Collectors.toList()));
-            dto.setArticleNames(vente.getPack().getArticles().stream().map(Article::getCodeArticle).collect(Collectors.toList()));
-        }
-        dto.setQuantity(vente.getQuantity());
         dto.setSaleNumber(vente.getSaleNumber());
+        dto.setQuantity(vente.getQuantity());
         dto.setPrice(vente.getPrice());
         dto.setCreatedAt(vente.getCreatedAt());
+
+        // Map client names
+        dto.setClientNames(vente.getClients().stream()
+                .map(Client::getName)
+                .collect(Collectors.toList()));
+
+        // Map pack numbers
+        dto.setPackNumbers(vente.getPacks().stream()
+                .map(Pack::getPackNumber)
+                .collect(Collectors.toList()));
+
+        // Map provider names
+        dto.setProviderNames(vente.getPacks().stream()
+                .flatMap(pack -> pack.getProviders().stream())
+                .map(Provider::getName)
+                .collect(Collectors.toList()));
         return dto;
     }
 }

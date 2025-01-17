@@ -26,8 +26,8 @@
         <thead class="border-b-2 border-t uppercase tracking-wider">
         <tr>
             <th class="border-x px-6 py-2">Sale Number</th>
-            <th class="border-x px-6 py-2">Client Name</th>
-            <th class="border-x px-6 py-2">Packs</th>
+            <th class="border-x px-6 py-2">Client Names</th>
+            <th class="border-x px-6 py-2">Purchases</th>
             <th class="border-x px-6 py-2">Quantity</th>
             <th class="border-x px-6 py-2">Price</th>
             <th class="border-x px-6 py-2">Date</th>
@@ -37,26 +37,38 @@
         <tbody>
         <tr *ngFor="let vente of ventes" class="border-b hover:bg-neutral-200">
             <th class="border-x px-6 py-2">{{ vente.saleNumber }}</th>
-            <td class="border-x px-6 py-2">{{ vente.clientName }}</td>
+            <td class="border-x px-6 py-2 relative">
+                <span
+                        (click)="toggleClientExpansion(vente.id, $event)"
+                        class="cursor-pointer text-blue-500 hover:underline clients-trigger-{{vente.id}}"
+                >
+                    {{ vente.clientNames.length > 0 ? vente.clientNames[0] : 'No Clients' }}
+                </span>
+                <div *ngIf="expandedClients[vente.id]" class="absolute left-0 mt-2 w-48 bg-white border border-gray-300 rounded-md shadow-lg z-10 clients-dropdown-{{vente.id}}" style="max-height: 200px; overflow-y: auto;">
+                    <div *ngFor="let clientName of vente.clientNames" class="p-2 hover:bg-gray-100">
+                        {{ clientName }}
+                    </div>
+                </div>
+            </td>
             <td class="border-x px-6 py-2 relative">
                 <span
                         (click)="togglePackExpansion(vente.id, $event)"
                         class="cursor-pointer text-blue-500 hover:underline articles-trigger-{{vente.id}}"
                 >
-                   {{ vente.packNumber  ? vente.packNumber: 'No Packs'}}
-               </span>
+                 {{ vente.packNumbers ? (vente.packNumbers.length > 0 ? vente.packNumbers[0] : 'No Packs') : 'No Packs'}}
+                </span>
                 <div *ngIf="expandedPacks[vente.id]" class="absolute left-0 mt-2 w-48 bg-white border border-gray-300 rounded-md shadow-lg z-10 articles-dropdown-{{vente.id}}" style="max-height: 200px; overflow-y: auto;">
-                    <div *ngIf="vente.articleNames" class="p-2 hover:bg-gray-100">
-                        <p *ngFor="let article of vente.articleNames">{{article}}</p>
+                    <div *ngIf="vente.packNumbers" class="p-2 hover:bg-gray-100">
+                        <p *ngFor="let packNumber of vente.packNumbers">{{ packNumber }}</p>
                     </div>
                 </div>
             </td>
             <td class="border-x px-6 py-2">{{ vente.quantity }}</td>
-            <td class="border-x px-6 py-2">{{ vente.price | number: '1.2-2'}} MAD</td>
+            <td class="border-x px-6 py-2">{{ vente.price | number: '1.2-2' }} MAD</td>
             <td class="border-x px-6 py-2">{{ vente.createdAt | date:'short' }}</td>
             <td class="border-x px-6 py-2">
                 <button
-                        class="bg-gray-100  text-yellow-500 py-1 px-3 rounded border border-1 border-yellow-500 hover:bg-yellow-400 hover:text-white transition duration-200"
+                        class="bg-gray-100 text-yellow-500 py-1 px-3 rounded border border-1 border-yellow-500 hover:bg-yellow-400 hover:text-white transition duration-200"
                         (click)="openUpdateModal(vente)"
                 >
                     Update
@@ -71,11 +83,12 @@
         </tr>
         </tbody>
     </table>
+
     <!-- Pagination -->
     <nav class="flex items-center gap-x-1 float-right mt-4" aria-label="Pagination">
         <button
                 type="button"
-                class="min-h-[38px] min-w-[38px] py-2 px-2.5 inline-flex justify-center items-center gap-x-1.5 text-sm rounded-lg text-blue-400 hover:text-blue-500  hover:bg-gray-100 focus:outline-none focus:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none"
+                class="min-h-[38px] min-w-[38px] py-2 px-2.5 inline-flex justify-center items-center gap-x-1.5 text-sm rounded-lg text-blue-400 hover:text-blue-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none"
                 aria-label="Previous"
                 [disabled]="currentPage === 0"
                 (click)="goToPage(currentPage -1)"
@@ -91,10 +104,10 @@
                         *ngIf="typeof page.value === 'number'"
                         type="button"
                         [ngClass]="{
-                                'min-h-[38px] min-w-[38px] flex justify-center items-center text-blue-400  py-2 px-3 text-sm rounded-lg focus:outline-none disabled:opacity-50 disabled:pointer-events-none': true,
-                               'bg-blue-100 text-blue-600 hover:bg-blue-200': page.value === currentPage,
-                              'hover:text-blue-500 hover:bg-gray-100': page.value !== currentPage
-                           }"
+                        'min-h-[38px] min-w-[38px] flex justify-center items-center text-blue-400 py-2 px-3 text-sm rounded-lg focus:outline-none disabled:opacity-50 disabled:pointer-events-none': true,
+                        'bg-blue-100 text-blue-600 hover:bg-blue-200': page.value === currentPage,
+                        'hover:text-blue-500 hover:bg-gray-100': page.value !== currentPage
+                    }"
                         (click)="goToPage(page.value)"
                 >
                     {{ page.display }}
@@ -121,24 +134,28 @@
 <!-- Add Modal -->
 <div *ngIf="showAddModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
     <div class="bg-white rounded-lg shadow-lg p-6 w-96">
-        <h2 class="text-lg font-semibold mb-4">Add Vente</h2>
+        <h2 class="text-lg font-semibold mb-4">Add Sale</h2>
         <form (ngSubmit)="onAddVente()">
-            <div class="mb-4">
-                <label class="block text-sm font-medium text-gray-700">Client</label>
-                <select
-                        [(ngModel)]="newVente.clientId"
-                        name="clientId"
-                        class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
-                        required
-                        (change)="onClientSelected()"
+            <div class="mb-4 relative">
+                <button type="button"
+                        (click)="toggleClientDropdownAdd()"
+                        class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 text-left clients-trigger-add"
                 >
-                    <option value="" disabled selected>Select Client</option>
-                    <option *ngFor="let client of clients" [value]="client.id">
-                        {{ client.name }}
-                    </option>
-                </select>
+                    Select Clients
+                </button>
+                <div *ngIf="showClientDropdownAdd" class="absolute left-0 mt-2 w-full bg-white border border-gray-300 rounded-md shadow-lg z-10 clients-dropdown-add"
+                     style="max-height: 150px; overflow-y: auto;">
+                    <div *ngFor="let client of clients" class="flex items-center p-2">
+                        <input
+                                type="checkbox"
+                                [value]="client.id"
+                                (change)="updateSelectedClients(client, $event)"
+                                class="mr-2"
+                        />
+                        <label>{{ client.name }}</label>
+                    </div>
+                </div>
             </div>
-
             <div class="mb-4 relative">
                 <button type="button"
                         (click)="togglePackDropdownAdd()"
@@ -155,7 +172,7 @@
                                 (change)="updateSelectedPacks(pack, $event)"
                                 class="mr-2"
                         />
-                        <label>{{ pack.packNumber}}</label>
+                        <label>{{ pack.packNumber }}</label>
                     </div>
                 </div>
             </div>
@@ -170,7 +187,6 @@
                         required
                 />
             </div>
-
             <div class="mb-4">
                 <label class="block text-sm font-medium text-gray-700">Sale Number</label>
                 <input
@@ -192,6 +208,8 @@
                         required
                 />
             </div>
+
+            <!-- Error Message -->
             <div *ngIf="addErrorMessage" class="text-red-500 mb-4">
                 {{ addErrorMessage }}
             </div>
@@ -213,23 +231,23 @@
         </form>
     </div>
 </div>
-
 <!-- Update Modal -->
 <div *ngIf="showUpdateModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
     <div class="bg-white rounded-lg shadow-lg p-6 w-96">
-        <h2 class="text-lg font-semibold mb-4">Update Vente</h2>
+        <h2 class="text-lg font-semibold mb-4">Update Sale</h2>
         <form (ngSubmit)="onUpdateVente()">
             <div class="mb-4">
-                <label class="block text-sm font-medium text-gray-700">Client Name</label>
+                <label class="block text-sm font-medium text-gray-700">Client Names</label>
                 <input
                         type="text"
-                        [value]="editVente.clientName"
+                        [value]="editVente.clientNames.join(', ') || 'No Clients'"
                         class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-400"
                         readonly
                 />
             </div>
+
             <div class="mb-4">
-                <label class="block text-sm font-medium text-gray-700">Pack Number</label>
+                <label class="block text-sm font-medium text-gray-700">Purchase Number</label>
                 <input
                         type="text"
                         [value]="editVente.packNumber"
@@ -237,6 +255,7 @@
                         readonly
                 />
             </div>
+
             <div class="mb-4">
                 <label class="block text-sm font-medium text-gray-700">Quantity</label>
                 <input
@@ -272,10 +291,10 @@
 <!-- Delete Modal -->
 <div *ngIf="showDeleteModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
     <div class="bg-white rounded-lg shadow-lg p-6 w-96">
-        <h2 class="text-lg font-semibold mb-4">Delete Vente</h2>
-        <p class="mb-4">Are you sure you want to delete this vente?</p>
+        <h2 class="text-lg font-semibold mb-4">Delete Sale</h2>
+        <p class="mb-4">Are you sure you want to delete this sale?</p>
         <div *ngIf="generalErrorMessage" class="text-red-500 mb-4">
-            {{  generalErrorMessage }}
+            {{ generalErrorMessage }}
         </div>
         <div class="flex justify-end space-x-4">
             <button

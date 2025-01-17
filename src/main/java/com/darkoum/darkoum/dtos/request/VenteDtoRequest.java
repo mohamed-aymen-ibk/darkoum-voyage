@@ -1,27 +1,27 @@
 package com.darkoum.darkoum.dtos.request;
 
-import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.Set;
 
 @Getter
 @Setter
 public class VenteDtoRequest {
+    @NotEmpty(message = "At least one client ID is required")
+    private Set<Long> clientIds;
 
-    @NotNull(message = "Client ID is required")
-    private Long clientId;
+    @NotEmpty(message = "At least one pack ID is required")
+    private Set<Long> packIds;
 
-    @NotNull(message = "Pack ID is required")
-    private Long packId;
-
-    @NotBlank(message = "Sale number is required")
+    @NotNull(message = "Sale number is required")
     private String saleNumber;
 
     @NotNull(message = "Quantity is required")
-    @Positive(message = "Quantity must be positive")
     private Integer quantity;
 
+    @NotNull(message = "Price is required")
     private Float price;
 }

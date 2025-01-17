@@ -10,7 +10,9 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "packs")
@@ -72,6 +74,6 @@ public class Pack {
     )
     private List<Article> articles;
 
-    @OneToMany(mappedBy = "pack", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Vente> ventes;
+    @ManyToMany(mappedBy = "packs") // "packs" refers to the field in the Vente entity
+    private Set<Vente> ventes = new HashSet<>();
 }

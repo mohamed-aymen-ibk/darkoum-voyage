@@ -10,6 +10,8 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "ventes")
@@ -34,7 +36,6 @@ public class Vente {
     @Positive(message = "Price must be positive")
     private Float price;
 
-
     @Column(name = "created_at")
     @CreationTimestamp
     private LocalDateTime createdAt;
@@ -48,12 +49,20 @@ public class Vente {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @ManyToOne
-    @JoinColumn(name = "client_id")
-    private Client client;
 
+    @ManyToMany
+    @JoinTable(
+            name = "vente_client",
+            joinColumns = @JoinColumn(name = "vente_id"),
+            inverseJoinColumns = @JoinColumn(name = "client_id")
+    )
+    private Set<Client> clients = new HashSet<>();
 
-    @ManyToOne
-    @JoinColumn(name = "pack_id")
-    private Pack pack;
+    @ManyToMany
+    @JoinTable(
+            name = "vente_pack",
+            joinColumns = @JoinColumn(name = "vente_id"),
+            inverseJoinColumns = @JoinColumn(name = "pack_id")
+    )
+    private Set<Pack> packs = new HashSet<>();
 }

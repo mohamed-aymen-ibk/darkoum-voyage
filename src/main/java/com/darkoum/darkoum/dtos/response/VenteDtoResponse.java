@@ -10,13 +10,11 @@ import java.util.List;
 @Setter
 public class VenteDtoResponse {
     private Long id;
-    private String clientName;
-    private String packNumber;
     private Integer quantity;
     private LocalDateTime createdAt;
     private String saleNumber;
     private Float price;
-    private List<String> articleNames;
     private List<String> providerNames;
-
+    private List<String> clientNames;
+    private List<String> packNumbers;
 }
