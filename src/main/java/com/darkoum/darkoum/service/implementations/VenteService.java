@@ -61,7 +61,6 @@ public class VenteService implements VenteServiceInterface {
                 }
             }
 
-
             // Update pack quantities
             for (Pack pack : packs) {
                 pack.setQuantity(pack.getQuantity() - venteDtoRequest.getQuantity());
@@ -71,9 +70,9 @@ public class VenteService implements VenteServiceInterface {
             vente.setSaleNumber(venteDtoRequest.getSaleNumber());
             vente.setQuantity(venteDtoRequest.getQuantity());
             vente.setPrice(venteDtoRequest.getPrice());
+            vente.setFactured(venteDtoRequest.getFactured() != null ? venteDtoRequest.getFactured() : false);
             vente.setPacks(packs);
             vente.setClients(clients);
-
             // Save the Vente
             Vente savedVente = venteRepository.save(vente);
             return mapToDto(savedVente, savedVente.getClients(), savedVente.getPacks());
@@ -152,6 +151,7 @@ public class VenteService implements VenteServiceInterface {
             if (venteDtoRequest.getPrice() != null) {
                 vente.setPrice(venteDtoRequest.getPrice());
             }
+            vente.setFactured(venteDtoRequest.getFactured() != null ? venteDtoRequest.getFactured() : false);
 
             // Save the updated Vente
             Vente updatedVente = venteRepository.save(vente);
@@ -186,6 +186,7 @@ public class VenteService implements VenteServiceInterface {
         dto.setQuantity(vente.getQuantity());
         dto.setPrice(vente.getPrice());
         dto.setCreatedAt(vente.getCreatedAt());
+        dto.setFactured(vente.isFactured());
 
         // Map client names
         dto.setClientNames(clients.stream()

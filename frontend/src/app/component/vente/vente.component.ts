@@ -7,7 +7,6 @@ import { FooterComponent } from '../shared/footer/footer.component';
 import { ClientService } from '../../services/client/client.service';
 import { PackService } from '../../services/pack/pack.service';
 import { VenteDtoRequest, VenteDtoResponse } from "../../models/vente.dtos";
-import { PackDtoResponse } from "../../models/pack.dtos";
 
 @Component({
     selector: 'app-vente',
@@ -178,9 +177,7 @@ export class VenteComponent implements OnInit, OnDestroy {
         if(this.editVente.price){
             updateData.price = this.editVente.price;
         }
-        if (this.editVente.factured != undefined) {
-            updateData.factured = this.editVente.factured;
-        }
+        updateData.factured = this.editVente.factured; // send the actual value from the toggle
 
         if(this.selectedPacks){
             updateData.packId = this.selectedPacks;

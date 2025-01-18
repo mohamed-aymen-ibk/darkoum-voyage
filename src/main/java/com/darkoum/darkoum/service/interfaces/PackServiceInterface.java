@@ -25,4 +25,6 @@ public interface PackServiceInterface {
     PackDtoResponse updatePack(Long id, PackDtoRequest packDtoRequest);
 
     void deletePack(Long id);
+    List<String> getClientNames();
+    List<String> getAllProviderNames();
 }

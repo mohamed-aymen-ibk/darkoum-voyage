@@ -192,6 +192,15 @@ public class PackService implements PackServiceInterface {
     public List<String> getAllArticleNames() {
         return articleRepository.findAllArticleCodes();
     }
+    @Override
+    public List<String> getClientNames(){
+        return clientRepository.findAllClientNames();
+    }
+    @Override
+    public List<String> getAllProviderNames() {
+        return providerRepository.findAllProviderNames();
+    }
+
 
     private Specification<Pack> getPackSpecification(String storableStatus) {
         return (root, query, criteriaBuilder) -> {

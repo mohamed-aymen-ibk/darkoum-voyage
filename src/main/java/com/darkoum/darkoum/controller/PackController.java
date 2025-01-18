@@ -68,4 +68,12 @@ public class PackController {
     public ResponseEntity<List<String>> getAllArticleNames() {
         return ResponseEntity.ok(packService.getAllArticleNames());
     }
+    @GetMapping("/clients/names")
+    public ResponseEntity<List<String>> getAllClientNames() {
+        return ResponseEntity.ok(packService.getClientNames());
+    }
+    @GetMapping("/providers/names")
+    public ResponseEntity<List<String>> getAllProviderNames() {
+        return ResponseEntity.ok(packService.getAllProviderNames());
+    }
 }
