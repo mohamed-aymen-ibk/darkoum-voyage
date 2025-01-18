@@ -32,10 +32,12 @@ public class PackController {
     public ResponseEntity<Page<PackDtoResponse>> getAllPacks(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size,
-            @RequestParam(required = false) String packNumber
+            @RequestParam(required = false) String packNumber,
+            @RequestParam(required = false) String storableStatus
+
     ){
         if(packNumber == null || packNumber.isEmpty()){
-            return ResponseEntity.ok(packService.getAllPacks(page, size));
+            return ResponseEntity.ok(packService.getAllPacks(page, size, storableStatus));
         }
         return ResponseEntity.ok(packService.searchPacksByPackNumber(packNumber, page, size));
     }

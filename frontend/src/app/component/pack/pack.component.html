@@ -2,14 +2,23 @@
 <div class="m-10 mt-[130px] overflow-x-auto bg-gray-100">
     <h1 class="text-3xl font-bold mb-5 text-blue-600">Purchases</h1>
     <!-- Search input -->
-    <div class="relative float-left m-[2px] mb-3 mr-5">
+    <div class="relative float-left m-[2px] mb-3 mr-5 flex items-center">
         <input
                 id="inputSearch"
                 type="text"
                 placeholder="Search..."
                 class="block w-64 rounded-lg border py-2 pl-10 pr-4 text-sm focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-400"
-                (input)="onSearch($any($event.target).value)"
+                (input)="onSearchChange($event)"
         />
+        <select
+                [(ngModel)]="selectedFilter"
+                (change)="onFilterChange()"
+                class="ml-2 border rounded-lg border-gray-300 py-2 px-3 text-sm focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-400"
+        >
+            <option value="All">All</option>
+            <option value="Storable">Storable</option>
+            <option value="Not Storable">Not Storable</option>
+        </select>
     </div>
 
     <!-- Add button -->
@@ -32,6 +41,7 @@
             <th class="border-x px-6 py-2">Providers</th>
             <th class="border-x px-6 py-2">Clients</th>
             <th class="border-x px-6 py-2">Articles</th>
+            <th class="border-x px-6 py-2">Storable</th>
             <th class="border-x px-6 py-2">Date</th>
             <th class="border-x px-6 py-2">Operations</th>
         </tr>
@@ -67,6 +77,9 @@
                         {{ articleName }}
                     </div>
                 </div>
+            </td>
+            <td class="border-x px-6 py-2">
+                {{ pack.storable ? 'Storable' : 'Not Storable' }}
             </td>
             <td class="border-x px-6 py-2">{{ pack.createdAt | date : 'short' }}</td>
             <td class="border-x px-6 py-2">
@@ -232,6 +245,24 @@
                     <option *ngFor="let provider of allProviderNames" [value]="provider">{{ provider }}</option>
                 </select>
             </div>
+            <!-- Storable toggle -->
+            <div class="mb-4">
+                <label class="inline-flex items-center mt-2 cursor-pointer">
+                    <input
+                            type="checkbox"
+                            [(ngModel)]="newPack.storable"
+                            class="sr-only peer"
+                            tabindex="-1"
+                    />
+                    <div
+                            (click)="toggleStorableAdd()"
+                            class="relative w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"
+                    ></div>
+                    <span class="ms-3 text-sm font-medium text-gray-900 dark:text-gray-900">
+                  {{ newPack.storable ? 'Storable' : 'Not Storable' }}
+                </span>
+                </label>
+            </div>
 
             <div *ngIf="addErrorMessage" class="text-red-500 mb-4">
                 {{ addErrorMessage }}
@@ -355,6 +386,24 @@
                     <option value="" disabled selected>Select a provider</option>
                     <option *ngFor="let provider of allProviderNames" [value]="provider">{{ provider }}</option>
                 </select>
+            </div>
+            <!-- Storable toggle -->
+            <div class="mb-4">
+                <label class="inline-flex items-center mt-2 cursor-pointer">
+                    <input
+                            type="checkbox"
+                            [(ngModel)]="editPack.storable"
+                            class="sr-only peer"
+                            tabindex="-1"
+                    />
+                    <div
+                            (click)="toggleStorableUpdate()"
+                            class="relative w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"
+                    ></div>
+                    <span class="ms-3 text-sm font-medium text-gray-900 dark:text-gray-900">
+                {{ editPack.storable ? 'Storable' : 'Not Storable' }}
+              </span>
+                </label>
             </div>
             <div *ngIf="updateErrorMessage" class="text-red-500 mb-4">
                 {{ updateErrorMessage }}

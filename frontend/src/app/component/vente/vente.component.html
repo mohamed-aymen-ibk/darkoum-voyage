@@ -2,13 +2,23 @@
 <div class="m-10 mt-[130px] overflow-x-auto bg-gray-100">
     <h1 class="text-3xl font-bold mb-5 text-blue-600">Sales</h1>
     <!-- Search input -->
-    <div class="relative float-left m-[2px] mb-3 mr-5">
+    <div class="relative float-left m-[2px] mb-3 mr-5 flex items-center">
         <input
                 id="inputSearch"
                 type="text"
                 placeholder="Search..."
                 class="block w-64 rounded-lg border py-2 pl-10 pr-4 text-sm focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-400"
+                (input)="onSearchChange($event)"
         />
+        <select
+                [(ngModel)]="selectedFilter"
+                (change)="onFilterChange()"
+                class="ml-2 border rounded-lg border-gray-300 py-2 px-3 text-sm focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-400"
+        >
+            <option value="All">All</option>
+            <option value="Factured">Invoiced</option>
+            <option value="Not Factured">Not Invoiced</option>
+        </select>
     </div>
 
     <!-- Add button -->
@@ -31,6 +41,7 @@
             <th class="border-x px-6 py-2">Quantity</th>
             <th class="border-x px-6 py-2">Price</th>
             <th class="border-x px-6 py-2">Date</th>
+            <th class="border-x px-6 py-2">Invoiced</th>
             <th class="border-x px-6 py-2">Operations</th>
         </tr>
         </thead>
@@ -53,19 +64,22 @@
             <td class="border-x px-6 py-2 relative">
                 <span
                         (click)="togglePackExpansion(vente.id, $event)"
-                        class="cursor-pointer text-blue-500 hover:underline articles-trigger-{{vente.id}}"
+                        class="cursor-pointer text-blue-500 hover:underline packs-trigger-{{vente.id}}"
                 >
-                 {{ vente.packNumbers ? (vente.packNumbers.length > 0 ? vente.packNumbers[0] : 'No Packs') : 'No Packs'}}
+                    {{ vente.packNumbers ? (vente.packNumbers.length > 0 ? vente.packNumbers[0] : 'No Packs') : 'No Packs' }}
                 </span>
                 <div *ngIf="expandedPacks[vente.id]" class="absolute left-0 mt-2 w-48 bg-white border border-gray-300 rounded-md shadow-lg z-10 articles-dropdown-{{vente.id}}" style="max-height: 200px; overflow-y: auto;">
-                    <div *ngIf="vente.packNumbers" class="p-2 hover:bg-gray-100">
-                        <p *ngFor="let packNumber of vente.packNumbers">{{ packNumber }}</p>
+                    <div *ngFor="let packNumber of vente.packNumbers" class="p-2 hover:bg-gray-100">
+                        {{ packNumber }}
                     </div>
                 </div>
             </td>
             <td class="border-x px-6 py-2">{{ vente.quantity }}</td>
             <td class="border-x px-6 py-2">{{ vente.price | number: '1.2-2' }} MAD</td>
             <td class="border-x px-6 py-2">{{ vente.createdAt | date:'short' }}</td>
+            <td class="border-x px-6 py-2">
+                {{ vente.factured ? 'Invoiced' : 'Not Invoiced' }}
+            </td>
             <td class="border-x px-6 py-2">
                 <button
                         class="bg-gray-100 text-yellow-500 py-1 px-3 rounded border border-1 border-yellow-500 hover:bg-yellow-400 hover:text-white transition duration-200"
@@ -208,6 +222,24 @@
                         required
                 />
             </div>
+            <!-- Invoiced toggle -->
+            <div class="mb-4">
+                <label class="inline-flex items-center mt-2 cursor-pointer">
+                    <input
+                            type="checkbox"
+                            [(ngModel)]="newVente.factured"
+                            class="sr-only peer"
+                            tabindex="-1"
+                    />
+                    <div
+                            (click)="toggleFacturedAdd()"
+                            class="relative w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"
+                    ></div>
+                    <span class="ms-3 text-sm font-medium text-gray-900 dark:text-gray-900">
+                      {{ newVente.factured ? 'Invoiced' : 'Not Invoiced' }}
+                    </span>
+                </label>
+            </div>
 
             <!-- Error Message -->
             <div *ngIf="addErrorMessage" class="text-red-500 mb-4">
@@ -231,6 +263,7 @@
         </form>
     </div>
 </div>
+
 <!-- Update Modal -->
 <div *ngIf="showUpdateModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
     <div class="bg-white rounded-lg shadow-lg p-6 w-96">
@@ -265,10 +298,28 @@
                         readonly
                 />
             </div>
-
+            <!-- Factured toggle -->
+            <div class="mb-4">
+                <label class="inline-flex items-center mt-2 cursor-pointer">
+                    <input
+                            type="checkbox"
+                            [(ngModel)]="editVente.factured"
+                            class="sr-only peer"
+                            tabindex="-1"
+                    />
+                    <div
+                            (click)="toggleFacturedEdit()"
+                            class="relative w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"
+                    ></div>
+                    <span class="ms-3 text-sm font-medium text-gray-900 dark:text-gray-900">
+                      {{ editVente.factured ? 'Invoiced' : 'Not Invoiced' }}
+                    </span>
+                </label>
+            </div>
             <div *ngIf="updateErrorMessage" class="text-red-500 mb-4">
                 {{ updateErrorMessage }}
             </div>
+
             <div class="flex justify-end space-x-4">
                 <button
                         type="button"

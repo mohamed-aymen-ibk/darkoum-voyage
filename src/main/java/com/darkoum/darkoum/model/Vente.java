@@ -44,6 +44,10 @@ public class Vente {
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
+    @Column(nullable = false)
+    private boolean factured;
+
+
     // Relations
     @ManyToOne
     @JoinColumn(name = "user_id")

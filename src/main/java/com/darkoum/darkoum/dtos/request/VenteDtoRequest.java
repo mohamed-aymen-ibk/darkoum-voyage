@@ -1,20 +1,18 @@
 package com.darkoum.darkoum.dtos.request;
 
-import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Set;
+import java.util.List;
+
 
 @Getter
 @Setter
 public class VenteDtoRequest {
-    @NotEmpty(message = "At least one client ID is required")
-    private Set<Long> clientIds;
+    private List<Long> clientIds;
 
-    @NotEmpty(message = "At least one pack ID is required")
-    private Set<Long> packIds;
+    private List<Long> packIds;
 
     @NotNull(message = "Sale number is required")
     private String saleNumber;
@@ -24,4 +22,6 @@ public class VenteDtoRequest {
 
     @NotNull(message = "Price is required")
     private Float price;
+
+    private Boolean factured;
 }

@@ -17,8 +17,8 @@ export class PackComponent implements OnInit, OnDestroy {
     showAddModal = false;
     showUpdateModal = false;
     showDeleteModal = false;
-    newPack: PackDtoRequest = { packNumber: '', price: 0, quantity: 0, articleNames: [], clientNames: [], providerNames: [] };
-    editPack: PackDtoResponse = { id: 0, packNumber: '', price: 0, quantity: 0, articleNames: [], clientNames: [], providerNames: [] };
+    newPack: PackDtoRequest = { packNumber: '', price: 0, quantity: 0, storable: false, articleNames: [], clientNames: [], providerNames: [] };
+    editPack: PackDtoResponse = { id: 0, packNumber: '', price: 0, quantity: 0, storable: false, articleNames: [], clientNames: [], providerNames: [] };
     packToDelete: PackDtoResponse | null = null;
     addErrorMessage: string | null = null;
     updateErrorMessage: string | null = null;
@@ -30,8 +30,8 @@ export class PackComponent implements OnInit, OnDestroy {
     showArticleDropdownUpdate: boolean = false;
     showClientDropdownAdd: boolean = false;
     showClientDropdownUpdate: boolean = false;
-    expandedPacks: { [packId: number]: boolean } = {}; // For articles dropdown
-    expandedClients: { [packId: number]: boolean } = {}; // For clients dropdown
+    expandedPacks: { [packId: number]: boolean } = {};
+    expandedClients: { [packId: number]: boolean } = {};
     private isDropdownOpenTable: boolean = false;
     private isDropdownOpenAdd: boolean = false;
     private isDropdownOpenUpdate: boolean = false;
@@ -44,6 +44,8 @@ export class PackComponent implements OnInit, OnDestroy {
     pages: ({ value: number | '...', display: string })[] = [];
     newProviderName: string = '';
     editProviderName: string = '';
+    selectedFilter: string = 'All';
+
 
     constructor(private packService: PackService) {}
 
@@ -88,7 +90,7 @@ export class PackComponent implements OnInit, OnDestroy {
     }
 
     loadPacks(): void {
-        this.packService.getPacks(this.searchName, this.currentPage, this.pageSize).subscribe(
+        this.packService.getPacks(this.searchName, this.currentPage, this.pageSize,this.selectedFilter).subscribe(
             (data: any) => {
                 this.packs = data.content;
                 this.totalPages = data.totalPages;
@@ -101,8 +103,9 @@ export class PackComponent implements OnInit, OnDestroy {
         );
     }
 
+
     openAddModal(): void {
-        this.newPack = { packNumber: '', price: 0, quantity: 0, articleNames: [], clientNames: [], providerNames: [] };
+        this.newPack = { packNumber: '', price: 0, quantity: 0, storable: false, articleNames: [], clientNames: [], providerNames: [] };
         this.newProviderName = '';
         this.showAddModal = true;
         this.addErrorMessage = null;
@@ -125,6 +128,9 @@ export class PackComponent implements OnInit, OnDestroy {
     toggleClientDropdownAdd() {
         this.showClientDropdownAdd = !this.showClientDropdownAdd;
         this.isDropdownOpenAdd = this.showClientDropdownAdd;
+    }
+    toggleStorableAdd(): void {
+        this.newPack.storable = !this.newPack.storable;
     }
 
     onAddPack(): void {
@@ -186,6 +192,9 @@ export class PackComponent implements OnInit, OnDestroy {
         this.showArticleDropdownUpdate = !this.showArticleDropdownUpdate;
         this.isDropdownOpenUpdate = this.showArticleDropdownUpdate;
     }
+    toggleStorableUpdate(): void {
+        this.editPack.storable = !this.editPack.storable;
+    }
 
     toggleClientDropdownUpdate() {
         this.showClientDropdownUpdate = !this.showClientDropdownUpdate;
@@ -237,8 +246,8 @@ export class PackComponent implements OnInit, OnDestroy {
         }
     }
 
-    onSearch(value: string) {
-        this.searchName = value;
+    onSearchChange(event: any): void {
+        this.searchName = event.target.value;
         this.currentPage = 0;
         this.loadPacks();
     }
@@ -250,7 +259,10 @@ export class PackComponent implements OnInit, OnDestroy {
         this.currentPage = page as number;
         this.loadPacks();
     }
-
+    onFilterChange(): void {
+        this.currentPage = 0;
+        this.loadPacks();
+    }
     generatePageNumbers(): void {
         this.pages = [];
         if (this.totalPages <= 10) {
@@ -282,6 +294,8 @@ export class PackComponent implements OnInit, OnDestroy {
         }
     }
 
+
+
     // Toggle articles dropdown
     togglePackExpansion(packId: number, event: MouseEvent): void {
         this.expandedPacks[packId] = !this.expandedPacks[packId];
@@ -310,6 +324,7 @@ export class PackComponent implements OnInit, OnDestroy {
                 if (triggerElement && triggerElement.contains(event.target as Node)) {
                     clickedInside = true;
                 }
+
             });
             Object.keys(this.expandedClients).forEach((packId) => {
                 const targetElement = document.querySelector(`.clients-dropdown-${packId}`);
@@ -322,6 +337,7 @@ export class PackComponent implements OnInit, OnDestroy {
                     clickedInside = true;
                 }
             });
+
 
             if (!clickedInside) {
                 this.expandedPacks = {};

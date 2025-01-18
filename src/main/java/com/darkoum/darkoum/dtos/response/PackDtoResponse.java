@@ -18,4 +18,5 @@ public class PackDtoResponse {
     private List<String> providerNames;
     private List<String> clientNames;
     private LocalDateTime createdAt;
+    private Boolean storable;
 }

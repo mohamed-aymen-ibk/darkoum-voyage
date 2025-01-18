@@ -28,10 +28,12 @@ public class VenteController {
     @GetMapping
     public ResponseEntity<Page<VenteDtoResponse>> getAllVentes(
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(required = false) String facturedStatus
     ) {
-        return ResponseEntity.ok(venteService.getAllVentes(page, size));
+        return ResponseEntity.ok(venteService.getAllVentes(page, size, facturedStatus));
     }
+
 
     @PutMapping("/{id}")
     public ResponseEntity<VenteDtoResponse> updateVente(

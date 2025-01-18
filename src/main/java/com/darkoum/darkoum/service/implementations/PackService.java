@@ -11,13 +11,16 @@ import com.darkoum.darkoum.repository.ClientRepository;
 import com.darkoum.darkoum.repository.PackRepository;
 import com.darkoum.darkoum.repository.ProviderRepository;
 import com.darkoum.darkoum.service.interfaces.PackServiceInterface;
+import jakarta.persistence.criteria.Predicate;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -47,6 +50,7 @@ public class PackService implements PackServiceInterface {
         pack.setPackNumber(packDtoRequest.getPackNumber());
         pack.setPrice(packDtoRequest.getPrice());
         pack.setQuantity(packDtoRequest.getQuantity());
+        pack.setStorable(packDtoRequest.getStorable());
 
         // Set Articles
         if (packDtoRequest.getArticleNames() != null && !packDtoRequest.getArticleNames().isEmpty()) {
@@ -83,6 +87,23 @@ public class PackService implements PackServiceInterface {
         return packRepository.findAll(pageable)
                 .map(this::mapToDto);
     }
+    @Override
+    public Page<PackDtoResponse> getAllPacks(int page, int size, String storableStatus) {
+        try {
+            Pageable pageable = PageRequest.of(page, size);
+            Specification<Pack> spec = getPackSpecification(storableStatus);
+
+            return packRepository.findAll(spec, pageable)
+                    .map(this::mapToDto);
+
+        } catch (DataAccessException e) {
+            throw new RuntimeException("Database error while retrieving sales: " + e.getMessage());
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to retrieve sales: " + e.getMessage());
+        }
+    }
+
+
 
     @Override
     public Page<PackDtoResponse> searchPacksByPackNumber(String packNumber, int page, int size) {
@@ -100,6 +121,7 @@ public class PackService implements PackServiceInterface {
         pack.setPackNumber(packDtoRequest.getPackNumber());
         pack.setPrice(packDtoRequest.getPrice());
         pack.setQuantity(packDtoRequest.getQuantity());
+        pack.setStorable(packDtoRequest.getStorable());
 
         // Update Articles
         if (packDtoRequest.getArticleNames() != null && !packDtoRequest.getArticleNames().isEmpty()) {
@@ -140,6 +162,7 @@ public class PackService implements PackServiceInterface {
         dto.setPackNumber(pack.getPackNumber());
         dto.setPrice(pack.getPrice());
         dto.setQuantity(pack.getQuantity());
+        dto.setStorable(pack.getStorable());
 
         if (pack.getArticles() != null) {
             dto.setArticleNames(pack.getArticles().stream()
@@ -168,5 +191,17 @@ public class PackService implements PackServiceInterface {
     @Override
     public List<String> getAllArticleNames() {
         return articleRepository.findAllArticleCodes();
+    }
+
+    private Specification<Pack> getPackSpecification(String storableStatus) {
+        return (root, query, criteriaBuilder) -> {
+            if ("Storable".equalsIgnoreCase(storableStatus)) {
+                return criteriaBuilder.equal(root.get("storable"), true);
+            } else if ("Not Storable".equalsIgnoreCase(storableStatus)) {
+                return criteriaBuilder.equal(root.get("storable"), false);
+            } else {
+                return null; // No filter
+            }
+        };
     }
 }

@@ -28,4 +28,6 @@ public class PackDtoRequest {
     private List<String> providerNames;
 
     private List<String> clientNames;
+
+    private Boolean storable;
 }

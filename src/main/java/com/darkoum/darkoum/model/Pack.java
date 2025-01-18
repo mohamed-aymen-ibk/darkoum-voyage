@@ -45,6 +45,9 @@ public class Pack {
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
+    @Column(name = "storable")
+    private Boolean storable;
+
     // Relations
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -74,6 +77,6 @@ public class Pack {
     )
     private List<Article> articles;
 
-    @ManyToMany(mappedBy = "packs") // "packs" refers to the field in the Vente entity
+    @ManyToMany(mappedBy = "packs")
     private Set<Vente> ventes = new HashSet<>();
 }

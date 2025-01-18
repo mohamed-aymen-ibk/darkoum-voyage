@@ -1,10 +1,10 @@
-// vente.dtos.ts
 export interface VenteDtoRequest {
     clientId: number[];
     packId: number[];
     saleNumber: string;
     quantity: number;
     price: number;
+    factured: boolean;
 }
 
 export interface VenteDtoResponse {
@@ -19,4 +19,7 @@ export interface VenteDtoResponse {
     description?: string;
     price?: number;
     packNumbers?: string[];
+    clientId?:number[],
+    packId?:number[],
+    factured: boolean;
 }

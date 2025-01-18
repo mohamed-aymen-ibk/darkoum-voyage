@@ -17,6 +17,9 @@ public interface PackServiceInterface {
 
     Page<PackDtoResponse> getAllPacks(int page, int size);
 
+    Page<PackDtoResponse> getAllPacks(int page, int size, String storableStatus);
+
+
     Page<PackDtoResponse> searchPacksByPackNumber(String packNumber, int page, int size);
 
     PackDtoResponse updatePack(Long id, PackDtoRequest packDtoRequest);

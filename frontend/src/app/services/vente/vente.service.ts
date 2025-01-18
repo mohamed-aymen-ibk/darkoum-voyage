@@ -12,13 +12,16 @@ export class VenteService {
 
     constructor(private http: HttpClient) { }
 
-    getVentes(page?:number, size?:number): Observable<any> {
+    getVentes(page?:number, size?:number, facturedStatus?:string): Observable<any> {
         let params = new HttpParams();
         if(page !== undefined){
             params = params.set('page', page.toString())
         }
         if(size !== undefined){
             params = params.set('size', size.toString())
+        }
+        if (facturedStatus && facturedStatus !== 'All') {
+            params = params.set('facturedStatus', facturedStatus);
         }
         const token = localStorage.getItem('authToken');
         const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);

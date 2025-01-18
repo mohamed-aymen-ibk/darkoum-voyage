@@ -54,7 +54,7 @@ public class ArticleService implements ArticleServiceInterface {
         Article article = new Article();
         article.setCodeArticle(articleDtoRequest.getCodeArticle());
         article.setDesignation(articleDtoRequest.getDesignation());
-        article.setUser(user); // Set the user here
+        article.setUser(user);
         return article;
     }
     @Override

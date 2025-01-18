@@ -7,6 +7,7 @@ import { FooterComponent } from '../shared/footer/footer.component';
 import { ClientService } from '../../services/client/client.service';
 import { PackService } from '../../services/pack/pack.service';
 import { VenteDtoRequest, VenteDtoResponse } from "../../models/vente.dtos";
+import { PackDtoResponse } from "../../models/pack.dtos";
 
 @Component({
     selector: 'app-vente',
@@ -19,8 +20,8 @@ export class VenteComponent implements OnInit, OnDestroy {
     showAddModal = false;
     showUpdateModal = false;
     showDeleteModal = false;
-    newVente: VenteDtoRequest = { clientId: [], packId: [], saleNumber: '', quantity: 0, price: 0 };
-    editVente: VenteDtoResponse = { id: 0, clientName: '', packNumber: '', quantity: 0, createdAt: new Date(), saleNumber: '', clientNames: [], providerNames: [], packNumbers:[] };
+    newVente: VenteDtoRequest = { clientId: [], packId: [], saleNumber: '', quantity: 0, price: 0, factured: false };
+    editVente: VenteDtoResponse = { id: 0, clientName: '', packNumber: '', quantity: 0, createdAt: new Date(), saleNumber: '', clientNames: [], providerNames: [], packNumbers:[], clientId:[], packId:[], factured: false  };
     venteToDelete: any = null;
     addErrorMessage: string | null = null;
     updateErrorMessage: string | null = null;
@@ -39,7 +40,10 @@ export class VenteComponent implements OnInit, OnDestroy {
     expandedPacks: { [venteId: number]: boolean } = {};
     private isDropdownOpenTable: boolean = false;
     showPackDropdownAdd = false;
-    showClientDropdownAdd = false;
+    showClientDropdownAdd = false; // Toggle client dropdown visibility
+    selectedFilter: string = 'All';
+    searchTerm: string = '';
+
 
     constructor(
         private venteService: VenteService,
@@ -49,25 +53,21 @@ export class VenteComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         this.loadVentes();
-        this.loadClientNames();
-        this.loadPackNames();
+        this.loadClientsAndPacks();
     }
 
-    loadClientNames(): void {
-        this.clientService.getClientNames().subscribe(
-            (data: string[]) => {
-                this.clients = data.map((name, index) => ({ id: index + 1, name }));
+    loadClientsAndPacks(): void {
+        this.clientService.getClients().subscribe(  //  changed to getClients
+            (data: any) => {
+                this.clients = data.content;
             },
             () => {
                 this.generalErrorMessage = 'Error loading clients. Please try again later.';
             }
         );
-    }
-
-    loadPackNames(): void {
-        this.packService.getAllPackNames().subscribe(
-            (data: string[]) => {
-                this.packs = data.map((name, index) => ({id: index + 1, packNumber: name}))
+        this.packService.getPacks().subscribe( // Corrected line
+            (data: any) => {
+                this.packs = data.content;
             },
             () => {
                 this.generalErrorMessage = 'Error loading packs. Please try again later.';
@@ -75,9 +75,8 @@ export class VenteComponent implements OnInit, OnDestroy {
         );
     }
 
-
     loadVentes(): void {
-        this.venteService.getVentes(this.currentPage, this.pageSize).subscribe(
+        this.venteService.getVentes(this.currentPage, this.pageSize, this.selectedFilter).subscribe(
             (data: any) => {
                 this.ventes = data.content;
                 this.totalPages = data.totalPages;
@@ -90,13 +89,14 @@ export class VenteComponent implements OnInit, OnDestroy {
         );
     }
 
+
     openAddModal(): void {
-        this.newVente = { clientId: [], packId: [], saleNumber: '', quantity: 0, price: 0 };
+        this.newVente = { clientId: [], packId: [], saleNumber: '', quantity: 0, price: 0, factured: false };
         this.showAddModal = true;
         this.addErrorMessage = null;
         this.salePrice = null;
         this.selectedPacks = [];
-        this.selectedClients = []; // Clear selected clients
+        this.selectedClients = [];
         this.showPackDropdownAdd = false;
         this.showClientDropdownAdd = false;
     }
@@ -119,6 +119,8 @@ export class VenteComponent implements OnInit, OnDestroy {
 
             this.newVente.clientId = this.selectedClients;
             this.newVente.packId = this.selectedPacks;
+            console.log("newVente before service call", this.newVente)
+
             this.venteService.addVente(this.newVente).subscribe(
                 () => {
                     this.loadVentes();
@@ -134,10 +136,11 @@ export class VenteComponent implements OnInit, OnDestroy {
     updateSelectedPacks(pack: { id: number, packNumber: string }, event: any): void {
         const isChecked = (event.target as HTMLInputElement).checked;
         if (isChecked) {
-              this.selectedPacks.push(pack.id);
+            this.selectedPacks.push(pack.id);
         } else {
-            this.selectedPacks = this.selectedPacks.filter((p) => p !== pack.id);
+            this.selectedPacks = this.selectedPacks.filter(p => p !== pack.id);
         }
+        console.log("selectedPacks: "+ this.selectedPacks)
     }
 
     updateSelectedClients(client: { id: number, name: string }, event: any): void {
@@ -147,22 +150,45 @@ export class VenteComponent implements OnInit, OnDestroy {
         } else {
             this.selectedClients = this.selectedClients.filter(c => c !== client.id);
         }
+        console.log("selectedClients: "+ this.selectedClients)
     }
 
     openUpdateModal(vente: VenteDtoResponse): void {
         this.editVente = { ...vente };
         this.showUpdateModal = true;
         this.updateErrorMessage = null;
+        this.selectedPacks = vente.packNumbers?.map((packNumber, index) => index+1) || [];
+        this.selectedClients = vente.clientNames?.map((clientName, index) => index+1) || [];
     }
 
     closeUpdateModal(): void {
         this.showUpdateModal = false;
     }
 
-    onUpdateVente(): void {
-        const updateData = {
 
-        };
+    onUpdateVente(): void {
+        const updateData: any = {};
+
+        if(this.editVente.saleNumber){
+            updateData.saleNumber = this.editVente.saleNumber;
+        }
+        if(this.editVente.quantity){
+            updateData.quantity = this.editVente.quantity;
+        }
+        if(this.editVente.price){
+            updateData.price = this.editVente.price;
+        }
+        if (this.editVente.factured != undefined) {
+            updateData.factured = this.editVente.factured;
+        }
+
+        if(this.selectedPacks){
+            updateData.packId = this.selectedPacks;
+        }
+        if(this.selectedClients){
+            updateData.clientId = this.selectedClients;
+        }
+
         this.venteService.updateVente(this.editVente.id!, updateData).subscribe(
             () => {
                 this.loadVentes();
@@ -204,6 +230,22 @@ export class VenteComponent implements OnInit, OnDestroy {
         }
         this.currentPage = page as number;
         this.loadVentes();
+    }
+
+    onSearchChange(event: any): void {
+        this.searchTerm = event.target.value;
+    }
+    onFilterChange(): void {
+        this.currentPage = 0;
+        this.loadVentes();
+    }
+
+    toggleFacturedAdd() {
+        this.newVente.factured = !this.newVente.factured;
+    }
+
+    toggleFacturedEdit() {
+        this.editVente.factured = !this.editVente.factured;
     }
 
     generatePageNumbers(): void {
@@ -277,6 +319,23 @@ export class VenteComponent implements OnInit, OnDestroy {
             });
             if (!clickedInside && !clickedOnTrigger) {
                 this.expandedClients = {};
+                this.isDropdownOpenTable = false;
+            }
+            Object.keys(this.expandedPacks).forEach((venteId) => {
+                const targetElement = document.querySelector(`.articles-dropdown-${venteId}`);
+                const triggerElement = document.querySelector(`.articles-trigger-${venteId}`);
+
+                if (targetElement) {
+                    if (targetElement.contains(event.target as Node))
+                        clickedInside = true;
+                }
+                if (triggerElement) {
+                    if (triggerElement.contains(event.target as Node))
+                        clickedOnTrigger = true;
+                }
+            });
+            if (!clickedInside && !clickedOnTrigger) {
+                this.expandedPacks = {};
                 this.isDropdownOpenTable = false;
             }
         }

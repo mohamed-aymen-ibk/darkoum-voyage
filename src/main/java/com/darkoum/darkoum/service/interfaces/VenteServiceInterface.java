@@ -9,7 +9,7 @@ public interface VenteServiceInterface {
 
     VenteDtoResponse getVenteById(Long id);
 
-    Page<VenteDtoResponse> getAllVentes(int page, int size);
+    Page<VenteDtoResponse> getAllVentes(int page, int size, String facturedStatus);
 
     VenteDtoResponse updateVente(Long id, VenteDtoRequest venteDtoRequest);
 
