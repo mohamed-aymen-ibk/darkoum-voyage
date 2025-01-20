@@ -4,13 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="04e82da8-214b-4e32-b9a0-deed4f1652df" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/786b510c-69b4-4da8-b5ca-f3ef212b9ac3.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/786b510c-69b4-4da8-b5ca-f3ef212b9ac3.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/786b510c-69b4-4da8-b5ca-f3ef212b9ac3/storage_v2/_src_/database/agency.BRxhqw/schema/public.abK9xQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/786b510c-69b4-4da8-b5ca-f3ef212b9ac3/storage_v2/_src_/database/agency.BRxhqw/schema/public.abK9xQ.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/.angular/cache/19.0.6/darkoum-frontend/.tsbuildinfo" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/.angular/cache/19.0.6/darkoum-frontend/.tsbuildinfo" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/app.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/app.component.ts" afterDir="false" />
-    </list>
+    <list default="true" id="04e82da8-214b-4e32-b9a0-deed4f1652df" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
