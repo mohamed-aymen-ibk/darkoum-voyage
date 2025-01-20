@@ -16,5 +16,7 @@ public class PackDtoResponse {
     private Integer quantity;
     private List<String> articleNames;
     private List<String> providerNames;
+    private List<String> clientNames;
     private LocalDateTime createdAt;
+    private Boolean storable;
 }

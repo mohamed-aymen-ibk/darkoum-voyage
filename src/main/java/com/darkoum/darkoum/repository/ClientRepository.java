@@ -23,4 +23,6 @@ public interface ClientRepository extends JpaRepository<Client, Long> {
 
     @Query("SELECT c FROM Client c")
     Page<Client> findAllClients(Pageable pageable);
+
+    List<Client> findByNameIn(List<String> names);
 }

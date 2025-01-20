@@ -28,7 +28,7 @@ export class ClientService {
   }
 
 
-  getAllClientNames(): Observable<string[]> {
+  getClientNames(): Observable<string[]> {
     const token = localStorage.getItem('authToken');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return this.http.get<string[]>(`${this.apiUrl}/names`,{ headers });

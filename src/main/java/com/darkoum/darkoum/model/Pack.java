@@ -10,7 +10,9 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "packs")
@@ -43,14 +45,21 @@ public class Pack {
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
+    @Column(name = "storable")
+    private Boolean storable;
+
     // Relations
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
 
-    @ManyToOne
-    @JoinColumn(name = "client_id")
-    private Client client;
+    @ManyToMany
+    @JoinTable(
+            name = "pack_clients",
+            joinColumns = @JoinColumn(name = "pack_id"),
+            inverseJoinColumns = @JoinColumn(name = "client_id")
+    )
+    private List<Client> clients;
 
     @ManyToMany
     @JoinTable(
@@ -60,7 +69,6 @@ public class Pack {
     )
     private List<Provider> providers;
 
-
     @ManyToMany
     @JoinTable(
             name = "pack_articles",
@@ -69,6 +77,6 @@ public class Pack {
     )
     private List<Article> articles;
 
-    @OneToMany(mappedBy = "pack", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Vente> ventes;
+    @ManyToMany(mappedBy = "packs")
+    private Set<Vente> ventes = new HashSet<>();
 }

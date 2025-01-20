@@ -53,7 +53,7 @@ export class ClientComponent implements OnInit {
     }
 
     loadAllCodeClients(): void{
-        this.clientService.getAllClientNames().subscribe(
+        this.clientService.getClientNames().subscribe(
             (data: any) => {
                 this.codeClients = data;
             }

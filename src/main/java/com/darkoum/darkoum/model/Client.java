@@ -11,7 +11,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "clients")
@@ -70,12 +70,12 @@ public class Client {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Pack> packs;
+    @ManyToMany(mappedBy = "clients")
+    private Set<Pack> packs;
+
+    @ManyToMany(mappedBy = "clients")
+    private Set<Vente> ventes;
 
     @OneToMany(mappedBy = "client", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Vente> ventes;
-
-    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Article> articles;
+    private Set<Article> articles;
 }
