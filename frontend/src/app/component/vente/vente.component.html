@@ -1,12 +1,12 @@
 <app-navbar></app-navbar>
 <div class="m-10 mt-[130px] overflow-x-auto bg-gray-100">
-    <h1 class="text-3xl font-bold mb-5 text-blue-600">Sales</h1>
+    <h1 class="text-3xl font-bold mb-5 text-blue-600">Ventes</h1>
     <!-- Search input -->
     <div class="relative float-left m-[2px] mb-3 mr-5">
         <input
                 id="inputSearch"
                 type="text"
-                placeholder="Search..."
+                placeholder="Rechercher..."
                 class="block w-64 rounded-lg border py-2 pl-10 pr-4 text-sm focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-400"
         />
     </div>
@@ -17,7 +17,7 @@
                 class="bg-blue-500 text-white py-2 px-4 rounded-xl hover:bg-gray-100 hover:text-blue-500 border border-1 hover:border-blue-500 transition duration-300"
                 (click)="openAddModal()"
         >
-            Add Sale
+            Ajouter une vente
         </button>
     </div>
 
@@ -25,13 +25,13 @@
     <table class="min-w-full whitespace-nowrap text-left text-xs">
         <thead class="border-b-2 border-t uppercase tracking-wider">
         <tr>
-            <th class="border-x px-6 py-2">Sale Number</th>
-            <th class="border-x px-6 py-2">Client Name</th>
+            <th class="border-x px-6 py-2">Numéro de vente</th>
+            <th class="border-x px-6 py-2">Nom du client</th>
             <th class="border-x px-6 py-2">Packs</th>
-            <th class="border-x px-6 py-2">Quantity</th>
-            <th class="border-x px-6 py-2">Price</th>
+            <th class="border-x px-6 py-2">Quantité</th>
+            <th class="border-x px-6 py-2">Prix</th>
             <th class="border-x px-6 py-2">Date</th>
-            <th class="border-x px-6 py-2">Operations</th>
+            <th class="border-x px-6 py-2">Opérations</th>
         </tr>
         </thead>
         <tbody>
@@ -43,7 +43,7 @@
                         (click)="togglePackExpansion(vente.id, $event)"
                         class="cursor-pointer text-blue-500 hover:underline articles-trigger-{{vente.id}}"
                 >
-                   {{ vente.packNumber  ? vente.packNumber: 'No Packs'}}
+                   {{ vente.packNumber  ? vente.packNumber: 'Pas de packs'}}
                </span>
                 <div *ngIf="expandedPacks[vente.id]" class="absolute left-0 mt-2 w-48 bg-white border border-gray-300 rounded-md shadow-lg z-10 articles-dropdown-{{vente.id}}" style="max-height: 200px; overflow-y: auto;">
                     <div *ngIf="vente.articleNames" class="p-2 hover:bg-gray-100">
@@ -59,13 +59,13 @@
                         class="bg-gray-100  text-yellow-500 py-1 px-3 rounded border border-1 border-yellow-500 hover:bg-yellow-400 hover:text-white transition duration-200"
                         (click)="openUpdateModal(vente)"
                 >
-                    Update
+                    Modifier
                 </button>
                 <button
                         class="bg-gray-100 text-red-500 py-1 px-3 rounded border border-1 border-red-500 hover:bg-red-500 hover:text-white ml-2 transition duration-300"
                         (click)="openDeleteModal(vente)"
                 >
-                    Delete
+                    Supprimer
                 </button>
             </td>
         </tr>
@@ -83,7 +83,7 @@
             <svg class="shrink-0 size-3.5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="m15 18-6-6 6-6"></path>
             </svg>
-            <span>Previous</span>
+            <span>Précédent</span>
         </button>
         <div class="flex items-center gap-x-1">
             <ng-container *ngFor="let page of pages">
@@ -109,7 +109,7 @@
                 [disabled]="currentPage === totalPages -1"
                 (click)="goToPage(currentPage + 1)"
         >
-            <span>Next</span>
+            <span>Suivant</span>
             <svg class="shrink-0 size-3.5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="m9 18 6-6-6-6"></path>
             </svg>
@@ -121,7 +121,7 @@
 <!-- Add Modal -->
 <div *ngIf="showAddModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
     <div class="bg-white rounded-lg shadow-lg p-6 w-96">
-        <h2 class="text-lg font-semibold mb-4">Add Vente</h2>
+        <h2 class="text-lg font-semibold mb-4">Ajouter une vente</h2>
         <form (ngSubmit)="onAddVente()">
             <div class="mb-4">
                 <label class="block text-sm font-medium text-gray-700">Client</label>
@@ -132,7 +132,7 @@
                         required
                         (change)="onClientSelected()"
                 >
-                    <option value="" disabled selected>Select Client</option>
+                    <option value="" disabled selected>Sélectionner un client</option>
                     <option *ngFor="let client of clients" [value]="client.id">
                         {{ client.name }}
                     </option>
@@ -144,7 +144,7 @@
                         (click)="togglePackDropdownAdd()"
                         class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 text-left packs-trigger-add"
                 >
-                    Select Packs
+                    Sélectionner des packs
                 </button>
                 <div *ngIf="showPackDropdownAdd" class="absolute left-0 mt-2 w-full bg-white border border-gray-300 rounded-md shadow-lg z-10 packs-dropdown-add"
                      style="max-height: 150px; overflow-y: auto;">
@@ -160,30 +160,30 @@
                 </div>
             </div>
             <div class="mb-4">
-                <label class="block text-sm font-medium text-gray-700">Quantity</label>
+                <label class="block text-sm font-medium text-gray-700">Quantité</label>
                 <input
                         type="number"
                         [(ngModel)]="newVente.quantity"
                         name="quantity"
-                        placeholder="Quantity"
+                        placeholder="Quantité"
                         class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
                         required
                 />
             </div>
 
             <div class="mb-4">
-                <label class="block text-sm font-medium text-gray-700">Sale Number</label>
+                <label class="block text-sm font-medium text-gray-700">Numéro de vente</label>
                 <input
                         type="text"
                         [(ngModel)]="newVente.saleNumber"
                         name="saleNumber"
-                        placeholder="Sale Number"
+                        placeholder="Numéro de vente"
                         class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
                         required
                 />
             </div>
             <div class="mb-4">
-                <label class="block text-sm font-medium text-gray-700">Price</label>
+                <label class="block text-sm font-medium text-gray-700">Prix</label>
                 <input
                         type="number"
                         [(ngModel)]="newVente.price"
@@ -201,13 +201,13 @@
                         class="px-4 py-2 bg-gray-300 rounded-xl hover:bg-gray-200 transition duration-300"
                         (click)="closeAddModal()"
                 >
-                    Cancel
+                    Annuler
                 </button>
                 <button
                         type="submit"
                         class="px-4 py-2 bg-green-500 text-white rounded-xl hover:bg-green-400 transition duration-300"
                 >
-                    Add
+                    Ajouter
                 </button>
             </div>
         </form>
@@ -217,10 +217,10 @@
 <!-- Update Modal -->
 <div *ngIf="showUpdateModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
     <div class="bg-white rounded-lg shadow-lg p-6 w-96">
-        <h2 class="text-lg font-semibold mb-4">Update Vente</h2>
+        <h2 class="text-lg font-semibold mb-4">Modifier la vente</h2>
         <form (ngSubmit)="onUpdateVente()">
             <div class="mb-4">
-                <label class="block text-sm font-medium text-gray-700">Client Name</label>
+                <label class="block text-sm font-medium text-gray-700">Nom du client</label>
                 <input
                         type="text"
                         [value]="editVente.clientName"
@@ -229,7 +229,7 @@
                 />
             </div>
             <div class="mb-4">
-                <label class="block text-sm font-medium text-gray-700">Pack Number</label>
+                <label class="block text-sm font-medium text-gray-700">Numéro de pack</label>
                 <input
                         type="text"
                         [value]="editVente.packNumber"
@@ -238,7 +238,7 @@
                 />
             </div>
             <div class="mb-4">
-                <label class="block text-sm font-medium text-gray-700">Quantity</label>
+                <label class="block text-sm font-medium text-gray-700">Quantité</label>
                 <input
                         type="text"
                         [value]="editVente.quantity"
@@ -246,7 +246,6 @@
                         readonly
                 />
             </div>
-
             <div *ngIf="updateErrorMessage" class="text-red-500 mb-4">
                 {{ updateErrorMessage }}
             </div>
@@ -256,13 +255,13 @@
                         class="px-4 py-2 bg-gray-300 rounded-xl hover:bg-gray-200 transition duration-300"
                         (click)="closeUpdateModal()"
                 >
-                    Cancel
+                    Annuler
                 </button>
                 <button
                         type="submit"
                         class="px-4 py-2 bg-green-500 text-white rounded-xl hover:bg-green-400 transition duration-300"
                 >
-                    Update
+                    Modifier
                 </button>
             </div>
         </form>
@@ -272,8 +271,8 @@
 <!-- Delete Modal -->
 <div *ngIf="showDeleteModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
     <div class="bg-white rounded-lg shadow-lg p-6 w-96">
-        <h2 class="text-lg font-semibold mb-4">Delete Vente</h2>
-        <p class="mb-4">Are you sure you want to delete this vente?</p>
+        <h2 class="text-lg font-semibold mb-4">Supprimer la vente</h2>
+        <p class="mb-4">Êtes-vous sûr de vouloir supprimer cette vente ?</p>
         <div *ngIf="generalErrorMessage" class="text-red-500 mb-4">
             {{  generalErrorMessage }}
         </div>
@@ -282,13 +281,13 @@
                     class="px-4 py-2 bg-gray-300 rounded-lg hover:bg-gray-200 transition duration-300"
                     (click)="closeDeleteModal()"
             >
-                Cancel
+                Annuler
             </button>
             <button
                     class="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-400 transition duration-300"
                     (click)="onDeleteVente()"
             >
-                Delete
+                Supprimer
             </button>
         </div>
     </div>

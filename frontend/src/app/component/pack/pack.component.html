@@ -1,12 +1,12 @@
 <app-navbar></app-navbar>
 <div class="m-10 mt-[130px] overflow-x-auto bg-gray-100">
-    <h1 class="text-3xl font-bold mb-5 text-blue-600">Purchases</h1>
+    <h1 class="text-3xl font-bold mb-5 text-blue-600">Achats</h1>
     <!-- Search input -->
     <div class="relative float-left m-[2px] mb-3 mr-5">
         <input
                 id="inputSearch"
                 type="text"
-                placeholder="Search..."
+                placeholder="Rechercher..."
                 class="block w-64 rounded-lg border py-2 pl-10 pr-4 text-sm focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-400"
                 (input)="onSearch($any($event.target).value)"
         />
@@ -18,7 +18,7 @@
                 class="bg-blue-500 text-white py-2 px-4 rounded-xl hover:bg-gray-100 hover:text-blue-500 border border-1 hover:border-blue-500 transition duration-300"
                 (click)="openAddModal()"
         >
-            Add Purchase
+            Ajouter un achat
         </button>
     </div>
 
@@ -26,13 +26,13 @@
     <table class="min-w-full whitespace-nowrap text-left text-xs">
         <thead class="border-b-2 border-t uppercase tracking-wider">
         <tr>
-            <th class="border-x px-6 py-2">Purchase Number</th>
-            <th class="border-x px-6 py-2">Price</th>
-            <th class="border-x px-6 py-2">Quantity</th>
+            <th class="border-x px-6 py-2">Numéro d'achat</th>
+            <th class="border-x px-6 py-2">Prix</th>
+            <th class="border-x px-6 py-2">Quantité</th>
             <th class="border-x px-6 py-2">Articles</th>
-            <th class="border-x px-6 py-2">Providers</th>
+            <th class="border-x px-6 py-2">Fournisseurs</th>
             <th class="border-x px-6 py-2">Date</th>
-            <th class="border-x px-6 py-2">Operations</th>
+            <th class="border-x px-6 py-2">Opérations</th>
         </tr>
         </thead>
         <tbody>
@@ -45,7 +45,7 @@
                         (click)="togglePackExpansion(pack.id, $event)"
                         class="cursor-pointer text-blue-500 hover:underline articles-trigger-{{pack.id}}"
                 >
-                   {{ pack.articleNames ? (pack.articleNames.length > 0 ? pack.articleNames[0] : 'No Articles') : 'No Articles'}}
+                   {{ pack.articleNames ? (pack.articleNames.length > 0 ? pack.articleNames[0] : 'Pas d\'articles') : 'Pas d\'articles'}}
                 </span>
                 <div *ngIf="expandedPacks[pack.id]" class="absolute left-0 mt-2 w-48 bg-white border border-gray-300 rounded-md shadow-lg z-10 articles-dropdown-{{pack.id}}" style="max-height: 200px; overflow-y: auto;">
                     <div *ngFor="let articleName of pack.articleNames" class="p-2 hover:bg-gray-100">
@@ -58,7 +58,7 @@
                           (click)="toggleProviderExpansion(pack.id, $event)"
                           class="cursor-pointer text-blue-500 hover:underline providers-trigger-{{pack.id}}"
                   >
-                         {{ pack.providerNames ? (pack.providerNames.length > 0 ? pack.providerNames[0] : 'No Providers') : 'No Providers'}}
+                         {{ pack.providerNames ? (pack.providerNames.length > 0 ? pack.providerNames[0] : 'Pas de fournisseurs') : 'Pas de fournisseurs'}}
                     </span>
                 <div *ngIf="expandedProviders[pack.id]" class="absolute left-0 mt-2 w-48 bg-white border border-gray-300 rounded-md shadow-lg z-10 providers-dropdown-{{pack.id}}" style="max-height: 200px; overflow-y: auto;">
                     <div *ngFor="let providerName of pack.providerNames" class="p-2 hover:bg-gray-100">
@@ -72,13 +72,13 @@
                         class="bg-gray-100  text-yellow-500 py-1 px-3 rounded border border-1 border-yellow-500 hover:bg-yellow-400 hover:text-white transition duration-200"
                         (click)="openUpdateModal(pack)"
                 >
-                    Update
+                    Modifier
                 </button>
                 <button
                         class="bg-gray-100 text-red-500 py-1 px-3 rounded border border-1 border-red-500 hover:bg-red-500 hover:text-white ml-2 transition duration-300"
                         (click)="openDeleteModal(pack)"
                 >
-                    Delete
+                    Supprimer
                 </button>
             </td>
         </tr>
@@ -96,7 +96,7 @@
             <svg class="shrink-0 size-3.5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="m15 18-6-6 6-6"></path>
             </svg>
-            <span>Previous</span>
+            <span>Précédent</span>
         </button>
         <div class="flex items-center gap-x-1">
             <ng-container *ngFor="let page of pages">
@@ -122,7 +122,7 @@
                 [disabled]="currentPage === totalPages -1"
                 (click)="goToPage(currentPage + 1)"
         >
-            <span>Next</span>
+            <span>Suivant</span>
             <svg class="shrink-0 size-3.5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="m9 18 6-6-6-6"></path>
             </svg>
@@ -134,40 +134,40 @@
 <!-- Add Modal -->
 <div *ngIf="showAddModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
     <div class="bg-white rounded-lg shadow-lg p-6 w-96">
-        <h2 class="text-lg font-semibold mb-4">Add purchase</h2>
+        <h2 class="text-lg font-semibold mb-4">Ajouter un achat</h2>
         <form (ngSubmit)="onAddPack()">
             <div class="mb-4">
-                <label class="block text-gray-700 text-sm font-bold mb-2" for="pack-number-add">Purchase Number</label>
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="pack-number-add">Numéro d'achat</label>
                 <input
                         id="pack-number-add"
                         type="text"
                         [(ngModel)]="newPack.packNumber"
                         name="packNumber"
-                        placeholder="Purchase Number"
+                        placeholder="Numéro d'achat"
                         class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
                         required
                 />
             </div>
             <div class="mb-4">
-                <label class="block text-gray-700 text-sm font-bold mb-2" for="pack-price-add">Price</label>
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="pack-price-add">Prix</label>
                 <input
                         id="pack-price-add"
                         type="number"
                         [(ngModel)]="newPack.price"
                         name="price"
-                        placeholder="Price"
+                        placeholder="Prix"
                         class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
                         required
                 />
             </div>
             <div class="mb-4">
-                <label class="block text-gray-700 text-sm font-bold mb-2" for="pack-quantity-add">Quantity</label>
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="pack-quantity-add">Quantité</label>
                 <input
                         id="pack-quantity-add"
                         type="number"
                         [(ngModel)]="newPack.quantity"
                         name="quantity"
-                        placeholder="Quantity"
+                        placeholder="Quantité"
                         class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
                         required
                 />
@@ -177,7 +177,7 @@
                         (click)="toggleArticleDropdownAdd()"
                         class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 text-left articles-trigger-add"
                 >
-                    Select Articles
+                    Sélectionner des articles
                 </button>
                 <div *ngIf="showArticleDropdownAdd" class="absolute left-0 mt-2 w-full bg-white border border-gray-300 rounded-md shadow-lg z-10 articles-dropdown-add"
                      style="max-height: 150px; overflow-y: auto;"
@@ -198,7 +198,7 @@
                         (click)="toggleProviderDropdownAdd()"
                         class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 text-left providers-trigger-add"
                 >
-                    Select Providers
+                    Sélectionner des fournisseurs
                 </button>
                 <div *ngIf="showProviderDropdownAdd" class="absolute left-0 mt-2 w-full bg-white border border-gray-300 rounded-md shadow-lg z-10 providers-dropdown-add"
                      style="max-height: 150px; overflow-y: auto;"
@@ -214,8 +214,6 @@
                     </div>
                 </div>
             </div>
-
-
             <div *ngIf="addErrorMessage" class="text-red-500 mb-4">
                 {{ addErrorMessage }}
             </div>
@@ -225,13 +223,13 @@
                         class="px-4 py-2 bg-gray-300 rounded-xl hover:bg-gray-200 transition duration-300"
                         (click)="closeAddModal()"
                 >
-                    Cancel
+                    Annuler
                 </button>
                 <button
                         type="submit"
                         class="px-4 py-2 bg-green-500 text-white rounded-xl hover:bg-green-400 transition duration-300"
                 >
-                    Add
+                    Ajouter
                 </button>
             </div>
         </form>
@@ -241,40 +239,40 @@
 <!-- Update Modal -->
 <div *ngIf="showUpdateModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
     <div class="bg-white rounded-lg shadow-lg p-6 w-96">
-        <h2 class="text-lg font-semibold mb-4">Update Purchase</h2>
+        <h2 class="text-lg font-semibold mb-4">Modifier l'achat</h2>
         <form (ngSubmit)="onUpdatePack()">
             <div class="mb-4">
-                <label class="block text-gray-700 text-sm font-bold mb-2" for="pack-number-update">Purchase Number</label>
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="pack-number-update">Numéro d'achat</label>
                 <input
                         id="pack-number-update"
                         type="text"
                         [(ngModel)]="editPack.packNumber"
                         name="packNumber"
-                        placeholder="Purchase Number"
+                        placeholder="Numéro d'achat"
                         class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
                         required
                 />
             </div>
             <div class="mb-4">
-                <label class="block text-gray-700 text-sm font-bold mb-2" for="pack-price-update">Price</label>
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="pack-price-update">Prix</label>
                 <input
                         id="pack-price-update"
                         type="number"
                         [(ngModel)]="editPack.price"
                         name="price"
-                        placeholder="Price"
+                        placeholder="Prix"
                         class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
                         required
                 />
             </div>
             <div class="mb-4">
-                <label class="block text-gray-700 text-sm font-bold mb-2" for="pack-quantity-update">Quantity</label>
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="pack-quantity-update">Quantité</label>
                 <input
                         id="pack-quantity-update"
                         type="number"
                         [(ngModel)]="editPack.quantity"
                         name="quantity"
-                        placeholder="Quantity"
+                        placeholder="Quantité"
                         class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
                         required
                 />
@@ -284,7 +282,7 @@
                         (click)="toggleArticleDropdownUpdate()"
                         class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 text-left articles-trigger-update"
                 >
-                    Select Articles
+                    Sélectionner des articles
                 </button>
                 <div *ngIf="showArticleDropdownUpdate" class="absolute left-0 mt-2 w-full bg-white border border-gray-300 rounded-md shadow-lg z-10 articles-dropdown-update"
                      style="max-height: 150px; overflow-y: auto;"
@@ -306,7 +304,7 @@
                         (click)="toggleProviderDropdownUpdate()"
                         class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 text-left providers-trigger-update"
                 >
-                    Select Providers
+                    Sélectionner des fournisseurs
                 </button>
                 <div *ngIf="showProviderDropdownUpdate" class="absolute left-0 mt-2 w-full bg-white border border-gray-300 rounded-md shadow-lg z-10 providers-dropdown-update"
                      style="max-height: 150px; overflow-y: auto;"
@@ -334,13 +332,13 @@
                         class="px-4 py-2 bg-gray-300 rounded-xl hover:bg-gray-200 transition duration-200"
                         (click)="closeUpdateModal()"
                 >
-                    Cancel
+                    Annuler
                 </button>
                 <button
                         type="submit"
                         class="px-4 py-2 bg-green-500 text-white rounded-xl hover:bg-green-400 transition duration-200"
                 >
-                    Update
+                    Modifier
                 </button>
             </div>
         </form>
@@ -350,8 +348,8 @@
 <!-- Delete Modal -->
 <div *ngIf="showDeleteModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
     <div class="bg-white rounded-lg shadow-lg p-6 w-96">
-        <h2 class="text-lg font-semibold mb-4">Delete Purchase</h2>
-        <p class="mb-4">Are you sure you want to delete this Purchase?</p>
+        <h2 class="text-lg font-semibold mb-4">Supprimer l'achat</h2>
+        <p class="mb-4">Êtes-vous sûr de vouloir supprimer cet achat ?</p>
         <div *ngIf="generalErrorMessage" class="text-red-500 mb-4">
             {{ generalErrorMessage }}
         </div>
@@ -360,13 +358,13 @@
                     class="px-4 py-2 bg-gray-300 rounded-lg hover:bg-gray-200 transition duration-300"
                     (click)="closeDeleteModal()"
             >
-                Cancel
+                Annuler
             </button>
             <button
                     class="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-400 transition duration-300"
                     (click)="onDeletePack()"
             >
-                Delete
+                Supprimer
             </button>
         </div>
     </div>

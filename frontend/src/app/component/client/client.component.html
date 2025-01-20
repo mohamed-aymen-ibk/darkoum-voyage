@@ -7,7 +7,7 @@
         <input
                 id="inputSearch"
                 type="text"
-                placeholder="Search..."
+                placeholder="Rechercher..."
                 class="block w-64 rounded-lg border py-2 pl-10 pr-4 text-sm focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-400"
                 (input)="onSearch($any($event.target).value)"
         />
@@ -18,7 +18,7 @@
                 class="bg-blue-500 text-white py-2 px-4 rounded-xl hover:bg-gray-100 hover:text-blue-500 border border-1 hover:border-blue-500 transition duration-300"
                 (click)="openAddModal()"
         >
-            New Client
+            Nouveau Client
         </button>
     </div>
 
@@ -26,17 +26,17 @@
     <table class="min-w-full whitespace-nowrap text-left text-xs">
         <thead class="border-b-2 border-t uppercase tracking-wider">
         <tr>
-            <th class="border-x px-6 py-2">Name</th>
+            <th class="border-x px-6 py-2">Nom</th>
             <th class="border-x px-6 py-2">CIN</th>
-            <th class="border-x px-6 py-2">Phone</th>
+            <th class="border-x px-6 py-2">Téléphone</th>
             <th class="border-x px-6 py-2">Email</th>
-            <th class="border-x px-6 py-2">Address</th>
+            <th class="border-x px-6 py-2">Adresse</th>
             <th class="border-x px-6 py-2">Code</th>
-            <th class="border-x px-6 py-2">Designation</th>
+            <th class="border-x px-6 py-2">Désignation</th>
             <th class="border-x px-6 py-2">ICE</th>
             <th class="border-x px-6 py-2">RC</th>
             <th class="border-x px-6 py-2">RIB</th>
-            <th class="border-x px-6 py-2">Operations</th>
+            <th class="border-x px-6 py-2">Opérations</th>
         </tr>
         </thead>
         <tbody>
@@ -56,13 +56,13 @@
                         class="bg-gray-100  text-yellow-500 py-1 px-3 rounded border border-1 border-yellow-500 hover:bg-yellow-400 hover:text-white transition duration-300"
                         (click)="openUpdateModal(client)"
                 >
-                    Update
+                    Modifier
                 </button>
                 <button
                         class="bg-gray-100 text-red-500 py-1 px-3 rounded border border-1 border-red-500 hover:bg-red-500 hover:text-white ml-2 transition duration-300"
                         (click)="openDeleteModal(client)"
                 >
-                    Delete
+                    Supprimer
                 </button>
             </td>
         </tr>
@@ -81,7 +81,7 @@
             <svg class="shrink-0 size-3.5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="m15 18-6-6 6-6"></path>
             </svg>
-            <span>Previous</span>
+            <span>Précédent</span>
         </button>
         <div class="flex items-center gap-x-1">
             <ng-container *ngFor="let page of pages">
@@ -107,7 +107,7 @@
                 [disabled]="currentPage === totalPages -1"
                 (click)="goToPage(currentPage + 1)"
         >
-            <span>Next</span>
+            <span>Suivant</span>
             <svg class="shrink-0 size-3.5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="m9 18 6-6-6-6"></path>
             </svg>
@@ -118,14 +118,14 @@
 <!-- Add Modal -->
 <div *ngIf="showAddModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
     <div class="bg-white rounded-lg shadow-lg p-6 w-96">
-        <h2 class="text-lg font-semibold mb-4">Add Client</h2>
+        <h2 class="text-lg font-semibold mb-4">Ajouter un Client</h2>
         <form (ngSubmit)="onAddClient()">
             <div class="mb-4">
                 <input
                         type="text"
                         [(ngModel)]="newClient.name"
                         name="name"
-                        placeholder="Name"
+                        placeholder="Nom"
                         class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
                         required
                 />
@@ -145,7 +145,7 @@
                         type="text"
                         [(ngModel)]="newClient.phoneNumber"
                         name="phone"
-                        placeholder="Phone"
+                        placeholder="Téléphone"
                         class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
                         required
                 />
@@ -165,7 +165,7 @@
                         type="text"
                         [(ngModel)]="newClient.address"
                         name="address"
-                        placeholder="Address"
+                        placeholder="Adresse"
                         class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
                         required
                 />
@@ -184,7 +184,7 @@
                         type="text"
                         [(ngModel)]="newClient.designation"
                         name="designation"
-                        placeholder="Designation"
+                        placeholder="Désignation"
                         class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
                 />
             </div>
@@ -224,13 +224,13 @@
                         class="px-4 py-2 bg-gray-300 rounded-xl hover:bg-gray-200 transition duration-300"
                         (click)="closeAddModal()"
                 >
-                    Cancel
+                    Annuler
                 </button>
                 <button
                         type="submit"
                         class="px-4 py-2 bg-green-500 text-white rounded-xl hover:bg-green-400 transition duration-300"
                 >
-                    Add
+                    Ajouter
                 </button>
             </div>
         </form>
@@ -239,14 +239,14 @@
 <!-- Update Modal -->
 <div *ngIf="showUpdateModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
     <div class="bg-white rounded-lg shadow-lg p-6 w-96">
-        <h2 class="text-lg font-semibold mb-4">Update Client</h2>
+        <h2 class="text-lg font-semibold mb-4">Modifier le Client</h2>
         <form (ngSubmit)="onUpdateClient()">
             <div class="mb-4">
                 <input
                         type="text"
                         [(ngModel)]="editClient.name"
                         name="name"
-                        placeholder="Name"
+                        placeholder="Nom"
                         class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
                         required
                 />
@@ -266,7 +266,7 @@
                         type="text"
                         [(ngModel)]="editClient.phoneNumber"
                         name="phone"
-                        placeholder="Phone"
+                        placeholder="Téléphone"
                         class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
                         required
                 />
@@ -286,7 +286,7 @@
                         type="text"
                         [(ngModel)]="editClient.address"
                         name="address"
-                        placeholder="Address"
+                        placeholder="Adresse"
                         class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
                         required
                 />
@@ -306,7 +306,7 @@
                         type="text"
                         [(ngModel)]="editClient.designation"
                         name="designation"
-                        placeholder="Designation"
+                        placeholder="Désignation"
                         class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
 
                 />
@@ -350,13 +350,13 @@
                         class="px-4 py-2 bg-gray-300 rounded-xl hover:bg-gray-200 transition duration-300"
                         (click)="closeUpdateModal()"
                 >
-                    Cancel
+                    Annuler
                 </button>
                 <button
                         type="submit"
                         class="px-4 py-2 bg-green-500 text-white rounded-xl hover:bg-green-400 transition duration-300"
                 >
-                    Update
+                    Modifier
                 </button>
             </div>
         </form>
@@ -365,8 +365,8 @@
 <!-- Delete Modal -->
 <div *ngIf="showDeleteModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
     <div class="bg-white rounded-lg shadow-lg p-6 w-96">
-        <h2 class="text-lg font-semibold mb-4">Delete Client</h2>
-        <p class="mb-4">Are you sure you want to delete this client?</p>
+        <h2 class="text-lg font-semibold mb-4">Supprimer le Client</h2>
+        <p class="mb-4">Êtes-vous sûr de vouloir supprimer ce client ?</p>
         <div *ngIf="generalErrorMessage" class="text-red-500 mb-4">
             {{  generalErrorMessage }}
         </div>
@@ -375,13 +375,13 @@
                     class="px-4 py-2 bg-gray-300 rounded-lg hover:bg-gray-200 transition duration-300"
                     (click)="closeDeleteModal()"
             >
-                Cancel
+                Annuler
             </button>
             <button
                     class="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-400 transition duration-300"
                     (click)="onDeleteClient()"
             >
-                Delete
+                Supprimer
             </button>
         </div>
     </div>

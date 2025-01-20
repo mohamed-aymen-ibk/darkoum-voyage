@@ -1,7 +1,7 @@
 <div class="bg-white border-b border-blue-300 p-4 shadow-sm fixed top-0 left-0 w-full z-10">
     <div class="max-w-7xl mx-auto flex justify-between items-center">
         <div class="text-blue-600 font-bold text-xl">
-            Agency Management
+            Gestion d'Agence
         </div>
         <button
                 class="md:hidden text-blue-600 hover:text-blue-500 transition duration-300"
@@ -13,11 +13,11 @@
         </button>
         <nav [class.hidden]="!isMenuOpen" class="md:flex md:items-center space-y-4 md:space-y-0 md:space-x-6">
             <ul class="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-6">
-                <li><a class="text-blue-600 hover:text-blue-500 font-medium transition duration-300" routerLink="/dashboard">Dashboard</a></li>
+                <li><a class="text-blue-600 hover:text-blue-500 font-medium transition duration-300" routerLink="/dashboard">Tableau de bord</a></li>
                 <li><a class="text-blue-600 hover:text-blue-500 font-medium transition duration-300" routerLink="/client">Clients</a></li>
-                <li><a class="text-blue-600 hover:text-blue-500 font-medium transition duration-300" routerLink="/vente">Sales</a></li>
-                <li><a class="text-blue-600 hover:text-blue-500 font-medium transition duration-300" routerLink="/pack">Purchase</a></li>
-                <li><a class="text-blue-600 hover:text-blue-500 font-medium transition duration-300" routerLink="/provider">Providers</a></li>
+                <li><a class="text-blue-600 hover:text-blue-500 font-medium transition duration-300" routerLink="/vente">Ventes</a></li>
+                <li><a class="text-blue-600 hover:text-blue-500 font-medium transition duration-300" routerLink="/pack">Achats</a></li>
+                <li><a class="text-blue-600 hover:text-blue-500 font-medium transition duration-300" routerLink="/provider">Fournisseurs</a></li>
                 <li><a class="text-blue-600 hover:text-blue-500 font-medium transition duration-300" routerLink="/article">Articles</a></li>
             </ul>
         </nav>
@@ -25,7 +25,7 @@
                 class="hidden md:block px-6 py-1 border border-blue-500 hover:bg-blue-500 text-blue-500 hover:text-white rounded-xl font-medium transition duration-300"
                 (click)="openLogoutModal()"
         >
-            Logout
+            Déconnexion
         </button>
     </div>
 </div>
@@ -39,20 +39,20 @@
             class="bg-white p-6 rounded-lg shadow-lg w-96"
             (click)="$event.stopPropagation()"
     >
-        <h2 class="text-xl font-bold text-red-500">Confirm Logout</h2>
-        <p class="text-gray-800 mt-2">Are you sure you want to log out?</p>
+        <h2 class="text-xl font-bold text-red-500">Confirmer la déconnexion</h2>
+        <p class="text-gray-800 mt-2">Êtes-vous sûr de vouloir vous déconnecter ?</p>
         <div class="mt-4 flex justify-end space-x-3">
             <button
                     class="px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-xl transition duration-300"
                     (click)="closeLogoutModal()"
             >
-                Cancel
+                Annuler
             </button>
             <button
                     class="px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-xl transition duration-300"
                     (click)="confirmLogout()"
             >
-                Logout
+                Déconnexion
             </button>
         </div>
     </div>

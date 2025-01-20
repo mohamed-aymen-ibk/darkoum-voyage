@@ -1,17 +1,17 @@
 <div class="register-container">
     <form [formGroup]="registerForm" (ngSubmit)="onRegister()" class="register-form">
-        <h2>Create an Account</h2>
+        <h2>Créer un compte</h2>
 
         <div class="form-group">
-            <label for="name">Full Name</label>
+            <label for="name">Nom complet</label>
             <input
                     type="text"
                     id="name"
                     formControlName="name"
-                    placeholder="Enter your full name"
+                    placeholder="Saisissez votre nom complet"
             >
             <div *ngIf="registerForm.get('name')?.invalid && (registerForm.get('name')?.dirty || registerForm.get('name')?.touched)" class="error-message">
-                Name is required and must be at least 2 characters long.
+                Le nom est obligatoire et doit contenir au moins 2 caractères.
             </div>
         </div>
 
@@ -21,36 +21,36 @@
                     type="email"
                     id="email"
                     formControlName="email"
-                    placeholder="Enter your email"
+                    placeholder="Saisissez votre email"
             >
             <div *ngIf="registerForm.get('email')?.invalid && (registerForm.get('email')?.dirty || registerForm.get('email')?.touched)" class="error-message">
-                Please enter a valid email address.
+                Veuillez saisir une adresse email valide.
             </div>
         </div>
 
         <div class="form-group">
-            <label for="password">Password</label>
+            <label for="password">Mot de passe</label>
             <input
                     type="password"
                     id="password"
                     formControlName="password"
-                    placeholder="Create a password"
+                    placeholder="Créez un mot de passe"
             >
             <div *ngIf="registerForm.get('password')?.invalid && (registerForm.get('password')?.dirty || registerForm.get('password')?.touched)" class="error-message">
-                Password must be at least 6 characters long.
+                Le mot de passe doit contenir au moins 6 caractères.
             </div>
         </div>
 
         <div class="form-group">
-            <label for="phoneNumber">Phone Number</label>
+            <label for="phoneNumber">Numéro de téléphone</label>
             <input
                     type="tel"
                     id="phoneNumber"
                     formControlName="phoneNumber"
-                    placeholder="Enter your 10-digit phone number"
+                    placeholder="Saisissez votre numéro de téléphone"
             >
             <div *ngIf="registerForm.get('phoneNumber')?.invalid && (registerForm.get('phoneNumber')?.dirty || registerForm.get('phoneNumber')?.touched)" class="error-message">
-                Please enter a valid 10-digit phone number.
+                Veuillez saisir un numéro de téléphone valide à 10 chiffres.
             </div>
         </div>
 
@@ -62,11 +62,11 @@
                 type="submit"
                 [disabled]="registerForm.invalid"
         >
-            Register
+            S'inscrire
         </button>
 
         <div class="login-link">
-            Already have an account? <a routerLink="/auth/login">Log In</a>
+            Vous avez déjà un compte ? <a routerLink="/auth/login">Se connecter</a>
         </div>
     </form>
 </div>
